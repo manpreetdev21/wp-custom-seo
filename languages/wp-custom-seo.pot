@@ -1,0 +1,4322 @@
+# Copyright (C) 2026 Manpreet Singh
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Custom SEO 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-custom-seo\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-12T12:51:33+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wp-custom-seo\n"
+
+#. Plugin Name of the plugin
+#: wp-custom-seo.php
+msgid "WP Custom SEO"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wp-custom-seo.php
+msgid "https://example.com/wp-custom-seo"
+msgstr ""
+
+#. Description of the plugin
+#: wp-custom-seo.php
+msgid "On-page analysis, schema, sitemaps, redirects, internal links, a site audit, Search Console and Analytics reporting, and an AI assistant. Recommendations are recommendations: no score here represents a search engine's algorithm."
+msgstr ""
+
+#. Author of the plugin
+#: wp-custom-seo.php
+msgid "Manpreet Singh"
+msgstr ""
+
+#: src/Abilities/Abilities.php:83
+#: src/Admin/Menu.php:73
+#: src/Admin/Menu.php:74
+#: src/Admin/MetaBox.php:71
+msgid "SEO"
+msgstr ""
+
+#: src/Abilities/Abilities.php:84
+msgid "Reading and editing this site’s SEO data."
+msgstr ""
+
+#: src/Abilities/Abilities.php:109
+msgid "The post, page or product to look at."
+msgstr ""
+
+#: src/Abilities/Abilities.php:118
+msgid "Analyze a page for SEO"
+msgstr ""
+
+#: src/Abilities/Abilities.php:119
+msgid "Runs this plugin's on-page analysis and returns the score with every check, what it found, why it matters and what to do about it. The score is this plugin's own checklist, not a search engine's ranking."
+msgstr ""
+
+#: src/Abilities/Abilities.php:133
+msgid "Read a page's SEO fields"
+msgstr ""
+
+#: src/Abilities/Abilities.php:134
+msgid "Returns the stored SEO title, meta description, focus keyphrase, canonical, robots directives and social fields for one page, plus the title and description that are actually output once templates are applied."
+msgstr ""
+
+#: src/Abilities/Abilities.php:148
+msgid "Change a page's SEO fields"
+msgstr ""
+
+#: src/Abilities/Abilities.php:149
+msgid "Writes the SEO title, meta description or focus keyphrase for one page. Only the fields supplied are changed; each is validated the same way the editor validates it."
+msgstr ""
+
+#: src/Abilities/Abilities.php:155
+msgid "The post, page or product to change."
+msgstr ""
+
+#: src/Abilities/Abilities.php:159
+msgid "SEO title. Supports %%variable%% placeholders."
+msgstr ""
+
+#: src/Abilities/Abilities.php:163
+msgid "Meta description."
+msgstr ""
+
+#: src/Abilities/Abilities.php:167
+msgid "Focus keyphrase."
+msgstr ""
+
+#: src/Abilities/Abilities.php:187
+msgid "Find pages this page could link to"
+msgstr ""
+
+#: src/Abilities/Abilities.php:188
+msgid "Returns real published pages on this site that share subject matter with the given page and are not already linked to from it. Every result exists — the list is computed from the site's own content, not suggested."
+msgstr ""
+
+#: src/Abilities/Abilities.php:202
+msgid "Audit the whole site"
+msgstr ""
+
+#: src/Abilities/Abilities.php:203
+msgid "Returns everything the site audit found, by severity, each with the number of pages affected and what to do about it. Computed from stored data — it makes no external request and costs nothing to run."
+msgstr ""
+
+#: src/Abilities/Abilities.php:209
+msgid "Rebuild rather than returning the hourly cached report."
+msgstr ""
+
+#: src/Abilities/Abilities.php:225
+msgid "Read what Google reports for a page"
+msgstr ""
+
+#: src/Abilities/Abilities.php:226
+msgid "Returns the search queries Google reports for one page, with clicks, impressions and average position. Requires Search Console to be connected; returns nothing rather than estimating when it is not."
+msgstr ""
+
+#: src/Abilities/Abilities.php:273
+#: src/API/AIRoutes.php:320
+#: src/API/Routes.php:395
+msgid "That post does not exist."
+msgstr ""
+
+#: src/Abilities/Abilities.php:299
+msgid "This score is this plugin's own checklist of on-page practices. It is not a search engine ranking and does not predict one."
+msgstr ""
+
+#: src/Abilities/Abilities.php:384
+msgid "No writable field was supplied. This ability changes the SEO title, meta description or focus keyphrase."
+msgstr ""
+
+#: src/Abilities/Abilities.php:410
+msgid "Every page listed exists on this site and is not already linked to from this one. Nothing here is a suggestion to link — that is a judgement about whether it helps a reader."
+msgstr ""
+
+#: src/Abilities/Abilities.php:459
+msgid "Search Console is not connected to this site, so there is nothing to report."
+msgstr ""
+
+#: src/Abilities/Abilities.php:467
+msgid "This content is not published, so Google has nothing to report about it."
+msgstr ""
+
+#: src/Abilities/Abilities.php:485
+msgid "Reported by Google, not estimated by this plugin. The list is the top queries only."
+msgstr ""
+
+#: src/Admin/AIPage.php:59
+#: src/Admin/AIPage.php:60
+#: src/Core/Settings.php:247
+#: templates/admin/ai.php:27
+#: templates/admin/meta-box.php:21
+msgid "AI"
+msgstr ""
+
+#: src/Admin/AIPage.php:72
+#: src/Admin/AIPage.php:117
+#: src/Admin/AuditPage.php:58
+#: src/Admin/LinksPage.php:58
+#: src/Admin/SearchConsolePage.php:99
+#: src/Admin/ToolsPage.php:83
+msgid "You do not have permission to do that."
+msgstr ""
+
+#: src/Admin/AIPage.php:142
+#: src/Admin/AuditPage.php:83
+#: src/Admin/BriefPage.php:63
+#: src/Admin/BulkEditorPage.php:146
+#: src/Admin/LinksPage.php:83
+#: src/Admin/Menu.php:150
+#: src/Admin/NotFoundPage.php:122
+#: src/Admin/RedirectsPage.php:166
+#: src/Admin/SchemaPage.php:55
+#: src/Admin/SearchConsolePage.php:179
+#: src/Admin/ToolsPage.php:283
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: src/Admin/AuditPage.php:45
+#: src/Admin/AuditPage.php:46
+#: templates/admin/audit.php:21
+msgid "Site Audit"
+msgstr ""
+
+#: src/Admin/BriefPage.php:50
+#: src/Admin/BriefPage.php:51
+#: templates/admin/brief.php:31
+msgid "Content Brief"
+msgstr ""
+
+#: src/Admin/BriefPage.php:74
+msgid "Enter a topic to plan."
+msgstr ""
+
+#: src/Admin/BulkEditorPage.php:58
+#: src/Admin/BulkEditorPage.php:59
+msgid "Bulk Editor"
+msgstr ""
+
+#. translators: %d: number of rows saved.
+#: src/Admin/BulkEditorPage.php:135
+#, php-format
+msgid "%d item saved."
+msgid_plural "%d items saved."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/LinksPage.php:45
+#: src/Admin/LinksPage.php:46
+#: src/Core/Settings.php:356
+#: templates/admin/links.php:23
+msgid "Internal Links"
+msgstr ""
+
+#: src/Admin/Menu.php:47
+#: templates/admin/dashboard.php:16
+msgid "SEO Dashboard"
+msgstr ""
+
+#: src/Admin/Menu.php:48
+msgid "Dashboard"
+msgstr ""
+
+#: src/Admin/Menu.php:52
+#: templates/admin/settings.php:16
+msgid "SEO Settings"
+msgstr ""
+
+#: src/Admin/Menu.php:53
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/NotFoundPage.php:49
+#: src/Admin/NotFoundPage.php:50
+#: templates/admin/not-found.php:17
+msgid "404 Monitor"
+msgstr ""
+
+#: src/Admin/NotFoundPage.php:75
+msgid "Entry deleted."
+msgstr ""
+
+#. translators: %d: number of entries removed.
+#: src/Admin/NotFoundPage.php:89
+#: src/Admin/NotFoundPage.php:110
+#, php-format
+msgid "%d entry removed."
+msgid_plural "%d entries removed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/NotFoundTable.php:47
+#: templates/admin/links.php:130
+msgid "URL"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:48
+msgid "Referrer"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:49
+#: src/Admin/RedirectsTable.php:50
+msgid "Hits"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:50
+msgid "First seen"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:51
+msgid "Last seen"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:75
+#: src/Admin/NotFoundTable.php:152
+#: src/Admin/RedirectsTable.php:78
+#: src/Admin/RedirectsTable.php:178
+msgid "Delete"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:150
+msgid "Create redirect"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:151
+msgid "Visit"
+msgstr ""
+
+#: src/Admin/NotFoundTable.php:190
+msgid "No 404s recorded. That is the result you want."
+msgstr ""
+
+#: src/Admin/RedirectsPage.php:51
+#: src/Admin/RedirectsPage.php:52
+#: templates/admin/redirects.php:27
+msgid "Redirects"
+msgstr ""
+
+#: src/Admin/RedirectsPage.php:86
+msgid "Redirect deleted."
+msgstr ""
+
+#: src/Admin/RedirectsPage.php:92
+#: src/Admin/RedirectsPage.php:157
+msgid "Redirect updated."
+msgstr ""
+
+#. translators: %d: number of redirects affected.
+#: src/Admin/RedirectsPage.php:120
+#, php-format
+msgid "%d redirect updated."
+msgid_plural "%d redirects updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/RedirectsPage.php:157
+msgid "Redirect created."
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:47
+msgid "From"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:48
+msgid "To"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:49
+#: templates/admin/links.php:90
+#: templates/admin/redirects.php:70
+msgid "Type"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:51
+msgid "Last used"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:76
+#: src/Admin/RedirectsTable.php:177
+msgid "Enable"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:77
+#: src/Admin/RedirectsTable.php:177
+msgid "Disable"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:168
+msgid "Regex"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:172
+msgid "Disabled"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:176
+msgid "Edit"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:204
+msgid "Never used"
+msgstr ""
+
+#: src/Admin/RedirectsTable.php:214
+msgid "No redirects yet. Add one above, or create one straight from a logged 404."
+msgstr ""
+
+#: src/Admin/SchemaPage.php:42
+#: src/Admin/SchemaPage.php:43
+#: templates/admin/meta-box.php:20
+#: templates/admin/schema.php:27
+msgid "Schema"
+msgstr ""
+
+#: src/Admin/SearchConsolePage.php:68
+msgid "That is not an Analytics property id. It is the number shown under Admin → Property details, not the measurement id beginning with G-."
+msgstr ""
+
+#: src/Admin/SearchConsolePage.php:86
+#: src/Admin/SearchConsolePage.php:87
+#: templates/admin/search-console.php:34
+msgid "Search Performance"
+msgstr ""
+
+#: src/Admin/SearchConsolePage.php:149
+msgid "That property is not one this service account can read."
+msgstr ""
+
+#: src/Admin/ToolsPage.php:67
+#: src/Admin/ToolsPage.php:68
+#: templates/admin/tools.php:27
+msgid "Tools"
+msgstr ""
+
+#: src/Admin/ToolsPage.php:166
+msgid "No file arrived. It may have been larger than this server accepts."
+msgstr ""
+
+#: src/Admin/ToolsPage.php:206
+msgid "That is not a source this plugin can read."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:66
+msgid "The request could not be prepared."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:92
+msgid "The AI provider returned a response this plugin could not read. Try again; if it persists, check the provider status page."
+msgstr ""
+
+#. translators: %d: seconds.
+#: src/AI/AbstractProvider.php:120
+#, php-format
+msgid "The AI provider did not respond within %d seconds. It may be busy — try again, or use a faster model."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:128
+msgid "The AI provider could not be reached. Check that this server is allowed to make outbound requests."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:149
+msgid "The API key was rejected. Check that it is correct, active, and has access to the selected model."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:150
+msgid "That model was not found. Check the model id against your provider's documentation."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:151
+msgid "The request was too large. Try again on a shorter piece of content."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:152
+msgid "The provider rate-limited this request. Wait a moment and try again."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:153
+msgid "The AI provider is unavailable right now. Try again shortly."
+msgstr ""
+
+#: src/AI/AbstractProvider.php:154
+msgid "The AI provider rejected the request."
+msgstr ""
+
+#: src/AI/AnthropicProvider.php:51
+#: src/Core/Settings.php:256
+msgid "Anthropic (Claude)"
+msgstr ""
+
+#: src/AI/AnthropicProvider.php:68
+msgid "Claude Opus 5 — most capable"
+msgstr ""
+
+#: src/AI/AnthropicProvider.php:69
+msgid "Claude Sonnet 5 — balanced"
+msgstr ""
+
+#: src/AI/AnthropicProvider.php:70
+msgid "Claude Haiku 4.5 — fastest and cheapest"
+msgstr ""
+
+#: src/AI/AnthropicProvider.php:104
+msgid "No Anthropic API key has been saved."
+msgstr ""
+
+#: src/AI/AnthropicProvider.php:157
+#: src/AI/GeminiProvider.php:109
+msgid "The model declined this request. Rephrasing the content or the focus keyphrase usually resolves it."
+msgstr ""
+
+#: src/AI/AnthropicProvider.php:174
+#: src/AI/GeminiProvider.php:125
+#: src/AI/OpenAIProvider.php:113
+msgid "The model returned no usable text. Try again, or raise the maximum length."
+msgstr ""
+
+#: src/AI/GeminiProvider.php:40
+#: src/Core/Settings.php:258
+msgid "Google Gemini"
+msgstr ""
+
+#: src/AI/GeminiProvider.php:68
+msgid "No Google Gemini API key has been saved."
+msgstr ""
+
+#: src/AI/Json.php:44
+msgid "The model did not return structured data. Try again — this usually succeeds on a second attempt."
+msgstr ""
+
+#: src/AI/Json.php:53
+msgid "The model returned structured data this plugin could not read. Try again, or raise the maximum length if the reply looks cut off."
+msgstr ""
+
+#: src/AI/Json.php:61
+msgid "The model left out part of the response. Try again."
+msgstr ""
+
+#: src/AI/Manager.php:110
+msgid "No AI provider has been selected in Settings → AI."
+msgstr ""
+
+#: src/AI/Manager.php:117
+msgid "No API key has been saved for the selected provider."
+msgstr ""
+
+#. translators: %d: number of requests.
+#: src/AI/Manager.php:128
+#, php-format
+msgid "You have made %d AI requests in the last hour. This limit exists so a mistake cannot run up a large bill; it resets automatically."
+msgstr ""
+
+#: src/AI/Manager.php:184
+msgid "No AI provider is configured."
+msgstr ""
+
+#. translators: %s: provider name.
+#: src/AI/Manager.php:189
+#, php-format
+msgid "Pressing a button below sends this page's title, focus keyphrase, existing SEO fields and up to roughly 400 words of its content to %s. Nothing is sent until you press one, and nothing is saved to the page until you apply a suggestion."
+msgstr ""
+
+#: src/AI/OpenAIProvider.php:39
+#: src/Core/Settings.php:257
+msgid "OpenAI"
+msgstr ""
+
+#: src/AI/OpenAIProvider.php:67
+msgid "No OpenAI API key has been saved."
+msgstr ""
+
+#: src/Analytics/Client.php:100
+msgid "No Google service account is connected. Connect one under SEO → Search Performance; the same key covers Analytics."
+msgstr ""
+
+#: src/Analytics/Client.php:107
+msgid "No Analytics property has been set."
+msgstr ""
+
+#: src/Analytics/Client.php:252
+msgid "Could not reach the Analytics API. Check the site can make outbound HTTPS requests."
+msgstr ""
+
+#: src/Analytics/Client.php:261
+#: src/SearchConsole/Client.php:218
+msgid "The access token was rejected."
+msgstr ""
+
+#: src/Analytics/Client.php:281
+#: src/SearchConsole/Client.php:254
+msgid "Google rejected the credentials. Save the key file again, and check the server clock is correct."
+msgstr ""
+
+#. translators: %s: service account email address.
+#: src/Analytics/Client.php:284
+#, php-format
+msgid "The service account cannot read this Analytics property. In Analytics, open Admin → Property access management and add %s as a Viewer. Check the Analytics Data API is enabled for its Google Cloud project too."
+msgstr ""
+
+#: src/Analytics/Client.php:287
+msgid "Analytics has no property with that id. It is the numeric id from Admin → Property details, not the measurement id that starts with G-."
+msgstr ""
+
+#: src/Analytics/Client.php:288
+msgid "Analytics refused the request as malformed. If the property id was entered by hand, check it is the numeric one."
+msgstr ""
+
+#: src/Analytics/Client.php:289
+msgid "Google rate-limited this request. Results are cached for an hour; wait a little and try again."
+msgstr ""
+
+#: src/Analytics/Client.php:290
+msgid "The Analytics API is unavailable right now. Try again shortly."
+msgstr ""
+
+#. translators: %d: HTTP status code.
+#: src/Analytics/Client.php:293
+#, php-format
+msgid "The Analytics API returned an unexpected response (HTTP %d)."
+msgstr ""
+
+#: src/API/AIRoutes.php:328
+#: src/API/Routes.php:198
+msgid "You are not allowed to do that."
+msgstr ""
+
+#: src/API/AIRoutes.php:370
+msgid "No other published page on this site covers enough of the same ground to link to yet."
+msgstr ""
+
+#: src/API/Routes.php:270
+msgid "Search Console is not connected, so there is nothing to show here. An administrator can connect it under SEO → Search Performance."
+msgstr ""
+
+#: src/API/Routes.php:276
+msgid "This content is not published yet, so Google has nothing to report about it."
+msgstr ""
+
+#: src/API/Routes.php:403
+msgid "You are not allowed to analyse this post."
+msgstr ""
+
+#: src/API/Routes.php:422
+msgid "Content analysis is turned off in the plugin settings."
+msgstr ""
+
+#: src/API/SchemaRoutes.php:117
+msgid "The schema API is turned off in the plugin settings."
+msgstr ""
+
+#: src/API/SchemaRoutes.php:152
+msgid "No such entity."
+msgstr ""
+
+#: src/API/SchemaRoutes.php:178
+msgid "That post type is not exposed by the schema API."
+msgstr ""
+
+#: src/API/SchemaRoutes.php:189
+msgid "That page does not exist."
+msgstr ""
+
+#: src/Audit/Auditor.php:236
+msgid "Your AI crawler choices are not being served."
+msgstr ""
+
+#: src/Audit/Auditor.php:237
+msgid "A robots.txt file exists in the site root, and WordPress only serves its own when there is not one. The rules chosen in this plugin are being written into a file nobody fetches, so the crawlers you asked to stay away are not seeing that request."
+msgstr ""
+
+#: src/Audit/Auditor.php:238
+msgid "Either delete the physical robots.txt so WordPress serves the generated one, or copy the rules from Settings → AI crawlers into the file by hand."
+msgstr ""
+
+#. translators: 1: number of pages, 2: percentage.
+#: src/Audit/Auditor.php:262
+#, php-format
+msgid "%1$d published pages are set to noindex — %2$d%% of the site."
+msgstr ""
+
+#: src/Audit/Auditor.php:266
+msgid "A noindexed page cannot appear in search results at all. On this share of the site it is more often a mistake — a setting applied in bulk, or inherited from an import — than a deliberate choice."
+msgstr ""
+
+#: src/Audit/Auditor.php:267
+msgid "Check the list in the bulk editor and clear noindex on anything that should be findable."
+msgstr ""
+
+#. translators: %d: number of pages.
+#: src/Audit/Auditor.php:278
+#, php-format
+msgid "%d published pages are set to noindex."
+msgstr ""
+
+#: src/Audit/Auditor.php:281
+msgid "A small number of noindexed pages is normal — thank-you pages, internal landing pages and duplicates are all legitimate reasons."
+msgstr ""
+
+#: src/Audit/Auditor.php:282
+msgid "Nothing to do unless one of them should be findable."
+msgstr ""
+
+#: src/Audit/Auditor.php:291
+msgid "No XML sitemap is being served."
+msgstr ""
+
+#: src/Audit/Auditor.php:292
+msgid "A sitemap is how a search engine finds pages that little else links to. Without one, discovery depends entirely on internal links."
+msgstr ""
+
+#: src/Audit/Auditor.php:293
+msgid "Turn the sitemap on under Settings → Sitemap & Breadcrumbs."
+msgstr ""
+
+#: src/Audit/Auditor.php:302
+msgid "An XML sitemap is being served."
+msgstr ""
+
+#: src/Audit/Auditor.php:303
+msgid "Search engines have a complete list of the pages you want found."
+msgstr ""
+
+#: src/Audit/Auditor.php:304
+#: src/Audit/Auditor.php:355
+#: src/Audit/Auditor.php:600
+msgid "Nothing to do."
+msgstr ""
+
+#: src/Audit/Auditor.php:312
+msgid "SEO output is switched off."
+msgstr ""
+
+#: src/Audit/Auditor.php:313
+msgid "No titles, descriptions, canonicals, robots directives or structured data are being emitted at all."
+msgstr ""
+
+#: src/Audit/Auditor.php:314
+msgid "Turn on “Enable SEO output” under Settings → General."
+msgstr ""
+
+#. translators: %d: number of pages.
+#: src/Audit/Auditor.php:340
+#, php-format
+msgid "%d published page has no meta description."
+msgid_plural "%d published pages have no meta description."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:343
+msgid "Without one, a search engine writes its own summary from whatever text it finds. That is sometimes fine and sometimes a navigation menu."
+msgstr ""
+
+#: src/Audit/Auditor.php:344
+msgid "Write descriptions in the bulk editor, filtering by “Missing meta description”."
+msgstr ""
+
+#: src/Audit/Auditor.php:353
+msgid "Every published page has a meta description."
+msgstr ""
+
+#: src/Audit/Auditor.php:354
+msgid "You control the summary shown under each result."
+msgstr ""
+
+#. translators: %d: number of pages.
+#: src/Audit/Auditor.php:365
+#, php-format
+msgid "%d published page has no focus keyphrase."
+msgid_plural "%d published pages have no focus keyphrase."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:368
+msgid "The keyphrase is what the editor analysis measures against. Without one, most of the on-page checks have nothing to compare to — the page is not worse off, but you get less feedback on it."
+msgstr ""
+
+#: src/Audit/Auditor.php:369
+msgid "Set one on the pages that matter most. It is not worth doing for every page on a large site."
+msgstr ""
+
+#: src/Audit/Auditor.php:387
+#: templates/admin/bulk-editor.php:79
+#: templates/admin/bulk-editor.php:111
+#: templates/admin/meta-box.php:107
+msgid "SEO title"
+msgstr ""
+
+#: src/Audit/Auditor.php:388
+msgid "meta description"
+msgstr ""
+
+#. translators: 1: number of pages, 2: field name.
+#: src/Audit/Auditor.php:409
+#, php-format
+msgid "%1$d pages share a %2$s with another page."
+msgstr ""
+
+#: src/Audit/Auditor.php:413
+msgid "Identical text on several pages gives a searcher no way to tell them apart, and gives a search engine a reason to treat them as the same page."
+msgstr ""
+
+#: src/Audit/Auditor.php:414
+msgid "Rewrite the duplicates so each says what is specific to that page."
+msgstr ""
+
+#. translators: %d: number of pages.
+#: src/Audit/Auditor.php:448
+#, php-format
+msgid "%d page competes with another for its keyphrase."
+msgid_plural "%d pages compete with each other for a keyphrase."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:456
+msgid "When two of your own pages target one phrase, a search engine has to choose between them and may pick the weaker one, or split the signal across both. Word order and plurals are ignored here, so \"roof insulation\" and \"insulation for roofs\" count as the same target."
+msgstr ""
+
+#: src/Audit/Auditor.php:457
+msgid "For each clash: merge the pages, change one keyphrase, canonicalise one to the other, or make the intents genuinely different."
+msgstr ""
+
+#. translators: %d: number of pages.
+#: src/Audit/Auditor.php:491
+#, php-format
+msgid "%d published page has no internal links pointing at it."
+msgid_plural "%d published pages have no internal links pointing at them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:494
+msgid "A page nothing links to is reachable only through the sitemap or a direct URL. Pages in a navigation menu, the front page and the posts page are excluded here, so these are genuinely unreferenced."
+msgstr ""
+
+#: src/Audit/Auditor.php:495
+msgid "Link to them from related content where the reference actually helps a reader."
+msgstr ""
+
+#. translators: %d: number of links.
+#: src/Audit/Auditor.php:510
+#, php-format
+msgid "%d internal link does not resolve to a post."
+msgid_plural "%d internal links do not resolve to a post."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:513
+msgid "These are not necessarily broken — a category archive, a date archive or a page served by something other than a post all appear here legitimately. Confirming one is broken needs an actual request, which this audit does not make."
+msgstr ""
+
+#: src/Audit/Auditor.php:514
+msgid "Check the list and fix any that really are wrong."
+msgstr ""
+
+#. translators: %d: number of URLs.
+#: src/Audit/Auditor.php:561
+#, php-format
+msgid "%d missing URL was reached by following a link."
+msgid_plural "%d missing URLs were reached by following a link."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:564
+msgid "A 404 with a referrer means something linked to it — a real broken link, rather than a mistyped address or a bot scanning for filenames."
+msgstr ""
+
+#: src/Audit/Auditor.php:565
+msgid "Create a redirect to the replacement page, straight from the 404 monitor."
+msgstr ""
+
+#: src/Audit/Auditor.php:598
+msgid "The front page schema graph validates."
+msgstr ""
+
+#: src/Audit/Auditor.php:599
+msgid "Identifiers are unique, references resolve, and URLs are absolute."
+msgstr ""
+
+#. translators: %d: number of errors.
+#: src/Audit/Auditor.php:611
+#, php-format
+msgid "The schema graph has %d error and is being withheld."
+msgid_plural "The schema graph has %d errors and is being withheld."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:614
+msgid "A graph that fails validation is not published at all, on the principle that no structured data is better than wrong structured data. So none of your pages are currently carrying it."
+msgstr ""
+
+#: src/Audit/Auditor.php:615
+msgid "Open SEO → Schema to see what is wrong and fix the underlying setting."
+msgstr ""
+
+#. translators: %d: number of pages.
+#: src/Audit/Auditor.php:641
+#, php-format
+msgid "%d page has not been updated in a long time and still matters."
+msgid_plural "%d pages have not been updated in a long time and still matter."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Audit/Auditor.php:644
+msgid "This is a prompt to look, not a diagnosis. No traffic or ranking data is connected, so nothing here can tell you a page is declining — only that it is old and either well linked or substantial. Evergreen content that was right years ago is still right."
+msgstr ""
+
+#: src/Audit/Auditor.php:645
+msgid "Skim the oldest few. Update anything where the facts have moved on; leave anything still accurate alone."
+msgstr ""
+
+#: src/Audit/Cannibalization.php:203
+msgid "Merge the pages if they say much the same thing, and redirect the weaker URL to the stronger one."
+msgstr ""
+
+#: src/Audit/Cannibalization.php:204
+msgid "Give one page a different focus keyphrase if they genuinely answer different questions."
+msgstr ""
+
+#: src/Audit/Cannibalization.php:205
+msgid "Point a canonical URL from the secondary page at the primary one if both must stay."
+msgstr ""
+
+#: src/Audit/Cannibalization.php:206
+msgid "Differentiate the search intent — for example one explaining, one comparing."
+msgstr ""
+
+#. translators: %d: number of incoming links.
+#: src/Audit/Decay.php:88
+#, php-format
+msgid "%d other page links to it"
+msgid_plural "%d other pages link to it"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: word count.
+#: src/Audit/Decay.php:96
+#, php-format
+msgid "it is a substantial page at %d words"
+msgstr ""
+
+#: src/Audit/Finding.php:65
+#: templates/admin/links.php:108
+msgid "Critical"
+msgstr ""
+
+#: src/Audit/Finding.php:66
+msgid "Important"
+msgstr ""
+
+#: src/Audit/Finding.php:67
+msgid "Opportunity"
+msgstr ""
+
+#: src/Audit/Finding.php:68
+msgid "Good"
+msgstr ""
+
+#: src/Audit/Finding.php:79
+msgid "May stop pages being crawled or indexed at all."
+msgstr ""
+
+#: src/Audit/Finding.php:80
+msgid "Likely worth fixing, and usually quick."
+msgstr ""
+
+#: src/Audit/Finding.php:81
+msgid "Would probably help, but nothing is broken."
+msgstr ""
+
+#: src/Audit/Finding.php:82
+msgid "Already in order — listed so you can see it was checked."
+msgstr ""
+
+#: src/Core/Settings.php:76
+#: templates/admin/meta-box.php:17
+msgid "General"
+msgstr ""
+
+#: src/Core/Settings.php:80
+msgid "Enable SEO output"
+msgstr ""
+
+#: src/Core/Settings.php:81
+msgid "Master switch for front-end SEO output. Turn off to silence the plugin without deactivating it."
+msgstr ""
+
+#: src/Core/Settings.php:86
+msgid "Enable content analysis"
+msgstr ""
+
+#: src/Core/Settings.php:87
+msgid "Run the editor SEO analysis. Analysis never runs on the front end."
+msgstr ""
+
+#: src/Core/Settings.php:92
+msgid "Enable schema output"
+msgstr ""
+
+#: src/Core/Settings.php:93
+msgid "Output JSON-LD structured data."
+msgstr ""
+
+#: src/Core/Settings.php:98
+msgid "Enable breadcrumbs"
+msgstr ""
+
+#: src/Core/Settings.php:99
+msgid "Provide the breadcrumb shortcode, block and template function."
+msgstr ""
+
+#: src/Core/Settings.php:105
+msgid "Titles & Meta"
+msgstr ""
+
+#: src/Core/Settings.php:109
+#: src/SEO/Templates.php:32
+msgid "Title separator"
+msgstr ""
+
+#: src/Core/Settings.php:110
+msgid "Character used by the %%sep%% variable."
+msgstr ""
+
+#: src/Core/Settings.php:124
+msgid "Front page title"
+msgstr ""
+
+#: src/Core/Settings.php:125
+msgid "Available variables: %%sitename%%, %%sitedesc%%, %%sep%%, %%page%%, %%currentyear%%."
+msgstr ""
+
+#: src/Core/Settings.php:130
+msgid "Post, page and product title"
+msgstr ""
+
+#: src/Core/Settings.php:131
+msgid "Used when a post has no SEO title of its own. Variables: %%title%%, %%sitename%%, %%sep%%, %%page%%, %%date%%."
+msgstr ""
+
+#: src/Core/Settings.php:136
+msgid "Category, tag and taxonomy title"
+msgstr ""
+
+#: src/Core/Settings.php:137
+msgid "Variables: %%term_title%%, %%sitename%%, %%sep%%, %%page%%."
+msgstr ""
+
+#: src/Core/Settings.php:142
+msgid "Author archive title"
+msgstr ""
+
+#: src/Core/Settings.php:143
+msgid "Variables: %%author%%, %%sitename%%, %%sep%%, %%page%%."
+msgstr ""
+
+#: src/Core/Settings.php:148
+msgid "Post type and date archive title"
+msgstr ""
+
+#: src/Core/Settings.php:149
+msgid "Variables: %%archive_type%%, %%date%%, %%sitename%%, %%sep%%, %%page%%."
+msgstr ""
+
+#: src/Core/Settings.php:154
+msgid "Search results title"
+msgstr ""
+
+#: src/Core/Settings.php:155
+msgid "Variables: %%searchphrase%%, %%sitename%%, %%sep%%, %%page%%."
+msgstr ""
+
+#: src/Core/Settings.php:156
+msgid "Search for %%searchphrase%% %%sep%% %%sitename%%"
+msgstr ""
+
+#: src/Core/Settings.php:160
+msgid "Not found title"
+msgstr ""
+
+#: src/Core/Settings.php:161
+msgid "Variables: %%sitename%%, %%sep%%."
+msgstr ""
+
+#: src/Core/Settings.php:162
+msgid "Page not found %%sep%% %%sitename%%"
+msgstr ""
+
+#: src/Core/Settings.php:166
+msgid "Fall back to the excerpt for meta descriptions"
+msgstr ""
+
+#: src/Core/Settings.php:167
+msgid "When a post has no meta description, derive one from its excerpt or opening content. A description you write yourself is always better."
+msgstr ""
+
+#: src/Core/Settings.php:173
+#: templates/admin/meta-box.php:18
+msgid "Social"
+msgstr ""
+
+#: src/Core/Settings.php:177
+msgid "Output Open Graph tags"
+msgstr ""
+
+#: src/Core/Settings.php:178
+msgid "Used by Facebook, LinkedIn, WhatsApp, Slack and most other platforms that unfurl links."
+msgstr ""
+
+#: src/Core/Settings.php:183
+msgid "Output X/Twitter card tags"
+msgstr ""
+
+#: src/Core/Settings.php:184
+msgid "Falls back to the Open Graph values wherever a card-specific value is not set."
+msgstr ""
+
+#: src/Core/Settings.php:189
+msgid "Card type"
+msgstr ""
+
+#: src/Core/Settings.php:190
+msgid "A large-image card is downgraded automatically when a page has no image to show."
+msgstr ""
+
+#: src/Core/Settings.php:193
+msgid "Large image"
+msgstr ""
+
+#: src/Core/Settings.php:194
+#: templates/admin/brief.php:98
+msgid "Summary"
+msgstr ""
+
+#: src/Core/Settings.php:199
+msgid "Site X/Twitter handle"
+msgstr ""
+
+#: src/Core/Settings.php:200
+msgid "Without the @."
+msgstr ""
+
+#: src/Core/Settings.php:205
+msgid "Default sharing image URL"
+msgstr ""
+
+#: src/Core/Settings.php:206
+msgid "Used when a page has neither a social image nor a featured image. Absolute URL."
+msgstr ""
+
+#: src/Core/Settings.php:212
+msgid "Sitemap & Breadcrumbs"
+msgstr ""
+
+#: src/Core/Settings.php:216
+msgid "Enable the XML sitemap"
+msgstr ""
+
+#: src/Core/Settings.php:217
+msgid "Shapes the sitemap WordPress already serves at /wp-sitemap.xml rather than publishing a second, competing one. Noindexed content is excluded and a lastmod date is added."
+msgstr ""
+
+#: src/Core/Settings.php:222
+msgid "Include category and tag archives"
+msgstr ""
+
+#: src/Core/Settings.php:223
+msgid "Turn off if term archives are thin or duplicate your content."
+msgstr ""
+
+#: src/Core/Settings.php:228
+msgid "Include author archives"
+msgstr ""
+
+#: src/Core/Settings.php:229
+msgid "Usually worth turning off on a single-author site."
+msgstr ""
+
+#: src/Core/Settings.php:234
+msgid "Breadcrumb separator"
+msgstr ""
+
+#: src/Core/Settings.php:235
+msgid "Hidden from screen readers, so it is decoration only."
+msgstr ""
+
+#: src/Core/Settings.php:240
+msgid "Breadcrumb home label"
+msgstr ""
+
+#: src/Core/Settings.php:241
+msgid "Leave empty for “Home”."
+msgstr ""
+
+#: src/Core/Settings.php:251
+#: templates/admin/ai.php:61
+#: templates/admin/ai.php:166
+msgid "Provider"
+msgstr ""
+
+#: src/Core/Settings.php:252
+msgid "API keys are entered below the settings form and are stored encrypted, separately from these settings."
+msgstr ""
+
+#: src/Core/Settings.php:255
+msgid "None — AI features off"
+msgstr ""
+
+#: src/Core/Settings.php:263
+#: templates/admin/ai.php:64
+#: templates/admin/ai.php:167
+msgid "Model"
+msgstr ""
+
+#: src/Core/Settings.php:264
+msgid "Leave empty to use the provider default. Model identifiers change often, so this is free text rather than a list that would go stale — copy the exact id from your provider's documentation."
+msgstr ""
+
+#: src/Core/Settings.php:269
+msgid "Temperature"
+msgstr ""
+
+#: src/Core/Settings.php:270
+msgid "Higher values give more varied wording. Several current models reject this parameter outright, so it is omitted for those rather than breaking the request."
+msgstr ""
+
+#: src/Core/Settings.php:273
+msgid "0.2 — predictable"
+msgstr ""
+
+#: src/Core/Settings.php:274
+msgid "0.5"
+msgstr ""
+
+#: src/Core/Settings.php:275
+msgid "0.7 — balanced"
+msgstr ""
+
+#: src/Core/Settings.php:276
+msgid "1.0 — varied"
+msgstr ""
+
+#: src/Core/Settings.php:281
+msgid "Keep usage entries for"
+msgstr ""
+
+#: src/Core/Settings.php:282
+msgid "The log records provider, model, action, token counts and outcome. Prompts and generated text are never stored."
+msgstr ""
+
+#: src/Core/Settings.php:285
+#: src/Core/Settings.php:423
+msgid "30 days"
+msgstr ""
+
+#: src/Core/Settings.php:286
+#: src/Core/Settings.php:424
+msgid "90 days"
+msgstr ""
+
+#: src/Core/Settings.php:287
+#: src/Core/Settings.php:425
+msgid "A year"
+msgstr ""
+
+#: src/Core/Settings.php:288
+#: src/Core/Settings.php:426
+msgid "Keep everything"
+msgstr ""
+
+#: src/Core/Settings.php:294
+msgid "Local & Brand"
+msgstr ""
+
+#: src/Core/Settings.php:298
+msgid "Enable Local SEO"
+msgstr ""
+
+#: src/Core/Settings.php:299
+msgid "Adds a Locations screen for business details, opening hours and LocalBusiness structured data."
+msgstr ""
+
+#: src/Core/Settings.php:304
+msgid "Publish location data on"
+msgstr ""
+
+#: src/Core/Settings.php:305
+msgid "The front page is where a business states who it is. Publishing a shop address on every article would not describe those pages."
+msgstr ""
+
+#: src/Core/Settings.php:308
+msgid "The front page only"
+msgstr ""
+
+#: src/Core/Settings.php:309
+msgid "Every page"
+msgstr ""
+
+#: src/Core/Settings.php:314
+msgid "Brand name"
+msgstr ""
+
+#: src/Core/Settings.php:315
+msgid "Leave empty if the site has no brand distinct from the organization. Nothing is published unless this is filled in."
+msgstr ""
+
+#: src/Core/Settings.php:320
+msgid "Brand description"
+msgstr ""
+
+#: src/Core/Settings.php:326
+msgid "Brand logo URL"
+msgstr ""
+
+#: src/Core/Settings.php:327
+msgid "Absolute URL."
+msgstr ""
+
+#: src/Core/Settings.php:332
+msgid "Brand profile URLs"
+msgstr ""
+
+#: src/Core/Settings.php:333
+#: templates/admin/location.php:65
+msgid "One absolute URL per line. Invalid lines are discarded."
+msgstr ""
+
+#: src/Core/Settings.php:339
+msgid "WooCommerce"
+msgstr ""
+
+#: src/Core/Settings.php:343
+msgid "Enable WooCommerce SEO"
+msgstr ""
+
+#: src/Core/Settings.php:344
+msgid "Has no effect unless WooCommerce is active. Product structured data is built only from data the shop actually holds: no invented price, stock, SKU, brand or rating."
+msgstr ""
+
+#: src/Core/Settings.php:349
+msgid "Replace WooCommerce structured data"
+msgstr ""
+
+#: src/Core/Settings.php:350
+msgid "WooCommerce publishes its own product markup. Leaving both on means two descriptions of the same product. This removes one WooCommerce output hook and nothing else; unchecking it restores that output immediately."
+msgstr ""
+
+#: src/Core/Settings.php:360
+msgid "Track internal links"
+msgstr ""
+
+#: src/Core/Settings.php:361
+msgid "Records which content links to which when a post is saved, so orphan and under-linked reports stay current."
+msgstr ""
+
+#: src/Core/Settings.php:366
+msgid "Treat as critical at or below"
+msgstr ""
+
+#: src/Core/Settings.php:367
+msgid "Incoming internal links. Content in a navigation menu, the front page and the posts page are never reported."
+msgstr ""
+
+#: src/Core/Settings.php:370
+msgid "0 incoming links"
+msgstr ""
+
+#: src/Core/Settings.php:371
+#: src/Core/Settings.php:393
+msgid "1 incoming link"
+msgstr ""
+
+#: src/Core/Settings.php:372
+#: src/Core/Settings.php:394
+msgid "2 incoming links"
+msgstr ""
+
+#: src/Core/Settings.php:377
+msgid "Flag pages untouched for"
+msgstr ""
+
+#: src/Core/Settings.php:378
+msgid "Used by the site audit. Age alone never raises a page — it also has to be linked to or substantial, because evergreen content that was right years ago is still right."
+msgstr ""
+
+#: src/Core/Settings.php:381
+msgid "6 months"
+msgstr ""
+
+#: src/Core/Settings.php:382
+msgid "12 months"
+msgstr ""
+
+#: src/Core/Settings.php:383
+msgid "2 years"
+msgstr ""
+
+#: src/Core/Settings.php:384
+msgid "3 years"
+msgstr ""
+
+#: src/Core/Settings.php:389
+msgid "Treat as a warning at or below"
+msgstr ""
+
+#: src/Core/Settings.php:390
+msgid "Anything above this is considered healthy. A page with few incoming links is not automatically a problem."
+msgstr ""
+
+#: src/Core/Settings.php:395
+msgid "3 incoming links"
+msgstr ""
+
+#: src/Core/Settings.php:396
+msgid "5 incoming links"
+msgstr ""
+
+#: src/Core/Settings.php:402
+msgid "Redirects & 404s"
+msgstr ""
+
+#: src/Core/Settings.php:406
+msgid "Enable the redirect manager"
+msgstr ""
+
+#: src/Core/Settings.php:407
+msgid "Existing rules stay stored when this is off; they simply stop firing."
+msgstr ""
+
+#: src/Core/Settings.php:412
+msgid "Log 404s"
+msgstr ""
+
+#: src/Core/Settings.php:413
+msgid "Records the URL, referrer and hit count for requests that were not found. Repeat hits update one row rather than adding another."
+msgstr ""
+
+#: src/Core/Settings.php:418
+msgid "Keep 404 entries for"
+msgstr ""
+
+#: src/Core/Settings.php:419
+msgid "Older entries are removed by a daily job, so a scanned site does not accumulate rows forever."
+msgstr ""
+
+#: src/Core/Settings.php:422
+msgid "7 days"
+msgstr ""
+
+#: src/Core/Settings.php:432
+msgid "Schema & Entities"
+msgstr ""
+
+#: src/Core/Settings.php:436
+msgid "Organization type"
+msgstr ""
+
+#: src/Core/Settings.php:437
+msgid "Pick the most specific type that is actually accurate. A wrong type is worse than a general one."
+msgstr ""
+
+#: src/Core/Settings.php:440
+msgid "Organization"
+msgstr ""
+
+#: src/Core/Settings.php:441
+msgid "Corporation"
+msgstr ""
+
+#: src/Core/Settings.php:442
+msgid "Local business"
+msgstr ""
+
+#: src/Core/Settings.php:443
+msgid "News media organization"
+msgstr ""
+
+#: src/Core/Settings.php:444
+#: src/Local/Locations.php:150
+msgid "Educational organization"
+msgstr ""
+
+#: src/Core/Settings.php:445
+msgid "Government organization"
+msgstr ""
+
+#: src/Core/Settings.php:446
+msgid "Non-governmental organization"
+msgstr ""
+
+#: src/Core/Settings.php:451
+msgid "Organization name"
+msgstr ""
+
+#: src/Core/Settings.php:452
+msgid "Leave empty to use the site title."
+msgstr ""
+
+#: src/Core/Settings.php:457
+msgid "Organization description"
+msgstr ""
+
+#: src/Core/Settings.php:458
+msgid "A short factual description of the organization."
+msgstr ""
+
+#: src/Core/Settings.php:463
+msgid "Logo URL"
+msgstr ""
+
+#: src/Core/Settings.php:464
+msgid "Absolute URL of the organization logo. Dimensions are read automatically when the image is in the media library."
+msgstr ""
+
+#: src/Core/Settings.php:469
+msgid "Contact email"
+msgstr ""
+
+#: src/Core/Settings.php:470
+msgid "Output only if it is a valid address."
+msgstr ""
+
+#: src/Core/Settings.php:475
+msgid "Contact telephone"
+msgstr ""
+
+#: src/Core/Settings.php:476
+msgid "Include the international dialling code."
+msgstr ""
+
+#: src/Core/Settings.php:481
+msgid "Official profile URLs"
+msgstr ""
+
+#: src/Core/Settings.php:482
+msgid "One absolute URL per line, for profiles the organization genuinely controls. Invalid lines are discarded."
+msgstr ""
+
+#: src/Core/Settings.php:487
+msgid "Publishing principles URL"
+msgstr ""
+
+#: src/Core/Settings.php:488
+msgid "Only fill these in if the page genuinely exists. Never state a policy you do not publish."
+msgstr ""
+
+#: src/Core/Settings.php:493
+msgid "Ownership and funding URL"
+msgstr ""
+
+#: src/Core/Settings.php:499
+msgid "Corrections policy URL"
+msgstr ""
+
+#: src/Core/Settings.php:505
+msgid "Actionable feedback policy URL"
+msgstr ""
+
+#: src/Core/Settings.php:511
+msgid "Diversity policy URL"
+msgstr ""
+
+#: src/Core/Settings.php:517
+msgid "Expose the aggregated schema API"
+msgstr ""
+
+#: src/Core/Settings.php:518
+msgid "Publishes structured data for public content under /wp-json/wp-custom-seo/v1/schema/ so tools and assistants can read the site without crawling every page. Only content that is already publicly readable is included."
+msgstr ""
+
+#: src/Core/Settings.php:523
+msgid "Posts per API page"
+msgstr ""
+
+#: src/Core/Settings.php:524
+msgid "Lower this for large catalogues. Individual post types can override it with the wpcseo_schema_api_batch filter."
+msgstr ""
+
+#: src/Core/Settings.php:536
+#: templates/admin/meta-box.php:19
+msgid "Advanced"
+msgstr ""
+
+#: src/Core/Settings.php:540
+msgid "Delete all plugin data on uninstall"
+msgstr ""
+
+#: src/Core/Settings.php:541
+msgid "When enabled, deleting the plugin also removes its settings, metadata and tables. Data from other plugins is never touched."
+msgstr ""
+
+#: src/Core/Settings.php:546
+msgid "Enable debug logging"
+msgstr ""
+
+#: src/Core/Settings.php:547
+msgid "Write plugin diagnostics to the WordPress debug log. API credentials are never logged."
+msgstr ""
+
+#: src/Core/Settings.php:555
+msgid "Search Console property"
+msgstr ""
+
+#: src/Core/Settings.php:561
+msgid "Analytics property id"
+msgstr ""
+
+#: src/Core/Settings.php:572
+msgid "Reports"
+msgstr ""
+
+#: src/Core/Settings.php:573
+msgid "A periodic email summarising what the site audit found, and what Google reported if Search Console is connected. It is sent only when there is something to say — a report that arrives every week saying \"nothing to report\" is a report people stop reading."
+msgstr ""
+
+#: src/Core/Settings.php:577
+msgid "Email a periodic report"
+msgstr ""
+
+#: src/Core/Settings.php:578
+msgid "Sent by WP-Cron, which runs when the site is visited. A site with no traffic may send late."
+msgstr ""
+
+#: src/Core/Settings.php:583
+msgid "How often"
+msgstr ""
+
+#: src/Core/Settings.php:586
+#: src/Reports/Schedule.php:34
+msgid "Weekly"
+msgstr ""
+
+#: src/Core/Settings.php:587
+#: src/Reports/Schedule.php:35
+msgid "Monthly"
+msgstr ""
+
+#: src/Core/Settings.php:592
+msgid "Send to"
+msgstr ""
+
+#: src/Core/Settings.php:593
+msgid "Comma separated. Leave empty to use the site administrator’s address."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:71
+msgid "Model training"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:72
+msgid "Blocking these asks that your pages are not used to train a model. It does not affect any search result, in Google or in an assistant."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:75
+msgid "AI search and citation"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:76
+msgid "Blocking these removes the site from that assistant’s answers and citations. This is the AI equivalent of noindex — it costs visibility, and is rarely what someone means by “keep my content out of AI”."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:79
+msgid "Fetches a person asked for"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:80
+msgid "Blocking these means someone who pastes one of your URLs into an assistant is told the page cannot be read."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:102
+msgid "OpenAI — model training"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:109
+msgid "Anthropic — model training"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:116
+msgid "Google — Gemini training"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:117
+msgid "Not a crawler of its own. Blocking it does not affect Google Search ranking or indexing in any way."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:123
+msgid "Apple — Apple Intelligence training"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:124
+msgid "Separate from Applebot, which continues to crawl for Siri and Spotlight either way."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:130
+msgid "Meta — model training"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:137
+msgid "Common Crawl"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:138
+msgid "A public dataset rather than one company. Many models have been trained from it, and researchers and archivists use it too."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:144
+msgid "OpenAI — ChatGPT search"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:145
+msgid "Blocking this removes the site from ChatGPT’s search answers."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:151
+msgid "Anthropic — Claude search"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:152
+msgid "Blocking this removes the site from Claude’s search answers."
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:158
+msgid "Perplexity — search index"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:165
+msgid "Anthropic — pages a person asked about"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:172
+msgid "Perplexity — pages a person asked about"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:228
+msgid "AI crawler preferences, set in WP Custom SEO."
+msgstr ""
+
+#. translators: 1: user agent token, 2: what blocking it costs.
+#: src/Crawlers/AiCrawlers.php:286
+#, php-format
+msgid "Writes \"User-agent: %1$s / Disallow: /\" into robots.txt. %2$s"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:305
+msgid "AI crawlers"
+msgstr ""
+
+#: src/Crawlers/AiCrawlers.php:306
+msgid "These write rules into robots.txt asking named AI crawlers to stay away. Nothing is blocked by default. Read each one before ticking it: asking not to be used for model training and removing yourself from an assistant’s search answers are different decisions, and only the second costs you visibility. robots.txt is a request that well-behaved crawlers honour voluntarily — a crawler that ignores it, or lies about who it is, is unaffected by anything here, and only server or edge rules can stop that."
+msgstr ""
+
+#: src/Entities/Authors.php:48
+msgid "SEO author entity"
+msgstr ""
+
+#: src/Entities/Authors.php:51
+msgid "Job title or role"
+msgstr ""
+
+#: src/Entities/Authors.php:62
+msgid "Used in Person structured data. Leave empty if it does not apply."
+msgstr ""
+
+#: src/Entities/Authors.php:67
+#: templates/admin/location.php:63
+msgid "Profile URLs"
+msgstr ""
+
+#: src/Entities/Authors.php:77
+msgid "One absolute URL per line, for profiles that genuinely belong to this person. Anything that is not a valid http(s) URL is discarded."
+msgstr ""
+
+#: src/Local/Locations.php:90
+msgid "Locations"
+msgstr ""
+
+#: src/Local/Locations.php:91
+msgid "Location"
+msgstr ""
+
+#: src/Local/Locations.php:92
+msgid "Add location"
+msgstr ""
+
+#: src/Local/Locations.php:93
+msgid "Edit location"
+msgstr ""
+
+#: src/Local/Locations.php:94
+msgid "Search locations"
+msgstr ""
+
+#: src/Local/Locations.php:95
+msgid "No locations yet."
+msgstr ""
+
+#: src/Local/Locations.php:118
+msgid "Monday"
+msgstr ""
+
+#: src/Local/Locations.php:119
+msgid "Tuesday"
+msgstr ""
+
+#: src/Local/Locations.php:120
+msgid "Wednesday"
+msgstr ""
+
+#: src/Local/Locations.php:121
+msgid "Thursday"
+msgstr ""
+
+#: src/Local/Locations.php:122
+msgid "Friday"
+msgstr ""
+
+#: src/Local/Locations.php:123
+msgid "Saturday"
+msgstr ""
+
+#: src/Local/Locations.php:124
+msgid "Sunday"
+msgstr ""
+
+#: src/Local/Locations.php:138
+msgid "General local business"
+msgstr ""
+
+#: src/Local/Locations.php:139
+msgid "Store"
+msgstr ""
+
+#: src/Local/Locations.php:140
+msgid "Restaurant"
+msgstr ""
+
+#: src/Local/Locations.php:141
+msgid "Café or coffee shop"
+msgstr ""
+
+#: src/Local/Locations.php:142
+msgid "Professional service"
+msgstr ""
+
+#: src/Local/Locations.php:143
+msgid "Home or construction business"
+msgstr ""
+
+#: src/Local/Locations.php:144
+msgid "Medical business"
+msgstr ""
+
+#: src/Local/Locations.php:145
+msgid "Legal service"
+msgstr ""
+
+#: src/Local/Locations.php:146
+msgid "Financial service"
+msgstr ""
+
+#: src/Local/Locations.php:147
+msgid "Automotive business"
+msgstr ""
+
+#: src/Local/Locations.php:148
+msgid "Health and beauty business"
+msgstr ""
+
+#: src/Local/Locations.php:149
+msgid "Lodging"
+msgstr ""
+
+#: src/Local/Locations.php:240
+msgid "Business details"
+msgstr ""
+
+#: src/Redirects/Redirects.php:33
+msgid "301 — Moved permanently"
+msgstr ""
+
+#: src/Redirects/Redirects.php:34
+msgid "302 — Found (temporary)"
+msgstr ""
+
+#: src/Redirects/Redirects.php:35
+msgid "307 — Temporary redirect"
+msgstr ""
+
+#: src/Redirects/Redirects.php:36
+msgid "308 — Permanent redirect"
+msgstr ""
+
+#: src/Redirects/Redirects.php:183
+msgid "A redirect for that URL already exists."
+msgstr ""
+
+#: src/Redirects/Redirects.php:194
+msgid "The redirect could not be saved."
+msgstr ""
+
+#: src/Redirects/Redirects.php:224
+msgid "Another redirect already uses that URL."
+msgstr ""
+
+#: src/Redirects/Redirects.php:417
+msgid "Enter the URL to redirect from."
+msgstr ""
+
+#: src/Redirects/Redirects.php:421
+msgid "Enter the URL to redirect to."
+msgstr ""
+
+#: src/Redirects/Redirects.php:425
+msgid "Choose a valid redirect type."
+msgstr ""
+
+#: src/Redirects/Redirects.php:432
+msgid "That pattern is not a valid regular expression."
+msgstr ""
+
+#: src/Redirects/Redirects.php:513
+msgid "That redirect points at itself, which would loop forever."
+msgstr ""
+
+#. translators: %s: the URL that closes the loop.
+#: src/Redirects/Redirects.php:540
+#, php-format
+msgid "This would create a loop: the target already redirects back to %s."
+msgstr ""
+
+#: src/Redirects/Redirects.php:549
+msgid "This would create a redirect chain more than ten steps long. Point the redirect at its final destination instead."
+msgstr ""
+
+#. translators: 1: number of critical findings, 2: site name.
+#: src/Reports/Mailer.php:74
+#, php-format
+msgid "%1$d critical SEO issue on %2$s"
+msgid_plural "%1$d critical SEO issues on %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of important findings, 2: site name.
+#: src/Reports/Mailer.php:85
+#, php-format
+msgid "%1$d SEO issue worth looking at on %2$s"
+msgid_plural "%1$d SEO issues worth looking at on %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: site name.
+#: src/Reports/Mailer.php:93
+#, php-format
+msgid "SEO report for %s"
+msgstr ""
+
+#. translators: 1: site name, 2: site URL.
+#: src/Reports/Mailer.php:107
+#, php-format
+msgid "SEO report for %1$s (%2$s)"
+msgstr ""
+
+#. translators: %d: number of logged missing URLs.
+#: src/Reports/Mailer.php:124
+#, php-format
+msgid "%d URL has been requested and not found."
+msgid_plural "%d URLs have been requested and not found."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Reports/Mailer.php:131
+msgid "Full audit:"
+msgstr ""
+
+#: src/Reports/Mailer.php:133
+msgid "These are recommendations from this plugin, not measurements from a search engine. Turn this email off under SEO → Settings → Reports."
+msgstr ""
+
+#: src/Reports/Mailer.php:155
+msgid "The site audit found nothing that needs attention."
+msgstr ""
+
+#: src/Reports/Mailer.php:159
+msgid "What the site audit found"
+msgstr ""
+
+#. translators: 1: start date, 2: end date.
+#: src/Reports/Mailer.php:185
+#, php-format
+msgid "What Google reported, %1$s to %2$s"
+msgstr ""
+
+#. translators: 1: clicks, 2: impressions, 3: click-through rate.
+#: src/Reports/Mailer.php:192
+#, php-format
+msgid "%1$s clicks from %2$s impressions (%3$s)."
+msgstr ""
+
+#: src/Reports/Mailer.php:201
+msgid "Top queries:"
+msgstr ""
+
+#. translators: 1: query, 2: clicks, 3: impressions.
+#: src/Reports/Mailer.php:206
+#, php-format
+msgid "    %1$s — %2$s clicks, %3$s impressions"
+msgstr ""
+
+#: src/Reports/Schedule.php:61
+msgid "Once a month"
+msgstr ""
+
+#: src/Schema/Conflicts.php:33
+#: src/Schema/Conflicts.php:38
+#: src/Schema/Conflicts.php:43
+#: src/Schema/Conflicts.php:48
+msgid "Outputs a full schema graph of its own."
+msgstr ""
+
+#: src/Schema/Conflicts.php:53
+msgid "Outputs structured data for selected post types."
+msgstr ""
+
+#: src/Schema/Conflicts.php:58
+msgid "Outputs Product and Offer data on shop pages. Usually complementary rather than conflicting."
+msgstr ""
+
+#: src/Schema/Validator.php:89
+msgid "The graph is empty. No structured data will be output for this page."
+msgstr ""
+
+#: src/Schema/Validator.php:98
+msgid "The graph could not be encoded as JSON. It will not be output."
+msgstr ""
+
+#: src/Schema/Validator.php:113
+msgid "A node has no @id, so nothing else can reference it."
+msgstr ""
+
+#. translators: %s: node identifier.
+#: src/Schema/Validator.php:123
+#, php-format
+msgid "Duplicate @id \"%s\". Two nodes claim to be the same entity."
+msgstr ""
+
+#: src/Schema/Validator.php:133
+msgid "Node has no @type."
+msgstr ""
+
+#. translators: 1: schema type, 2: property name.
+#: src/Schema/Validator.php:181
+#, php-format
+msgid "%1$s is missing \"%2$s\". Consumers may ignore the node without it."
+msgstr ""
+
+#. translators: 1: property name, 2: offending value.
+#: src/Schema/Validator.php:227
+#, php-format
+msgid "\"%1$s\" must be an absolute http(s) URL. Found: %2$s"
+msgstr ""
+
+#. translators: 1: property name, 2: unresolved identifier.
+#: src/Schema/Validator.php:268
+#, php-format
+msgid "\"%1$s\" points at %2$s, which is not in the graph."
+msgstr ""
+
+#: src/SearchConsole/Account.php:67
+msgid "This server cannot encrypt credentials, so the key file will not be stored. Sodium and AUTH_SALT are both required."
+msgstr ""
+
+#: src/SearchConsole/Account.php:76
+msgid "That is not valid JSON. Paste the whole key file, including the surrounding braces."
+msgstr ""
+
+#: src/SearchConsole/Account.php:83
+msgid "That JSON is not a service account key. In the Google Cloud console, create a service account and download a JSON key for it — an OAuth client file will not work here."
+msgstr ""
+
+#. translators: %s: JSON field name.
+#: src/SearchConsole/Account.php:93
+#, php-format
+msgid "The key file has no \"%s\". Download a fresh key rather than editing this one."
+msgstr ""
+
+#: src/SearchConsole/Account.php:103
+msgid "The private key in that file is not readable. It may have lost its line breaks in copying — download the file again and paste it unaltered."
+msgstr ""
+
+#: src/SearchConsole/Client.php:92
+msgid "No Search Console property has been chosen."
+msgstr ""
+
+#: src/SearchConsole/Client.php:209
+msgid "Could not reach the Search Console API. Check the site can make outbound HTTPS requests."
+msgstr ""
+
+#. translators: %s: service account email address.
+#: src/SearchConsole/Client.php:257
+#, php-format
+msgid "The service account cannot read this property. In Search Console, add %s as a user of it."
+msgstr ""
+
+#: src/SearchConsole/Client.php:260
+msgid "Access was refused. Check the Search Console API is enabled for the key file's project, and that the service account has been added to the property."
+msgstr ""
+
+#: src/SearchConsole/Client.php:261
+msgid "Search Console has no such property. Its URL must match exactly, including the protocol and any trailing slash."
+msgstr ""
+
+#: src/SearchConsole/Client.php:262
+msgid "Google rate-limited this request. The plugin caches results for twelve hours; wait a little and try again."
+msgstr ""
+
+#: src/SearchConsole/Client.php:263
+msgid "The Search Console API is unavailable right now. Try again shortly."
+msgstr ""
+
+#. translators: %d: HTTP status code.
+#: src/SearchConsole/Client.php:266
+#, php-format
+msgid "The Search Console API returned an unexpected response (HTTP %d)."
+msgstr ""
+
+#: src/SearchConsole/Token.php:87
+msgid "No Search Console service account is connected."
+msgstr ""
+
+#: src/SearchConsole/Token.php:112
+msgid "Could not reach Google to authenticate. Check the site can make outbound HTTPS requests."
+msgstr ""
+
+#: src/SearchConsole/Token.php:151
+msgid "This server has no OpenSSL support, so the request to Google cannot be signed."
+msgstr ""
+
+#: src/SearchConsole/Token.php:178
+msgid "The service account key could not be used to sign the request. Download a fresh key file and save it again."
+msgstr ""
+
+#: src/SearchConsole/Token.php:217
+msgid "Google rejected the signed request. This is usually a server clock that is out by more than a few minutes, or a key that has been deleted in the Google Cloud console."
+msgstr ""
+
+#: src/SearchConsole/Token.php:218
+msgid "Google does not recognise this service account. Check the key file belongs to a project where the Search Console API is enabled."
+msgstr ""
+
+#: src/SearchConsole/Token.php:219
+msgid "The service account is not allowed to read Search Console. Enable the Search Console API for its project."
+msgstr ""
+
+#. translators: %d: HTTP status code.
+#: src/SearchConsole/Token.php:222
+#, php-format
+msgid "Google refused the authentication request (HTTP %d)."
+msgstr ""
+
+#: src/SEO/Analyzer.php:201
+#: templates/admin/meta-box.php:92
+msgid "Focus keyphrase"
+msgstr ""
+
+#. translators: %s: focus keyphrase.
+#: src/SEO/Analyzer.php:203
+#, php-format
+msgid "Focus keyphrase set to \"%s\"."
+msgstr ""
+
+#. translators: %s: focus keyphrase.
+#: src/SEO/Analyzer.php:204
+msgid "No focus keyphrase has been set."
+msgstr ""
+
+#: src/SEO/Analyzer.php:205
+msgid "A focus keyphrase states what the page is about, which is what the keyword-related checks below are measured against."
+msgstr ""
+
+#: src/SEO/Analyzer.php:207
+msgid "No change needed."
+msgstr ""
+
+#: src/SEO/Analyzer.php:208
+msgid "Enter the phrase a reader would search for to find this page."
+msgstr ""
+
+#: src/SEO/Analyzer.php:227
+msgid "The SEO title is empty."
+msgstr ""
+
+#. translators: %d: title length in characters.
+#: src/SEO/Analyzer.php:231
+#, php-format
+msgid "The SEO title is %d characters, which is short."
+msgstr ""
+
+#. translators: %d: title length in characters.
+#: src/SEO/Analyzer.php:235
+#, php-format
+msgid "The SEO title is %d characters and will likely be truncated in results."
+msgstr ""
+
+#. translators: %d: title length in characters.
+#: src/SEO/Analyzer.php:239
+#, php-format
+msgid "The SEO title is %d characters."
+msgstr ""
+
+#: src/SEO/Analyzer.php:245
+#: src/SEO/Weights.php:79
+msgid "Title length"
+msgstr ""
+
+#: src/SEO/Analyzer.php:247
+msgid "Search engines shorten long titles, so the part that persuades someone to click can disappear."
+msgstr ""
+
+#. translators: 1: minimum characters, 2: maximum characters.
+#: src/SEO/Analyzer.php:250
+#, php-format
+msgid "Aim for roughly %1$d to %2$d characters."
+msgstr ""
+
+#: src/SEO/Analyzer.php:264
+msgid "The focus keyphrase does not appear in the SEO title."
+msgstr ""
+
+#: src/SEO/Analyzer.php:267
+msgid "The focus keyphrase appears late in the SEO title."
+msgstr ""
+
+#: src/SEO/Analyzer.php:270
+msgid "The focus keyphrase appears near the start of the SEO title."
+msgstr ""
+
+#: src/SEO/Analyzer.php:276
+#: src/SEO/Weights.php:84
+msgid "Keyphrase in title"
+msgstr ""
+
+#: src/SEO/Analyzer.php:278
+msgid "The title is the strongest on-page signal of what a page covers, and it is what a searcher reads first."
+msgstr ""
+
+#: src/SEO/Analyzer.php:279
+msgid "Work the keyphrase into the title, ideally near the beginning, without making it read awkwardly."
+msgstr ""
+
+#: src/SEO/Analyzer.php:299
+msgid "No meta description has been written."
+msgstr ""
+
+#. translators: %d: description length in characters.
+#: src/SEO/Analyzer.php:303
+#, php-format
+msgid "The meta description is %d characters, which leaves space unused."
+msgstr ""
+
+#. translators: %d: description length in characters.
+#: src/SEO/Analyzer.php:307
+#, php-format
+msgid "The meta description is %d characters and will likely be cut off."
+msgstr ""
+
+#. translators: %d: description length in characters.
+#: src/SEO/Analyzer.php:311
+#, php-format
+msgid "The meta description is %d characters."
+msgstr ""
+
+#: src/SEO/Analyzer.php:317
+#: templates/admin/bulk-editor.php:80
+#: templates/admin/bulk-editor.php:120
+#: templates/admin/meta-box.php:123
+msgid "Meta description"
+msgstr ""
+
+#: src/SEO/Analyzer.php:319
+msgid "Search engines often show this text under the title. Without one they assemble their own, which may not describe the page well."
+msgstr ""
+
+#. translators: 1: minimum characters, 2: maximum characters.
+#: src/SEO/Analyzer.php:322
+#, php-format
+msgid "Write %1$d to %2$d characters summarising the page and giving a reason to click."
+msgstr ""
+
+#: src/SEO/Analyzer.php:337
+#: src/SEO/Weights.php:94
+msgid "Keyphrase in description"
+msgstr ""
+
+#: src/SEO/Analyzer.php:339
+msgid "The focus keyphrase appears in the meta description."
+msgstr ""
+
+#: src/SEO/Analyzer.php:340
+msgid "The focus keyphrase does not appear in the meta description."
+msgstr ""
+
+#: src/SEO/Analyzer.php:341
+msgid "Matched words are highlighted in search results, which makes the entry easier to spot."
+msgstr ""
+
+#: src/SEO/Analyzer.php:342
+msgid "Mention the keyphrase once, naturally, in the description."
+msgstr ""
+
+#: src/SEO/Analyzer.php:370
+#: src/SEO/Weights.php:99
+msgid "Content length"
+msgstr ""
+
+#. translators: %d: word count.
+#: src/SEO/Analyzer.php:372
+#, php-format
+msgid "The content is %d words long."
+msgstr ""
+
+#: src/SEO/Analyzer.php:373
+msgid "Very short pages often fail to answer the question a visitor arrived with. Length is not a ranking factor in itself, but thin coverage usually shows."
+msgstr ""
+
+#: src/SEO/Analyzer.php:374
+msgid "Cover the topic properly rather than padding to hit a number. Around 300 words is a reasonable floor for an indexable page."
+msgstr ""
+
+#: src/SEO/Analyzer.php:387
+msgid "The focus keyphrase does not appear in the content."
+msgstr ""
+
+#. translators: 1: occurrence count, 2: density percentage.
+#: src/SEO/Analyzer.php:391
+#, php-format
+msgid "The keyphrase appears %1$d times (%2$.1f%%), which reads as stuffing."
+msgstr ""
+
+#. translators: 1: occurrence count, 2: density percentage.
+#: src/SEO/Analyzer.php:395
+#, php-format
+msgid "The keyphrase appears %1$d time(s) (%2$.1f%%), which is sparse for this length."
+msgstr ""
+
+#. translators: 1: occurrence count, 2: density percentage.
+#: src/SEO/Analyzer.php:399
+#, php-format
+msgid "The keyphrase appears %1$d time(s) (%2$.1f%%)."
+msgstr ""
+
+#: src/SEO/Analyzer.php:405
+#: src/SEO/Weights.php:104
+msgid "Keyphrase distribution"
+msgstr ""
+
+#: src/SEO/Analyzer.php:407
+msgid "The phrase should appear often enough to be clearly on topic, but repetition beyond natural use reads badly to people and is treated as spam."
+msgstr ""
+
+#: src/SEO/Analyzer.php:408
+msgid "Aim for roughly 0.5% to 3% and prefer natural variations over exact repetition."
+msgstr ""
+
+#: src/SEO/Analyzer.php:417
+#: src/SEO/Weights.php:109
+msgid "Keyphrase in introduction"
+msgstr ""
+
+#: src/SEO/Analyzer.php:419
+msgid "The focus keyphrase appears in the opening paragraph."
+msgstr ""
+
+#: src/SEO/Analyzer.php:420
+msgid "The focus keyphrase does not appear in the opening paragraph."
+msgstr ""
+
+#: src/SEO/Analyzer.php:421
+msgid "Readers decide within a sentence or two whether a page answers their question. Stating the subject early confirms they are in the right place."
+msgstr ""
+
+#: src/SEO/Analyzer.php:422
+msgid "Mention the topic in the first paragraph."
+msgstr ""
+
+#: src/SEO/Analyzer.php:447
+msgid "Subheadings"
+msgstr ""
+
+#. translators: %d: number of subheadings.
+#: src/SEO/Analyzer.php:450
+#, php-format
+msgid "The content uses %d subheading(s)."
+msgstr ""
+
+#: src/SEO/Analyzer.php:451
+msgid "The content has no subheadings."
+msgstr ""
+
+#: src/SEO/Analyzer.php:452
+msgid "Subheadings let readers scan a page and find the section they need, and they give assistive technology a navigable outline."
+msgstr ""
+
+#: src/SEO/Analyzer.php:453
+msgid "Break longer content into sections introduced by H2 and H3 headings."
+msgstr ""
+
+#: src/SEO/Analyzer.php:468
+#: src/SEO/Weights.php:119
+msgid "Heading hierarchy"
+msgstr ""
+
+#. translators: %d: number of H1 headings.
+#: src/SEO/Analyzer.php:470
+#, php-format
+msgid "The content contains %d H1 headings."
+msgstr ""
+
+#: src/SEO/Analyzer.php:471
+msgid "A page normally has one H1 naming its subject. Several competing H1s blur the outline for readers and assistive technology alike."
+msgstr ""
+
+#: src/SEO/Analyzer.php:472
+msgid "Keep one H1 and demote the rest to H2 or H3."
+msgstr ""
+
+#: src/SEO/Analyzer.php:492
+msgid "Keyphrase in subheading"
+msgstr ""
+
+#: src/SEO/Analyzer.php:494
+msgid "A subheading contains the focus keyphrase."
+msgstr ""
+
+#: src/SEO/Analyzer.php:495
+msgid "No subheading contains the focus keyphrase."
+msgstr ""
+
+#: src/SEO/Analyzer.php:496
+msgid "Subheadings summarise sections, so a relevant one reinforces what the page covers."
+msgstr ""
+
+#: src/SEO/Analyzer.php:497
+msgid "Use the keyphrase or a close variation in at least one subheading, where it fits naturally."
+msgstr ""
+
+#: src/SEO/Analyzer.php:520
+msgid "Images"
+msgstr ""
+
+#: src/SEO/Analyzer.php:521
+msgid "The content contains no images."
+msgstr ""
+
+#: src/SEO/Analyzer.php:522
+msgid "Diagrams, screenshots and photographs explain things text struggles with, and they give the page a chance to appear in image search."
+msgstr ""
+
+#: src/SEO/Analyzer.php:523
+msgid "Add an image where it genuinely helps explain the content."
+msgstr ""
+
+#: src/SEO/Analyzer.php:540
+#: src/SEO/Weights.php:134
+msgid "Image alt text"
+msgstr ""
+
+#. translators: %d: number of images.
+#: src/SEO/Analyzer.php:543
+#, php-format
+msgid "All %d image(s) have alt text."
+msgstr ""
+
+#. translators: 1: images missing alt text, 2: total images.
+#: src/SEO/Analyzer.php:545
+#, php-format
+msgid "%1$d of %2$d image(s) are missing alt text."
+msgstr ""
+
+#: src/SEO/Analyzer.php:546
+msgid "Alt text is what screen reader users hear in place of the image, and it is how search engines understand it. Missing alt text is an accessibility failure first and an SEO one second."
+msgstr ""
+
+#: src/SEO/Analyzer.php:547
+msgid "Describe what the image shows. Leave alt empty only for purely decorative images."
+msgstr ""
+
+#: src/SEO/Analyzer.php:587
+#: src/SEO/Weights.php:139
+msgid "Internal links"
+msgstr ""
+
+#. translators: %d: number of internal links.
+#: src/SEO/Analyzer.php:590
+#, php-format
+msgid "The content links to %d other page(s) on this site."
+msgstr ""
+
+#: src/SEO/Analyzer.php:591
+msgid "The content does not link to any other page on this site."
+msgstr ""
+
+#: src/SEO/Analyzer.php:592
+msgid "Internal links let readers follow a subject further and are how search engines discover and relate your pages. A page with none is effectively a dead end."
+msgstr ""
+
+#: src/SEO/Analyzer.php:593
+msgid "Link to related pages where the reference genuinely helps the reader."
+msgstr ""
+
+#: src/SEO/Analyzer.php:598
+#: src/SEO/Weights.php:144
+msgid "External references"
+msgstr ""
+
+#. translators: %d: number of external links.
+#: src/SEO/Analyzer.php:601
+#, php-format
+msgid "The content cites %d external source(s)."
+msgstr ""
+
+#: src/SEO/Analyzer.php:602
+msgid "The content cites no external sources."
+msgstr ""
+
+#: src/SEO/Analyzer.php:603
+msgid "Citing sources lets a reader verify claims, which is a large part of what makes content trustworthy."
+msgstr ""
+
+#: src/SEO/Analyzer.php:604
+msgid "Link to the sources behind any figures, standards or quotations you use."
+msgstr ""
+
+#: src/SEO/Analyzer.php:631
+msgid "The URL slug contains the focus keyphrase."
+msgstr ""
+
+#: src/SEO/Analyzer.php:634
+msgid "The URL slug contains only part of the focus keyphrase."
+msgstr ""
+
+#: src/SEO/Analyzer.php:637
+msgid "The URL slug does not contain the focus keyphrase."
+msgstr ""
+
+#: src/SEO/Analyzer.php:644
+msgid "Keyphrase in URL"
+msgstr ""
+
+#: src/SEO/Analyzer.php:646
+msgid "A readable URL tells people what a link leads to before they follow it."
+msgstr ""
+
+#: src/SEO/Analyzer.php:647
+msgid "Use a short slug built from the keyphrase. Avoid changing the slug of a published page unless you also add a redirect."
+msgstr ""
+
+#. translators: %s: search query.
+#: src/SEO/Breadcrumbs.php:99
+#, php-format
+msgid "Search results for “%s”"
+msgstr ""
+
+#: src/SEO/Breadcrumbs.php:103
+msgid "Page not found"
+msgstr ""
+
+#: src/SEO/Breadcrumbs.php:302
+msgid "Home"
+msgstr ""
+
+#: src/SEO/Breadcrumbs.php:322
+msgid "Breadcrumb"
+msgstr ""
+
+#: src/SEO/Breadcrumbs.php:404
+msgid "The breadcrumb trail appears here on the front end."
+msgstr ""
+
+#: src/SEO/Breadcrumbs.php:424
+msgid "Breadcrumb trail for this content."
+msgstr ""
+
+#. translators: %d: page number.
+#: src/SEO/Frontend.php:118
+#, php-format
+msgid "Page %d"
+msgstr ""
+
+#: src/SEO/Frontend.php:162
+msgid "Archive"
+msgstr ""
+
+#: src/SEO/Meta.php:50
+#: templates/admin/ai.php:132
+msgid "Not set"
+msgstr ""
+
+#: src/SEO/Meta.php:51
+msgid "Informational — the reader wants to understand something"
+msgstr ""
+
+#: src/SEO/Meta.php:52
+msgid "Navigational — the reader wants a specific page or brand"
+msgstr ""
+
+#: src/SEO/Meta.php:53
+msgid "Commercial — the reader is comparing options"
+msgstr ""
+
+#: src/SEO/Meta.php:54
+msgid "Transactional — the reader is ready to act"
+msgstr ""
+
+#: src/SEO/Meta.php:55
+msgid "Local — the reader wants something nearby"
+msgstr ""
+
+#: src/SEO/Meta.php:56
+msgid "Mixed"
+msgstr ""
+
+#: src/SEO/Meta.php:118
+msgid "Automatic"
+msgstr ""
+
+#: src/SEO/Meta.php:119
+msgid "Article"
+msgstr ""
+
+#: src/SEO/Meta.php:120
+msgid "Blog posting"
+msgstr ""
+
+#: src/SEO/Meta.php:121
+msgid "News article"
+msgstr ""
+
+#: src/SEO/Meta.php:122
+msgid "Web page"
+msgstr ""
+
+#: src/SEO/Meta.php:123
+msgid "About page"
+msgstr ""
+
+#: src/SEO/Meta.php:124
+msgid "Contact page"
+msgstr ""
+
+#: src/SEO/Meta.php:125
+msgid "No page-level schema"
+msgstr ""
+
+#: src/SEO/Templates.php:29
+msgid "Title of the post, page or product"
+msgstr ""
+
+#: src/SEO/Templates.php:30
+msgid "Site name"
+msgstr ""
+
+#: src/SEO/Templates.php:31
+msgid "Site tagline"
+msgstr ""
+
+#: src/SEO/Templates.php:33
+msgid "Post excerpt"
+msgstr ""
+
+#: src/SEO/Templates.php:34
+msgid "Taxonomy term name"
+msgstr ""
+
+#: src/SEO/Templates.php:35
+msgid "Archive label, e.g. the post type name"
+msgstr ""
+
+#: src/SEO/Templates.php:36
+msgid "Author display name"
+msgstr ""
+
+#: src/SEO/Templates.php:37
+msgid "Search query"
+msgstr ""
+
+#: src/SEO/Templates.php:38
+msgid "Current page number in a paginated series"
+msgstr ""
+
+#: src/SEO/Templates.php:39
+msgid "Post or archive date"
+msgstr ""
+
+#: src/SEO/Templates.php:40
+msgid "Current year"
+msgstr ""
+
+#: src/SEO/Weights.php:74
+msgid "Focus keyphrase set"
+msgstr ""
+
+#: src/SEO/Weights.php:89
+msgid "Meta description length"
+msgstr ""
+
+#: src/SEO/Weights.php:114
+msgid "Subheadings present"
+msgstr ""
+
+#: src/SEO/Weights.php:124
+msgid "Keyphrase in a subheading"
+msgstr ""
+
+#: src/SEO/Weights.php:129
+msgid "Images present"
+msgstr ""
+
+#: src/SEO/Weights.php:149
+msgid "Keyphrase in the URL"
+msgstr ""
+
+#: src/SEO/Weights.php:185
+msgid "Keyphrase"
+msgstr ""
+
+#: src/SEO/Weights.php:186
+msgid "Title and description"
+msgstr ""
+
+#: src/SEO/Weights.php:187
+#: templates/admin/bulk-editor.php:78
+#: templates/admin/links.php:89
+msgid "Content"
+msgstr ""
+
+#: src/SEO/Weights.php:188
+msgid "Structure"
+msgstr ""
+
+#: src/SEO/Weights.php:189
+msgid "Media"
+msgstr ""
+
+#: src/SEO/Weights.php:190
+msgid "Links"
+msgstr ""
+
+#: src/SEO/Weights.php:249
+msgid "0 — not counted"
+msgstr ""
+
+#. translators: %s: the default weight.
+#: src/SEO/Weights.php:268
+#, php-format
+msgid "Default %s. Zero keeps the advice in the editor but leaves it out of the score."
+msgstr ""
+
+#: src/SEO/Weights.php:278
+msgid "Score model"
+msgstr ""
+
+#: src/SEO/Weights.php:279
+msgid "What each check is worth in the editor’s optimization score. This score is this plugin’s own: it is not Google’s ranking algorithm, nothing in it is derived from one, and no weight here is a claim about ranking. It adds up how completely a page follows well-established on-page practices, which is why you can disagree with it — set a weight to zero and that check still gives its advice in the editor without moving the number."
+msgstr ""
+
+#: src/Transfer/Csv.php:157
+msgid "That file could not be opened."
+msgstr ""
+
+#: src/Transfer/Csv.php:168
+msgid "That file is empty."
+msgstr ""
+
+#: src/Transfer/Csv.php:184
+msgid "That file has no post_id column, so there is no way to tell which post each row belongs to. Export a file first and edit that."
+msgstr ""
+
+#. translators: 1: CSV line number, 2: post id.
+#: src/Transfer/Csv.php:251
+#, php-format
+msgid "Line %1$d: no post with id %2$d. Row skipped."
+msgstr ""
+
+#. translators: 1: CSV line number, 2: post id.
+#: src/Transfer/Csv.php:261
+#, php-format
+msgid "Line %1$d: you cannot edit post %2$d. Row skipped."
+msgstr ""
+
+#. translators: 1: CSV line number, 2: column name, 3: offending value.
+#: src/Transfer/Csv.php:286
+#, php-format
+msgid "Line %1$d: \"%2$s\" would not accept \"%3$s\". Field left alone."
+msgstr ""
+
+#: templates/admin/ai.php:30
+msgid "API keys saved."
+msgstr ""
+
+#. translators: %d: number of entries removed.
+#: templates/admin/ai.php:39
+#, php-format
+msgid "%d usage entry removed."
+msgid_plural "%d usage entries removed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/ai.php:49
+msgid "This server cannot encrypt stored credentials (the sodium extension or AUTH_SALT is unavailable). Keys would be stored in plain text — fix the server configuration before entering one."
+msgstr ""
+
+#: templates/admin/ai.php:54
+msgid "AI features are off until you choose a provider and save a key. Nothing is ever sent automatically: no request is made on save, on page load, or in the background. Content leaves this site only when someone presses a generate button in the editor."
+msgstr ""
+
+#: templates/admin/ai.php:59
+#: templates/admin/dashboard.php:24
+#: templates/admin/links.php:92
+msgid "Status"
+msgstr ""
+
+#: templates/admin/ai.php:62
+msgid "None selected"
+msgstr ""
+
+#: templates/admin/ai.php:67
+msgid "Ready"
+msgstr ""
+
+#: templates/admin/ai.php:70
+msgid "Yes"
+msgstr ""
+
+#: templates/admin/ai.php:70
+msgid "No"
+msgstr ""
+
+#: templates/admin/ai.php:76
+msgid "Choose provider and model"
+msgstr ""
+
+#: templates/admin/ai.php:82
+msgid "Usage"
+msgstr ""
+
+#: templates/admin/ai.php:84
+msgid "Requests"
+msgstr ""
+
+#: templates/admin/ai.php:87
+msgid "Successful"
+msgstr ""
+
+#: templates/admin/ai.php:90
+msgid "Failed"
+msgstr ""
+
+#: templates/admin/ai.php:93
+msgid "Input tokens"
+msgstr ""
+
+#: templates/admin/ai.php:96
+msgid "Output tokens"
+msgstr ""
+
+#: templates/admin/ai.php:100
+msgid "No cost estimate is shown. Provider pricing changes and varies by account, so an invented figure would be misleading — price these token counts against your own bill."
+msgstr ""
+
+#: templates/admin/ai.php:105
+msgid "API keys"
+msgstr ""
+
+#: templates/admin/ai.php:107
+msgid "Keys are encrypted before storage and are never rendered back into this page, sent to the browser, or written to the log. A saved key shows only its last four characters."
+msgstr ""
+
+#: templates/admin/ai.php:137
+msgid "A key is saved. Leave empty to keep it."
+msgstr ""
+
+#: templates/admin/ai.php:140
+msgid "Remove the saved key"
+msgstr ""
+
+#: templates/admin/ai.php:144
+msgid "Get a key"
+msgstr ""
+
+#: templates/admin/ai.php:153
+msgid "Save keys"
+msgstr ""
+
+#: templates/admin/ai.php:156
+msgid "Recent requests"
+msgstr ""
+
+#: templates/admin/ai.php:159
+msgid "No AI requests have been made."
+msgstr ""
+
+#: templates/admin/ai.php:164
+msgid "When"
+msgstr ""
+
+#: templates/admin/ai.php:165
+msgid "Action"
+msgstr ""
+
+#: templates/admin/ai.php:168
+msgid "Tokens in / out"
+msgstr ""
+
+#: templates/admin/ai.php:169
+msgid "Outcome"
+msgstr ""
+
+#: templates/admin/ai.php:182
+msgid "OK"
+msgstr ""
+
+#: templates/admin/ai.php:195
+msgid "Clear the usage log"
+msgstr ""
+
+#: templates/admin/audit.php:24
+msgid "Audit rebuilt."
+msgstr ""
+
+#: templates/admin/audit.php:28
+msgid "Every figure here is counted from your own content, not estimated and not generated by a model. Nothing is sent anywhere, no URLs are requested, and running it costs nothing."
+msgstr ""
+
+#. translators: %s: date and time.
+#: templates/admin/audit.php:47
+#, php-format
+msgid "Generated %s. The report is cached for an hour."
+msgstr ""
+
+#: templates/admin/audit.php:56
+msgid "Run the audit again"
+msgstr ""
+
+#: templates/admin/audit.php:60
+msgid "Nothing to report."
+msgstr ""
+
+#: templates/admin/audit.php:72
+msgid "Why it matters"
+msgstr ""
+
+#: templates/admin/audit.php:73
+msgid "What to do"
+msgstr ""
+
+#: templates/admin/audit.php:85
+msgid "Evidence"
+msgstr ""
+
+#. translators: 1: shown, 2: total.
+#: templates/admin/audit.php:135
+#, php-format
+msgid "Showing %1$d of %2$d."
+msgstr ""
+
+#: templates/admin/audit.php:146
+msgid "Go and fix this"
+msgstr ""
+
+#: templates/admin/brief.php:20
+msgid "Topic"
+msgstr ""
+
+#: templates/admin/brief.php:20
+msgid "What the page is about. Required."
+msgstr ""
+
+#: templates/admin/brief.php:21
+msgid "Primary keyword"
+msgstr ""
+
+#: templates/admin/brief.php:22
+msgid "Target audience"
+msgstr ""
+
+#: templates/admin/brief.php:22
+msgid "Who it is for, and what they already know."
+msgstr ""
+
+#: templates/admin/brief.php:23
+msgid "Business or website"
+msgstr ""
+
+#: templates/admin/brief.php:24
+#: templates/admin/location.php:21
+msgid "Country"
+msgstr ""
+
+#: templates/admin/brief.php:24
+msgid "Shapes examples, units and regulations."
+msgstr ""
+
+#: templates/admin/brief.php:25
+msgid "Language"
+msgstr ""
+
+#: templates/admin/brief.php:26
+msgid "Content type"
+msgstr ""
+
+#: templates/admin/brief.php:26
+msgid "Guide, comparison, landing page, and so on."
+msgstr ""
+
+#: templates/admin/brief.php:40
+msgid "AI is not configured, so briefs cannot be generated."
+msgstr ""
+
+#: templates/admin/brief.php:42
+#: templates/admin/meta-box.php:330
+msgid "Set up AI"
+msgstr ""
+
+#: templates/admin/brief.php:49
+msgid "Plan a page before writing it. The brief is generated on demand and not saved — copy what you need. Nothing is published, and no draft is created."
+msgstr ""
+
+#: templates/admin/brief.php:72
+#: templates/admin/brief.php:111
+#: templates/admin/meta-box.php:225
+#: assets/js/ai-report.js:176
+msgid "Search intent"
+msgstr ""
+
+#: templates/admin/brief.php:77
+msgid "Let the model decide"
+msgstr ""
+
+#: templates/admin/brief.php:85
+msgid "Generate brief"
+msgstr ""
+
+#: templates/admin/brief.php:90
+msgid "Brief"
+msgstr ""
+
+#: templates/admin/brief.php:93
+msgid "A plan, not a finished page, and not a set of verified facts. Check anything factual before you publish it."
+msgstr ""
+
+#: templates/admin/brief.php:101
+msgid "Suggested title"
+msgstr ""
+
+#: templates/admin/brief.php:106
+msgid "Suggested H1"
+msgstr ""
+
+#: templates/admin/brief.php:116
+msgid "Audience"
+msgstr ""
+
+#: templates/admin/brief.php:121
+#: templates/admin/meta-box.php:292
+msgid "Schema type"
+msgstr ""
+
+#: templates/admin/brief.php:126
+msgid "Depth"
+msgstr ""
+
+#: templates/admin/brief.php:137
+msgid "Outline"
+msgstr ""
+
+#: templates/admin/brief.php:139
+msgid "No outline was returned."
+msgstr ""
+
+#: templates/admin/brief.php:164
+msgid "Questions to answer"
+msgstr ""
+
+#: templates/admin/brief.php:165
+msgid "Important entities"
+msgstr ""
+
+#: templates/admin/brief.php:166
+msgid "Related keywords"
+msgstr ""
+
+#: templates/admin/brief.php:167
+msgid "FAQ topics"
+msgstr ""
+
+#: templates/admin/brief.php:168
+msgid "Internal linking ideas"
+msgstr ""
+
+#: templates/admin/brief.php:169
+msgid "Kinds of source to cite"
+msgstr ""
+
+#: templates/admin/brief.php:185
+msgid "Kinds of source, not specific URLs — the model cannot verify that a particular page exists or says what it claims. Find the actual source yourself."
+msgstr ""
+
+#: templates/admin/brief.php:194
+msgid "Notes"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:25
+msgid "Bulk SEO Editor"
+msgstr ""
+
+#. translators: %d: rows per page.
+#: templates/admin/bulk-editor.php:37
+#, php-format
+msgid "Edit SEO fields across many items without opening each one. %d items are loaded at a time, so this stays usable on a large site."
+msgstr ""
+
+#: templates/admin/bulk-editor.php:46
+msgid "Post type"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:56
+#: templates/admin/bulk-editor.php:66
+msgid "Filter"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:58
+msgid "All items"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:59
+msgid "Missing SEO title"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:60
+msgid "Missing meta description"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:63
+#: templates/admin/meta-box.php:22
+msgid "Search"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:64
+msgid "Search titles"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:70
+msgid "Nothing matches those filters."
+msgstr ""
+
+#: templates/admin/bulk-editor.php:81
+msgid "Canonical"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:82
+#: templates/admin/bulk-editor.php:141
+msgid "Noindex"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:106
+msgid "You cannot edit this item."
+msgstr ""
+
+#: templates/admin/bulk-editor.php:128
+#: templates/admin/meta-box.php:209
+msgid "Canonical URL"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:150
+msgid "Save this page"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:160
+msgid "&laquo; Previous"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:161
+msgid "Next &raquo;"
+msgstr ""
+
+#: templates/admin/bulk-editor.php:167
+msgid "Bulk editor pagination"
+msgstr ""
+
+#: templates/admin/dashboard.php:19
+msgid "Foundation installed. SEO analysis, schema, sitemaps and the AI assistant arrive in later releases."
+msgstr ""
+
+#: templates/admin/dashboard.php:26
+msgid "Plugin version"
+msgstr ""
+
+#: templates/admin/dashboard.php:29
+msgid "Schema version"
+msgstr ""
+
+#: templates/admin/dashboard.php:32
+msgid "WordPress"
+msgstr ""
+
+#: templates/admin/dashboard.php:35
+msgid "PHP"
+msgstr ""
+
+#: templates/admin/dashboard.php:41
+msgid "Modules"
+msgstr ""
+
+#: templates/admin/dashboard.php:46
+msgid "On"
+msgstr ""
+
+#: templates/admin/dashboard.php:46
+msgid "Off"
+msgstr ""
+
+#: templates/admin/dashboard.php:54
+msgid "Configure settings"
+msgstr ""
+
+#: templates/admin/links.php:27
+msgid "Rebuild queued. It runs in the background, a batch at a time, so a large site does not stall."
+msgstr ""
+
+#: templates/admin/links.php:32
+msgid "Internal links let readers follow a subject further and are how search engines discover and relate your pages. This graph is rebuilt whenever a post is saved."
+msgstr ""
+
+#: templates/admin/links.php:37
+msgid "Graph"
+msgstr ""
+
+#: templates/admin/links.php:39
+msgid "Links recorded"
+msgstr ""
+
+#. translators: 1: posts scanned, 2: total posts.
+#: templates/admin/links.php:48
+#, php-format
+msgid "Rebuilding: %1$s of %2$s posts scanned."
+msgstr ""
+
+#: templates/admin/links.php:59
+msgid "Rebuild the link graph"
+msgstr ""
+
+#: templates/admin/links.php:64
+msgid "Most linked-to"
+msgstr ""
+
+#: templates/admin/links.php:66
+msgid "Nothing recorded yet. Rebuild the graph to populate this."
+msgstr ""
+
+#: templates/admin/links.php:78
+msgid "Under-linked content"
+msgstr ""
+
+#: templates/admin/links.php:80
+msgid "Pages that little else on the site points to. Content reachable from a navigation menu, along with the front page and posts page, is excluded — a page in the main menu is discoverable regardless of how often prose links to it."
+msgstr ""
+
+#: templates/admin/links.php:84
+msgid "Nothing falls below the configured thresholds."
+msgstr ""
+
+#: templates/admin/links.php:91
+msgid "Incoming links"
+msgstr ""
+
+#: templates/admin/links.php:110
+#: templates/admin/schema.php:21
+msgid "Warning"
+msgstr ""
+
+#: templates/admin/links.php:119
+msgid "Unresolved internal links"
+msgstr ""
+
+#: templates/admin/links.php:121
+msgid "Links pointing at this site that do not resolve to a post. These are not necessarily broken — a category archive, a date archive or a page served by something other than a post all appear here legitimately. Confirming a link is broken needs an actual request, which this screen does not make."
+msgstr ""
+
+#: templates/admin/links.php:125
+msgid "Every internal link resolves to a post."
+msgstr ""
+
+#: templates/admin/links.php:131
+msgid "Anchor"
+msgstr ""
+
+#: templates/admin/links.php:132
+msgid "Linked from"
+msgstr ""
+
+#: templates/admin/location.php:17
+msgid "Street address"
+msgstr ""
+
+#: templates/admin/location.php:18
+msgid "Town or city"
+msgstr ""
+
+#: templates/admin/location.php:19
+msgid "Region, county or state"
+msgstr ""
+
+#: templates/admin/location.php:20
+msgid "Postal code"
+msgstr ""
+
+#: templates/admin/location.php:22
+msgid "Telephone"
+msgstr ""
+
+#: templates/admin/location.php:23
+msgid "Email"
+msgstr ""
+
+#: templates/admin/location.php:24
+msgid "Price range"
+msgstr ""
+
+#: templates/admin/location.php:25
+msgid "Latitude"
+msgstr ""
+
+#: templates/admin/location.php:26
+msgid "Longitude"
+msgstr ""
+
+#: templates/admin/location.php:27
+msgid "Image URL"
+msgstr ""
+
+#: templates/admin/location.php:33
+msgid "Only fields you fill in are published as structured data. Leave anything that does not apply empty rather than guessing."
+msgstr ""
+
+#: templates/admin/location.php:37
+msgid "Business type"
+msgstr ""
+
+#: templates/admin/location.php:45
+msgid "Choose the most specific type that is genuinely accurate."
+msgstr ""
+
+#: templates/admin/location.php:69
+#: templates/business.php:61
+msgid "Opening hours"
+msgstr ""
+
+#: templates/admin/location.php:73
+msgid "Day"
+msgstr ""
+
+#: templates/admin/location.php:74
+msgid "Opens"
+msgstr ""
+
+#: templates/admin/location.php:75
+msgid "Closes"
+msgstr ""
+
+#: templates/admin/location.php:76
+msgid "Closed all day"
+msgstr ""
+
+#: templates/admin/location.php:85
+msgid "opens"
+msgstr ""
+
+#: templates/admin/location.php:93
+msgid "closes"
+msgstr ""
+
+#: templates/admin/location.php:106
+msgid "closed all day"
+msgstr ""
+
+#: templates/admin/location.php:115
+msgid "A day left blank is simply not published — that is different from stating the business is closed."
+msgstr ""
+
+#: templates/admin/meta-box.php:33
+msgid "Facebook / Open Graph title"
+msgstr ""
+
+#: templates/admin/meta-box.php:35
+msgid "Leave empty to use the SEO title."
+msgstr ""
+
+#: templates/admin/meta-box.php:39
+msgid "Open Graph description"
+msgstr ""
+
+#: templates/admin/meta-box.php:41
+msgid "Leave empty to use the meta description."
+msgstr ""
+
+#: templates/admin/meta-box.php:45
+msgid "Open Graph image URL"
+msgstr ""
+
+#: templates/admin/meta-box.php:47
+msgid "Leave empty to use the featured image, then the site default."
+msgstr ""
+
+#: templates/admin/meta-box.php:51
+msgid "X/Twitter title"
+msgstr ""
+
+#: templates/admin/meta-box.php:53
+msgid "Leave empty to use the Open Graph title."
+msgstr ""
+
+#: templates/admin/meta-box.php:57
+msgid "X/Twitter description"
+msgstr ""
+
+#: templates/admin/meta-box.php:59
+msgid "Leave empty to use the Open Graph description."
+msgstr ""
+
+#: templates/admin/meta-box.php:63
+msgid "X/Twitter image URL"
+msgstr ""
+
+#: templates/admin/meta-box.php:65
+msgid "Leave empty to use the Open Graph image."
+msgstr ""
+
+#: templates/admin/meta-box.php:71
+msgid "SEO settings for this content"
+msgstr ""
+
+#: templates/admin/meta-box.php:102
+msgid "The phrase someone would search for to find this page. Used by the checks below."
+msgstr ""
+
+#: templates/admin/meta-box.php:117
+msgid "Leave empty to use the title template from the plugin settings. Supports %%title%%, %%sitename%% and %%sep%%."
+msgstr ""
+
+#: templates/admin/meta-box.php:132
+msgid "Summarise the page and give a reason to click."
+msgstr ""
+
+#: templates/admin/meta-box.php:138
+msgid "Search result preview"
+msgstr ""
+
+#: templates/admin/meta-box.php:139
+msgid "An approximation. Search engines may show different text."
+msgstr ""
+
+#: templates/admin/meta-box.php:150
+msgid "Optimization score"
+msgstr ""
+
+#: templates/admin/meta-box.php:154
+msgid "This plugin's own score for how completely the page follows established on-page practices. It is not a prediction of search rankings."
+msgstr ""
+
+#: templates/admin/meta-box.php:170
+msgid "Every field here is optional. Anything left empty falls back to the SEO title, meta description and featured image, so a page shares sensibly without filling this in."
+msgstr ""
+
+#: templates/admin/meta-box.php:220
+msgid "Point search engines at a different URL as the authoritative version. Leave empty unless this page duplicates another."
+msgstr ""
+
+#: templates/admin/meta-box.php:234
+msgid "What the reader is trying to do. The AI review suggests one, but this field is yours and always wins."
+msgstr ""
+
+#: templates/admin/meta-box.php:239
+msgid "Breadcrumb title"
+msgstr ""
+
+#: templates/admin/meta-box.php:249
+msgid "A shorter label for this page in breadcrumb trails. Leave empty to use the title."
+msgstr ""
+
+#: templates/admin/meta-box.php:254
+msgid "Search engine directives"
+msgstr ""
+
+#: templates/admin/meta-box.php:264
+msgid "Ask search engines not to index this content (noindex)"
+msgstr ""
+
+#: templates/admin/meta-box.php:275
+msgid "Ask search engines not to follow links on this page (nofollow)"
+msgstr ""
+
+#: templates/admin/meta-box.php:279
+msgid "These are requests, not guarantees, and they do not remove a page already indexed."
+msgstr ""
+
+#: templates/admin/meta-box.php:302
+msgid "Automatic picks a type from the post type. Choose another only when it genuinely describes this page — structured data that disagrees with the visible content can cause manual action."
+msgstr ""
+
+#. translators: %s: link to the Schema screen.
+#: templates/admin/meta-box.php:310
+#, php-format
+msgid "Author and organization entities come from the user profile and %s. Validate the finished graph there."
+msgstr ""
+
+#: templates/admin/meta-box.php:311
+msgid "SEO → Schema"
+msgstr ""
+
+#: templates/admin/meta-box.php:326
+msgid "AI features are off. Choose a provider and save an API key to switch them on."
+msgstr ""
+
+#: templates/admin/meta-box.php:340
+msgid "Suggest SEO titles"
+msgstr ""
+
+#: templates/admin/meta-box.php:343
+msgid "Suggest meta descriptions"
+msgstr ""
+
+#: templates/admin/meta-box.php:346
+msgid "Suggest keywords"
+msgstr ""
+
+#: templates/admin/meta-box.php:349
+msgid "Review this content"
+msgstr ""
+
+#: templates/admin/meta-box.php:352
+msgid "Suggest internal links"
+msgstr ""
+
+#: templates/admin/meta-box.php:355
+msgid "Draft an FAQ"
+msgstr ""
+
+#: templates/admin/meta-box.php:365
+msgid "Suggestions are drafts, not facts. Read each one against the page before applying it — a model can produce a confident claim the page does not support. Nothing is saved until you apply a suggestion and save the post."
+msgstr ""
+
+#: templates/admin/meta-box.php:378
+msgid "What Google reports this page was actually shown for. Nothing is fetched until you ask, and nothing here is estimated by this plugin."
+msgstr ""
+
+#: templates/admin/meta-box.php:383
+msgid "Load search performance"
+msgstr ""
+
+#: templates/admin/not-found.php:28
+msgid "404 logging is turned off, so this list is not being updated."
+msgstr ""
+
+#: templates/admin/not-found.php:30
+msgid "Turn it on in Settings"
+msgstr ""
+
+#: templates/admin/not-found.php:37
+msgid "URLs that visitors and crawlers asked for and did not find. Not every 404 is a problem — a mistyped URL or an old scan needs no action. Look for entries with a referrer or a high hit count, which usually mean a real broken link."
+msgstr ""
+
+#. translators: %d: number of days.
+#: templates/admin/not-found.php:45
+#, php-format
+msgid "Entries are removed automatically after %d day."
+msgid_plural "Entries are removed automatically after %d days."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/not-found.php:55
+msgid "Search URLs"
+msgstr ""
+
+#: templates/admin/not-found.php:60
+msgid "Delete every logged 404? This cannot be undone."
+msgstr ""
+
+#: templates/admin/not-found.php:62
+msgid "Clear the whole log"
+msgstr ""
+
+#: templates/admin/redirects.php:36
+msgid "Send visitors and search engines from an old URL to its replacement. Loops and long chains are rejected when you save, rather than discovered by a visitor."
+msgstr ""
+
+#: templates/admin/redirects.php:40
+msgid "Edit redirect"
+msgstr ""
+
+#: templates/admin/redirects.php:40
+#: templates/admin/redirects.php:102
+msgid "Add redirect"
+msgstr ""
+
+#: templates/admin/redirects.php:48
+msgid "Redirect from"
+msgstr ""
+
+#: templates/admin/redirects.php:54
+msgid "A path on this site. Query strings are ignored when matching and carried over to the destination."
+msgstr ""
+
+#: templates/admin/redirects.php:59
+msgid "Redirect to"
+msgstr ""
+
+#: templates/admin/redirects.php:65
+msgid "A path on this site, or a full URL elsewhere."
+msgstr ""
+
+#: templates/admin/redirects.php:80
+msgid "Use 301 when the move is permanent. A 302 tells search engines to keep the old URL indexed."
+msgstr ""
+
+#: templates/admin/redirects.php:85
+msgid "Options"
+msgstr ""
+
+#: templates/admin/redirects.php:89
+msgid "Treat the source as a regular expression"
+msgstr ""
+
+#: templates/admin/redirects.php:92
+msgid "Capture groups can be used in the destination as $1, $2 and so on. Patterns are validated before saving."
+msgstr ""
+
+#: templates/admin/redirects.php:96
+msgid "Enabled"
+msgstr ""
+
+#: templates/admin/redirects.php:102
+msgid "Update redirect"
+msgstr ""
+
+#: templates/admin/redirects.php:106
+msgid "Cancel"
+msgstr ""
+
+#: templates/admin/redirects.php:115
+msgid "Search redirects"
+msgstr ""
+
+#: templates/admin/schema.php:20
+msgid "Error"
+msgstr ""
+
+#: templates/admin/schema.php:22
+msgid "Notice"
+msgstr ""
+
+#: templates/admin/schema.php:30
+msgid "The plugin builds one connected graph per page rather than separate JSON-LD blocks, so entities are stated once and referenced everywhere else. A graph that fails validation is withheld rather than published."
+msgstr ""
+
+#: templates/admin/schema.php:35
+#: templates/admin/schema.php:44
+msgid "Validate"
+msgstr ""
+
+#: templates/admin/schema.php:37
+msgid "Site front page"
+msgstr ""
+
+#: templates/admin/schema.php:49
+msgid "Validation"
+msgstr ""
+
+#: templates/admin/schema.php:53
+msgid "Valid"
+msgstr ""
+
+#. translators: %d: number of nodes.
+#: templates/admin/schema.php:57
+#, php-format
+msgid "%d nodes, all identifiers unique and all references resolved."
+msgstr ""
+
+#: templates/admin/schema.php:78
+msgid "This graph contains errors and will not be output on the front end."
+msgstr ""
+
+#: templates/admin/schema.php:84
+msgid "Detected schema sources"
+msgstr ""
+
+#: templates/admin/schema.php:87
+msgid "No other structured-data plugin was detected."
+msgstr ""
+
+#: templates/admin/schema.php:98
+msgid "Two plugins describing the same page can produce contradictory structured data. Nothing is disabled automatically — turn off schema output here, or in the other plugin, whichever you prefer."
+msgstr ""
+
+#: templates/admin/schema.php:102
+msgid "Schema settings"
+msgstr ""
+
+#: templates/admin/schema.php:109
+msgid "Generated graph"
+msgstr ""
+
+#: templates/admin/search-console.php:41
+msgid "Saved."
+msgstr ""
+
+#: templates/admin/search-console.php:45
+msgid "The service account key has been removed from this site."
+msgstr ""
+
+#: templates/admin/search-console.php:50
+msgid "Connect Search Console"
+msgstr ""
+
+#: templates/admin/search-console.php:52
+msgid "This screen shows what Google reports about your site in search: the queries it appeared for, the pages that were shown, and how often people clicked. None of it is estimated by this plugin — without a connection there is nothing to show, and nothing is shown."
+msgstr ""
+
+#: templates/admin/search-console.php:55
+msgid "What you need to do"
+msgstr ""
+
+#: templates/admin/search-console.php:57
+msgid "In the Google Cloud console, create a project and enable the Google Search Console API for it."
+msgstr ""
+
+#: templates/admin/search-console.php:58
+msgid "Create a service account in that project and download a JSON key for it."
+msgstr ""
+
+#: templates/admin/search-console.php:59
+msgid "Paste the whole key file below."
+msgstr ""
+
+#: templates/admin/search-console.php:60
+msgid "In Search Console, add the service account’s email address as a user of your property. This plugin will show you the address once the key is saved."
+msgstr ""
+
+#: templates/admin/search-console.php:64
+msgid "A service account is used rather than signing in with Google, which means one extra step in Search Console but no redirect to register and no long-lived login token stored on this site. The key file is encrypted at rest, which protects it if the database leaks — not if the server itself is compromised, since the encryption key lives there too."
+msgstr ""
+
+#: templates/admin/search-console.php:72
+msgid "Service account JSON key"
+msgstr ""
+
+#: templates/admin/search-console.php:76
+msgid "Save key"
+msgstr ""
+
+#: templates/admin/search-console.php:81
+msgid "Connection"
+msgstr ""
+
+#: templates/admin/search-console.php:83
+msgid "Reading as:"
+msgstr ""
+
+#: templates/admin/search-console.php:92
+msgid "The key works, but this service account cannot read any property yet. In Search Console, open Settings → Users and permissions and add the address above."
+msgstr ""
+
+#: templates/admin/search-console.php:101
+msgid "Property"
+msgstr ""
+
+#: templates/admin/search-console.php:103
+msgid "— none —"
+msgstr ""
+
+#: templates/admin/search-console.php:112
+msgid "Use this property"
+msgstr ""
+
+#: templates/admin/search-console.php:119
+msgid "Remove the key"
+msgstr ""
+
+#: templates/admin/search-console.php:124
+msgid "Analytics"
+msgstr ""
+
+#: templates/admin/search-console.php:126
+msgid "Search Console says how people found the site. Analytics says what they did next. The same service account covers both — add its address as a Viewer on the Analytics property and enable the Analytics Data API for its project."
+msgstr ""
+
+#: templates/admin/search-console.php:134
+msgid "Property id"
+msgstr ""
+
+#: templates/admin/search-console.php:139
+msgid "The number under Admin → Property details, not the measurement id beginning with G-. Leave empty to switch Analytics off."
+msgstr ""
+
+#: templates/admin/search-console.php:142
+msgid "Save property"
+msgstr ""
+
+#: templates/admin/search-console.php:148
+msgid "What visitors from search did next"
+msgstr ""
+
+#: templates/admin/search-console.php:153
+msgid "Analytics reports no organic search sessions for this period."
+msgstr ""
+
+#: templates/admin/search-console.php:156
+msgid "Organic sessions"
+msgstr ""
+
+#: templates/admin/search-console.php:158
+msgid "Engaged sessions"
+msgstr ""
+
+#: templates/admin/search-console.php:160
+#: templates/admin/search-console.php:171
+msgid "Engagement rate"
+msgstr ""
+
+#: templates/admin/search-console.php:168
+msgid "Landing page"
+msgstr ""
+
+#: templates/admin/search-console.php:169
+msgid "Sessions"
+msgstr ""
+
+#: templates/admin/search-console.php:170
+msgid "Engaged"
+msgstr ""
+
+#: templates/admin/search-console.php:188
+msgid "Organic search traffic only — sessions from newsletters or ads say nothing about how the site performs in search. Reported by Google Analytics, not estimated here."
+msgstr ""
+
+#. translators: %d: number of days.
+#: templates/admin/search-console.php:216
+#, php-format
+msgid "Last %d day"
+msgid_plural "Last %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/search-console.php:228
+msgid "Totals"
+msgstr ""
+
+#. translators: 1: start date, 2: end date.
+#: templates/admin/search-console.php:233
+#, php-format
+msgid "%1$s to %2$s. Search Console data lags live traffic by two to three days, so the range ends before today rather than showing a drop that is not there."
+msgstr ""
+
+#: templates/admin/search-console.php:241
+msgid "Google reports no impressions for this property in this period."
+msgstr ""
+
+#: templates/admin/search-console.php:244
+#: templates/admin/search-console.php:273
+#: assets/js/metabox.js:421
+msgid "Clicks"
+msgstr ""
+
+#: templates/admin/search-console.php:246
+#: templates/admin/search-console.php:274
+#: assets/js/metabox.js:422
+msgid "Impressions"
+msgstr ""
+
+#: templates/admin/search-console.php:248
+msgid "Click-through rate"
+msgstr ""
+
+#: templates/admin/search-console.php:252
+msgid "No average position is given for the site as a whole: averaging the average positions of individual pages does not produce one, and a number that looks like a measurement should be one."
+msgstr ""
+
+#: templates/admin/search-console.php:259
+msgid "Top queries"
+msgstr ""
+
+#: templates/admin/search-console.php:260
+msgid "Top pages"
+msgstr ""
+
+#: templates/admin/search-console.php:267
+msgid "Nothing reported for this period."
+msgstr ""
+
+#: templates/admin/search-console.php:272
+#: assets/js/metabox.js:420
+msgid "Query"
+msgstr ""
+
+#: templates/admin/search-console.php:272
+msgid "Page"
+msgstr ""
+
+#: templates/admin/search-console.php:275
+msgid "CTR"
+msgstr ""
+
+#: templates/admin/search-console.php:276
+msgid "Average position"
+msgstr ""
+
+#: templates/admin/search-console.php:296
+msgid "Every figure on this screen is reported by Google. This plugin adds nothing to it, and where Google reports nothing, nothing is shown. Results are cached for twelve hours; the underlying data updates about once a day."
+msgstr ""
+
+#: templates/admin/settings.php:20
+msgid "Settings saved."
+msgstr ""
+
+#. translators: %d: number of cache entries removed.
+#: templates/admin/tools.php:35
+#, php-format
+msgid "Schema cache cleared. %d stored entry removed."
+msgid_plural "Schema cache cleared. %d stored entries removed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/tools.php:55
+msgid "Import applied."
+msgstr ""
+
+#: templates/admin/tools.php:56
+msgid "Preview only — nothing was changed."
+msgstr ""
+
+#. translators: 1: rows read, 2: posts affected, 3: fields changed, 4: fields already matching.
+#: templates/admin/tools.php:64
+#, php-format
+msgid "%1$d rows read. %2$d posts would change across %3$d fields; %4$d fields already matched."
+msgstr ""
+
+#. translators: 1: source plugin name, 2: posts processed, 3: posts found.
+#: templates/admin/tools.php:89
+#, php-format
+msgid "%1$s: %2$d of %3$d posts processed."
+msgstr ""
+
+#. translators: 1: posts written to, 2: fields written, 3: fields left alone.
+#: templates/admin/tools.php:101
+#, php-format
+msgid "%1$d posts updated, %2$d fields copied, %3$d fields left alone because this plugin already had a value."
+msgstr ""
+
+#: templates/admin/tools.php:111
+msgid "These template variables have no equivalent here and were removed from the text they appeared in:"
+msgstr ""
+
+#: templates/admin/tools.php:126
+msgid "Continue importing"
+msgstr ""
+
+#: templates/admin/tools.php:129
+msgid "Finished. The other plugin’s data has not been touched, so you can run this again or go back to it."
+msgstr ""
+
+#: templates/admin/tools.php:138
+msgid "WordPress could not send the report. That is a mail configuration problem on this site rather than a problem with the report — check whatever handles outgoing email here."
+msgstr ""
+
+#. translators: %s: comma separated email addresses.
+#: templates/admin/tools.php:143
+#, php-format
+msgid "Report sent to %s. WordPress accepted it for delivery; whether it arrives depends on how this site sends mail."
+msgstr ""
+
+#: templates/admin/tools.php:154
+msgid "Email report"
+msgstr ""
+
+#: templates/admin/tools.php:156
+msgid "A summary of what the site audit found, and what Google reported if Search Console is connected. Sending one now ignores the usual rule that a report with nothing in it is not sent, so you can see what arrives."
+msgstr ""
+
+#. translators: %s: comma separated email addresses.
+#: templates/admin/tools.php:163
+#, php-format
+msgid "Recipients: %s"
+msgstr ""
+
+#: templates/admin/tools.php:171
+msgid "Scheduled reports are switched off. Turn them on under Settings → Reports."
+msgstr ""
+
+#. translators: %s: human readable time difference.
+#: templates/admin/tools.php:176
+#, php-format
+msgid "Next scheduled report in %s."
+msgstr ""
+
+#: templates/admin/tools.php:186
+msgid "Send one now"
+msgstr ""
+
+#: templates/admin/tools.php:191
+msgid "Import from another SEO plugin"
+msgstr ""
+
+#: templates/admin/tools.php:193
+msgid "Copies titles, descriptions, keyphrases, canonicals, robots settings and social fields into this plugin. The other plugin’s data is read, never changed or deleted — if the result is not what you wanted, it is all still there."
+msgstr ""
+
+#: templates/admin/tools.php:199
+msgid "No data from a supported SEO plugin was found on this site."
+msgstr ""
+
+#. translators: %s: comma separated plugin names.
+#: templates/admin/tools.php:204
+#, php-format
+msgid "Looked for: %s. The plugin does not need to be active — its data stays in the database after it is switched off."
+msgstr ""
+
+#. translators: %d: number of posts.
+#: templates/admin/tools.php:221
+#, php-format
+msgid "%d post has data here"
+msgid_plural "%d posts have data here"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/tools.php:230
+msgid "Replace values this plugin already holds"
+msgstr ""
+
+#: templates/admin/tools.php:234
+msgid "Import"
+msgstr ""
+
+#. translators: %d: batch size.
+#: templates/admin/tools.php:242
+#, php-format
+msgid "Runs %d posts at a time so it cannot time out. You will be asked to continue until it finishes."
+msgstr ""
+
+#: templates/admin/tools.php:251
+msgid "All in One SEO was found, but version 4 keeps its data in a table of its own rather than in post meta, and this plugin cannot read it. Nothing from it will be imported — that is a limitation stated plainly rather than a partial import reported as a success."
+msgstr ""
+
+#: templates/admin/tools.php:257
+msgid "Export and import a spreadsheet"
+msgstr ""
+
+#: templates/admin/tools.php:259
+msgid "Export every post’s SEO fields, edit them in a spreadsheet, and put the file back. What comes out is exactly what goes in, so a row you do not touch is a field that does not change."
+msgstr ""
+
+#: templates/admin/tools.php:265
+msgid "Export CSV"
+msgstr ""
+
+#: templates/admin/tools.php:275
+msgid "CSV file"
+msgstr ""
+
+#: templates/admin/tools.php:282
+msgid "Apply the changes. Leave this unticked to see what would happen first."
+msgstr ""
+
+#: templates/admin/tools.php:286
+msgid "Upload CSV"
+msgstr ""
+
+#: templates/admin/tools.php:290
+msgid "Rows are matched on post_id. The post_type, post_title and url columns are for reading and are ignored on import. An emptied cell clears that field; a column you delete from the file is left alone entirely."
+msgstr ""
+
+#: templates/admin/tools.php:298
+msgid "Schema cache"
+msgstr ""
+
+#: templates/admin/tools.php:300
+msgid "Aggregated schema is cached for twelve hours and refreshes on its own whenever content changes. Clear it manually after changing something the cache cannot see, such as a theme or another plugin that filters the graph."
+msgstr ""
+
+#: templates/admin/tools.php:305
+msgid "Clear schema cache"
+msgstr ""
+
+#: templates/admin/tools.php:310
+msgid "Schema API"
+msgstr ""
+
+#: templates/admin/tools.php:312
+msgid "No public post types are exposed."
+msgstr ""
+
+#. translators: 1: number of items, 2: number of API pages.
+#: templates/admin/tools.php:321
+#, php-format
+msgid "%1$d items across %2$d page(s)"
+msgstr ""
+
+#: templates/business.php:69
+msgid "Closed"
+msgstr ""
+
+#: assets/js/ai-report.js:55
+msgid "Keyword"
+msgstr ""
+
+#: assets/js/ai-report.js:56
+msgid "Intent"
+msgstr ""
+
+#: assets/js/ai-report.js:57
+msgid "How to use it"
+msgstr ""
+
+#: assets/js/ai-report.js:58
+msgid "Where"
+msgstr ""
+
+#: assets/js/ai-report.js:92
+#: assets/js/metabox.js:208
+msgid "Why this matters"
+msgstr ""
+
+#: assets/js/ai-report.js:107
+msgid "Suggested primary keyphrase"
+msgstr ""
+
+#: assets/js/ai-report.js:121
+msgid "Use as focus keyphrase"
+msgstr ""
+
+#: assets/js/ai-report.js:137
+msgid "Secondary keywords"
+msgstr ""
+
+#: assets/js/ai-report.js:138
+msgid "Long-tail keywords"
+msgstr ""
+
+#: assets/js/ai-report.js:148
+msgid "Question keywords"
+msgstr ""
+
+#: assets/js/ai-report.js:149
+msgid "Related entities"
+msgstr ""
+
+#: assets/js/ai-report.js:150
+msgid "Semantic terms"
+msgstr ""
+
+#: assets/js/ai-report.js:163
+msgid "No search volume or difficulty is shown: a language model does not have that data, and an invented number would be worse than none."
+msgstr ""
+
+#: assets/js/ai-report.js:179
+#: assets/js/ai-report.js:312
+msgid "confidence"
+msgstr ""
+
+#: assets/js/ai-report.js:190
+msgid "Confidence is the model’s own certainty, not a measurement of anything external."
+msgstr ""
+
+#: assets/js/ai-report.js:194
+msgid "Set this as the search intent"
+msgstr ""
+
+#: assets/js/ai-report.js:201
+msgid "Set. Save the post to keep it."
+msgstr ""
+
+#: assets/js/ai-report.js:210
+msgid "Missing topics"
+msgstr ""
+
+#: assets/js/ai-report.js:211
+msgid "Weak sections"
+msgstr ""
+
+#: assets/js/ai-report.js:212
+msgid "Heading improvements"
+msgstr ""
+
+#: assets/js/ai-report.js:222
+msgid "Questions not answered"
+msgstr ""
+
+#: assets/js/ai-report.js:223
+msgid "Entities not mentioned"
+msgstr ""
+
+#: assets/js/ai-report.js:224
+msgid "Internal linking opportunities"
+msgstr ""
+
+#: assets/js/ai-report.js:225
+msgid "Where a source would help"
+msgstr ""
+
+#: assets/js/ai-report.js:238
+msgid "Recommendations only. Nothing here changes the page — you decide what to act on."
+msgstr ""
+
+#: assets/js/ai-report.js:265
+msgid "Copy"
+msgstr ""
+
+#: assets/js/ai-report.js:274
+msgid "Copied"
+msgstr ""
+
+#: assets/js/ai-report.js:288
+msgid "The model did not find a link worth suggesting on this page."
+msgstr ""
+
+#: assets/js/ai-report.js:294
+msgid "Suggested internal links"
+msgstr ""
+
+#: assets/js/ai-report.js:304
+msgid "Link to: "
+msgstr ""
+
+#: assets/js/ai-report.js:320
+msgid "this wording is already on the page"
+msgstr ""
+
+#: assets/js/ai-report.js:321
+msgid "this wording is not on the page yet — you will need to write it"
+msgstr ""
+
+#: assets/js/ai-report.js:328
+msgid "Anchor text"
+msgstr ""
+
+#: assets/js/ai-report.js:345
+msgid "Dismiss"
+msgstr ""
+
+#: assets/js/ai-report.js:361
+msgid "Targets are pages that exist on this site — the model chose from a list, it did not invent them. No link is added until you paste one in."
+msgstr ""
+
+#: assets/js/ai-report.js:372
+msgid "Questions this page answers"
+msgstr ""
+
+#: assets/js/ai-report.js:382
+msgid "Where this came from"
+msgstr ""
+
+#: assets/js/ai-report.js:392
+msgid "This answer could not be traced back to the page content. Check it before publishing it."
+msgstr ""
+
+#: assets/js/ai-report.js:407
+msgid "Questions the page does not answer"
+msgstr ""
+
+#: assets/js/ai-report.js:417
+msgid "These are deliberately unanswered: the page does not contain the answer, so writing one here would be invention."
+msgstr ""
+
+#: assets/js/ai-report.js:424
+msgid "The model did not find a question worth adding."
+msgstr ""
+
+#: assets/js/ai-report.js:434
+msgid "This page already shows an FAQ, so FAQ structured data is being output for it."
+msgstr ""
+
+#: assets/js/ai-report.js:435
+msgid "FAQ structured data is only output once the questions and answers are visible on the page. Paste them in and save first."
+msgstr ""
+
+#. translators: 1: current characters, 2: recommended minimum, 3: recommended maximum.
+#: assets/js/metabox.js:89
+#, js-format
+msgid "%1$d characters (aim for %2$d–%3$d)"
+msgstr ""
+
+#: assets/js/metabox.js:146
+msgid "Untitled"
+msgstr ""
+
+#: assets/js/metabox.js:151
+msgid "No description yet. Search engines will assemble their own."
+msgstr ""
+
+#: assets/js/metabox.js:197
+msgid "not counted"
+msgstr ""
+
+#: assets/js/metabox.js:245
+msgid "Analysing…"
+msgstr ""
+
+#: assets/js/metabox.js:264
+msgid "The analysis could not be completed. Save the post and try again."
+msgstr ""
+
+#: assets/js/metabox.js:335
+msgid "characters"
+msgstr ""
+
+#: assets/js/metabox.js:340
+msgid "Apply"
+msgstr ""
+
+#: assets/js/metabox.js:349
+msgid "Applied. Save the post to keep it."
+msgstr ""
+
+#: assets/js/metabox.js:410
+msgid "Google reports no queries for this page in this period. That is normal for a page that is new, or one that is not yet being shown."
+msgstr ""
+
+#: assets/js/metabox.js:423
+msgid "Position"
+msgstr ""
+
+#. translators: %s: the focus keyphrase set on this page.
+#: assets/js/metabox.js:456
+#, js-format
+msgid "Your focus keyphrase “%s” appears among these queries."
+msgstr ""
+
+#. translators: %s: the focus keyphrase set on this page.
+#: assets/js/metabox.js:459
+#, js-format
+msgid "Your focus keyphrase “%s” is not among the queries listed. These are the top rows only, so this is an observation rather than proof it never appears."
+msgstr ""
+
+#. translators: 1: start date, 2: end date.
+#: assets/js/metabox.js:468
+#, js-format
+msgid "%1$s to %2$s, as reported by Google. The range stops short of today because Search Console lags by a few days."
+msgstr ""
+
+#: assets/js/metabox.js:477
+msgid "Asking Google…"
+msgstr ""
+
+#: assets/js/metabox.js:485
+#: assets/js/metabox.js:534
+msgid "The request failed."
+msgstr ""
+
+#: assets/js/metabox.js:500
+msgid "Asking the model…"
+msgstr ""
+
+#: assets/js/metabox.js:527
+msgid "The model returned nothing usable. Try again."
+msgstr ""

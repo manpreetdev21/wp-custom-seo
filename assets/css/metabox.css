@@ -1,0 +1,295 @@
+/* WP Custom SEO — editor panel. */
+
+.wpcseo-tabs {
+	display: flex;
+	gap: 4px;
+	border-bottom: 1px solid #dcdcde;
+	margin: 0 0 16px;
+}
+
+.wpcseo-tab {
+	background: none;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	padding: 8px 12px;
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: 600;
+	color: #50575e;
+}
+
+.wpcseo-tab:hover,
+.wpcseo-tab:focus {
+	color: #1d2327;
+}
+
+.wpcseo-tab.is-active {
+	color: #2271b1;
+	border-bottom-color: #2271b1;
+}
+
+.wpcseo-tab:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: -2px;
+}
+
+.wpcseo-field {
+	margin: 0 0 20px;
+}
+
+.wpcseo-field > label,
+.wpcseo-field > legend {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.wpcseo-field fieldset label,
+fieldset.wpcseo-field label {
+	display: block;
+	font-weight: 400;
+	margin: 4px 0;
+}
+
+.wpcseo-counter {
+	display: block;
+	margin-top: 2px;
+	font-variant-numeric: tabular-nums;
+}
+
+.wpcseo-counter.is-good {
+	color: #0a5c23;
+}
+
+.wpcseo-counter.is-warn {
+	color: #8a6100;
+}
+
+.wpcseo-counter.is-bad {
+	color: #8a2424;
+}
+
+.wpcseo-preview,
+.wpcseo-analysis {
+	border-top: 1px solid #dcdcde;
+	padding-top: 16px;
+	margin-top: 8px;
+}
+
+.wpcseo-preview h3,
+.wpcseo-analysis h3 {
+	margin: 0 0 4px;
+	font-size: 13px;
+}
+
+.wpcseo-preview-note {
+	margin: 0 0 12px;
+	color: #646970;
+	font-size: 12px;
+}
+
+.wpcseo-preview-card {
+	max-width: 600px;
+	padding: 12px 14px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+}
+
+.wpcseo-preview-url {
+	display: block;
+	font-size: 12px;
+	color: #3c4043;
+	word-break: break-all;
+}
+
+.wpcseo-preview-title {
+	display: block;
+	margin: 2px 0;
+	font-size: 18px;
+	line-height: 1.3;
+	color: #1a0dab;
+}
+
+.wpcseo-preview-description {
+	display: block;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #4d5156;
+}
+
+.wpcseo-analysis-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.wpcseo-score {
+	font-size: 16px;
+	font-weight: 700;
+	padding: 2px 12px;
+	border-radius: 12px;
+	border: 1px solid #c3c4c7;
+	font-variant-numeric: tabular-nums;
+}
+
+.wpcseo-score.is-good {
+	background: #edfaef;
+	border-color: #68de7c;
+	color: #0a5c23;
+}
+
+.wpcseo-score.is-warn {
+	background: #fcf9e8;
+	border-color: #dba617;
+	color: #8a6100;
+}
+
+.wpcseo-score.is-bad {
+	background: #fcf0f1;
+	border-color: #d63638;
+	color: #8a2424;
+}
+
+.wpcseo-checks {
+	margin: 12px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.wpcseo-check {
+	border-left: 3px solid #c3c4c7;
+	padding: 6px 0 6px 12px;
+	margin: 0 0 10px;
+}
+
+.wpcseo-check.is-good {
+	border-left-color: #68de7c;
+}
+
+.wpcseo-check.is-warn {
+	border-left-color: #dba617;
+}
+
+.wpcseo-check.is-bad {
+	border-left-color: #d63638;
+}
+
+.wpcseo-check-badge {
+	display: block;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	color: #50575e;
+}
+
+.wpcseo-check-excluded {
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: 0;
+	color: #787c82;
+}
+
+.wpcseo-check.is-unscored {
+	border-left-color: #c3c4c7;
+	opacity: .85;
+}
+
+.wpcseo-check-issue {
+	margin: 2px 0;
+}
+
+.wpcseo-check summary {
+	cursor: pointer;
+	font-size: 12px;
+	color: #50575e;
+}
+
+.wpcseo-check-recommendation {
+	font-weight: 600;
+}
+
+.wpcseo-analysis-status {
+	color: #646970;
+	min-height: 1.4em;
+	margin: 8px 0 0;
+}
+
+.wpcseo-suggestions {
+	margin: 8px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.wpcseo-suggestion {
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 10px 12px;
+	margin: 0 0 8px;
+	background: #fff;
+}
+
+.wpcseo-suggestion-text {
+	margin: 0 0 4px;
+}
+
+.wpcseo-suggestion-count {
+	display: inline-block;
+	margin-right: 10px;
+	font-size: 12px;
+	color: #646970;
+	font-variant-numeric: tabular-nums;
+}
+
+.wpcseo-ai-section {
+	margin: 16px 0 0;
+}
+
+.wpcseo-ai-section h4 {
+	margin: 0 0 6px;
+	font-size: 13px;
+}
+
+.wpcseo-ai-list {
+	margin: 0 0 8px;
+	padding-left: 18px;
+	list-style: disc;
+}
+
+.wpcseo-ai-table {
+	margin: 0 0 8px;
+}
+
+.wpcseo-ai-table td,
+.wpcseo-ai-table th {
+	font-size: 12px;
+}
+
+.wpcseo-ai-card {
+	margin: 0 0 10px;
+	padding: 10px;
+	border: 1px solid #dcdcde;
+	border-radius: 3px;
+	background: #fff;
+}
+
+.wpcseo-ai-card p {
+	margin: 0 0 6px;
+}
+
+.wpcseo-ai-snippet {
+	display: flex;
+	gap: 6px;
+	align-items: flex-start;
+}
+
+.wpcseo-ai-snippet textarea {
+	font-size: 12px;
+}
+
+.wpcseo-outline ul {
+	margin: 4px 0 0 18px;
+	list-style: circle;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset name="WP Custom SEO">
+	<description>Coding standards for WP Custom SEO.</description>
+
+	<file>.</file>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<!-- Stub harness: declares WordPress functions in the global namespace on purpose. -->
+	<exclude-pattern>/tests/self-check.php</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<config name="minimum_wp_version" value="6.5"/>
+	<config name="testVersion" value="8.1-"/>
+
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
+
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="wp-custom-seo"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="wpcseo"/>
+				<element value="WPCustomSeo"/>
+				<element value="WP_CUSTOM_SEO"/>
+			</property>
+		</properties>
+		<!-- Templates are included inside a method, so their locals are not globals. -->
+		<exclude-pattern>/templates/*</exclude-pattern>
+	</rule>
+</ruleset>

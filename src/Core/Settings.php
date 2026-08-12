@@ -10,6 +10,7 @@ declare( strict_types=1 );
 namespace WPCustomSeo\Core;
 
 use WPCustomSeo\Crawlers\AiCrawlers;
+use WPCustomSeo\Crawlers\LlmsTxt;
 use WPCustomSeo\SEO\Weights;
 
 defined( 'ABSPATH' ) || exit;
@@ -31,6 +32,16 @@ final class Settings {
 	 * Settings API page slug. Owned here so Core does not depend on Admin.
 	 */
 	public const PAGE = 'wp-custom-seo-settings';
+
+	/**
+	 * Prefix the Settings API knows each section by.
+	 *
+	 * The schema keys them as `general`; the Settings API registers them as
+	 * `wpcseo_section_general`. Both spellings reach `fields_in()` — the tabbed
+	 * screen has the registered id to hand — so the prefix is named once here
+	 * and stripped there rather than being assumed either way.
+	 */
+	public const SECTION_PREFIX = 'wpcseo_section_';
 
 	/**
 	 * Cached, filtered schema.
@@ -568,6 +579,20 @@ final class Settings {
 
 		$schema['ai_crawlers'] = AiCrawlers::section();
 
+		$schema['ai_crawlers']['fields'][ LlmsTxt::SETTING ] = array(
+			'type'        => 'checkbox',
+			'label'       => __( 'Publish an llms.txt content map', 'wp-custom-seo' ),
+			'description' => __( 'Serves a short markdown index of this site at /llms.txt. Worth knowing before you switch it on: llms.txt is a proposed convention rather than a standard, no major AI company has committed to reading it, and Google has said its Search team does not use it. It is a genuine, accurate map of the site — it is simply not known to change how any assistant sees you. Pages set to noindex are left out.', 'wp-custom-seo' ),
+			'default'     => false,
+		);
+
+		$schema['ai_crawlers']['fields']['llms_txt_summary'] = array(
+			'type'        => 'textarea',
+			'label'       => __( 'Site summary for llms.txt', 'wp-custom-seo' ),
+			'description' => __( 'One or two sentences saying what this site is. Leave empty to use the site tagline.', 'wp-custom-seo' ),
+			'default'     => '',
+		);
+
 		$schema['reports'] = array(
 			'title'       => __( 'Reports', 'wp-custom-seo' ),
 			'description' => __( 'A periodic email summarising what the site audit found, and what Google reported if Search Console is connected. It is sent only when there is something to say — a report that arrives every week saying "nothing to report" is a report people stop reading.', 'wp-custom-seo' ),
@@ -625,6 +650,32 @@ final class Settings {
 		}
 
 		return $fields;
+	}
+
+	/**
+	 * The field ids belonging to the given sections.
+	 *
+	 * @param string[] $sections Section ids.
+	 *
+	 * @return string[]
+	 */
+	public static function fields_in( array $sections ): array {
+		$ids    = array();
+		$schema = self::schema();
+
+		foreach ( $sections as $section ) {
+			// Accept either spelling: the schema key, or the id the Settings
+			// API registered it under.
+			$key = str_starts_with( (string) $section, self::SECTION_PREFIX )
+				? substr( (string) $section, strlen( self::SECTION_PREFIX ) )
+				: (string) $section;
+
+			foreach ( array_keys( (array) ( $schema[ $key ]['fields'] ?? array() ) ) as $id ) {
+				$ids[] = (string) $id;
+			}
+		}
+
+		return $ids;
 	}
 
 	/**
@@ -708,7 +759,7 @@ final class Settings {
 			$description = (string) ( $section['description'] ?? '' );
 
 			add_settings_section(
-				'wpcseo_section_' . $section_id,
+				self::SECTION_PREFIX . $section_id,
 				(string) ( $section['title'] ?? '' ),
 				'' === $description
 					? '__return_false'
@@ -733,7 +784,7 @@ final class Settings {
 					(string) ( $field['label'] ?? $id ),
 					array( self::class, 'render_field' ),
 					$page,
-					'wpcseo_section_' . $section_id,
+					self::SECTION_PREFIX . $section_id,
 					array(
 						'id'        => $id,
 						'field'     => $field,
@@ -819,7 +870,26 @@ final class Settings {
 		$input = is_array( $input ) ? $input : array();
 		$clean = array();
 
+		// The screen is tabbed, so a save posts one section's fields. An
+		// unchecked box and a field that was never on screen look identical in
+		// the POST, so the form declares which sections it rendered: those are
+		// read from the input, and every other field keeps the value it has.
+		// Without this, saving one tab would switch off every checkbox on all
+		// the others.
+		$posted = isset( $input['wpcseo_sections'] ) ? (array) $input['wpcseo_sections'] : array();
+		$posted = array_filter( array_map( 'sanitize_key', $posted ) );
+		$scope  = $posted ? self::fields_in( $posted ) : array_keys( self::fields() );
+		$stored = self::all();
+
+		unset( $input['wpcseo_sections'] );
+
 		foreach ( self::fields() as $id => $field ) {
+			if ( ! in_array( (string) $id, $scope, true ) ) {
+				$clean[ $id ] = $stored[ $id ] ?? ( $field['default'] ?? null );
+
+				continue;
+			}
+
 			$type = (string) ( $field['type'] ?? 'text' );
 			$raw  = $input[ $id ] ?? null;
 

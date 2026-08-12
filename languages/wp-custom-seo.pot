@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-12T12:51:33+00:00\n"
+"POT-Creation-Date: 2026-08-12T13:09:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wp-custom-seo\n"
@@ -149,7 +149,7 @@ msgstr ""
 
 #: src/Admin/AIPage.php:59
 #: src/Admin/AIPage.php:60
-#: src/Core/Settings.php:247
+#: src/Core/Settings.php:258
 #: templates/admin/ai.php:27
 #: templates/admin/meta-box.php:21
 msgid "AI"
@@ -209,7 +209,7 @@ msgstr[1] ""
 
 #: src/Admin/LinksPage.php:45
 #: src/Admin/LinksPage.php:46
-#: src/Core/Settings.php:356
+#: src/Core/Settings.php:367
 #: templates/admin/links.php:23
 msgid "Internal Links"
 msgstr ""
@@ -224,7 +224,7 @@ msgid "Dashboard"
 msgstr ""
 
 #: src/Admin/Menu.php:52
-#: templates/admin/settings.php:16
+#: templates/admin/settings.php:41
 msgid "SEO Settings"
 msgstr ""
 
@@ -445,7 +445,7 @@ msgid "The AI provider rejected the request."
 msgstr ""
 
 #: src/AI/AnthropicProvider.php:51
-#: src/Core/Settings.php:256
+#: src/Core/Settings.php:267
 msgid "Anthropic (Claude)"
 msgstr ""
 
@@ -477,7 +477,7 @@ msgid "The model returned no usable text. Try again, or raise the maximum length
 msgstr ""
 
 #: src/AI/GeminiProvider.php:40
-#: src/Core/Settings.php:258
+#: src/Core/Settings.php:269
 msgid "Google Gemini"
 msgstr ""
 
@@ -522,7 +522,7 @@ msgid "Pressing a button below sends this page's title, focus keyphrase, existin
 msgstr ""
 
 #: src/AI/OpenAIProvider.php:39
-#: src/Core/Settings.php:257
+#: src/Core/Settings.php:268
 msgid "OpenAI"
 msgstr ""
 
@@ -931,674 +931,690 @@ msgstr ""
 msgid "Already in order — listed so you can see it was checked."
 msgstr ""
 
-#: src/Core/Settings.php:76
+#: src/Core/Settings.php:87
 #: templates/admin/meta-box.php:17
 msgid "General"
 msgstr ""
 
-#: src/Core/Settings.php:80
+#: src/Core/Settings.php:91
 msgid "Enable SEO output"
 msgstr ""
 
-#: src/Core/Settings.php:81
+#: src/Core/Settings.php:92
 msgid "Master switch for front-end SEO output. Turn off to silence the plugin without deactivating it."
 msgstr ""
 
-#: src/Core/Settings.php:86
+#: src/Core/Settings.php:97
 msgid "Enable content analysis"
 msgstr ""
 
-#: src/Core/Settings.php:87
+#: src/Core/Settings.php:98
 msgid "Run the editor SEO analysis. Analysis never runs on the front end."
 msgstr ""
 
-#: src/Core/Settings.php:92
+#: src/Core/Settings.php:103
 msgid "Enable schema output"
 msgstr ""
 
-#: src/Core/Settings.php:93
+#: src/Core/Settings.php:104
 msgid "Output JSON-LD structured data."
 msgstr ""
 
-#: src/Core/Settings.php:98
+#: src/Core/Settings.php:109
 msgid "Enable breadcrumbs"
 msgstr ""
 
-#: src/Core/Settings.php:99
+#: src/Core/Settings.php:110
 msgid "Provide the breadcrumb shortcode, block and template function."
 msgstr ""
 
-#: src/Core/Settings.php:105
+#: src/Core/Settings.php:116
 msgid "Titles & Meta"
 msgstr ""
 
-#: src/Core/Settings.php:109
+#: src/Core/Settings.php:120
 #: src/SEO/Templates.php:32
 msgid "Title separator"
 msgstr ""
 
-#: src/Core/Settings.php:110
+#: src/Core/Settings.php:121
 msgid "Character used by the %%sep%% variable."
 msgstr ""
 
-#: src/Core/Settings.php:124
+#: src/Core/Settings.php:135
 msgid "Front page title"
 msgstr ""
 
-#: src/Core/Settings.php:125
+#: src/Core/Settings.php:136
 msgid "Available variables: %%sitename%%, %%sitedesc%%, %%sep%%, %%page%%, %%currentyear%%."
 msgstr ""
 
-#: src/Core/Settings.php:130
+#: src/Core/Settings.php:141
 msgid "Post, page and product title"
 msgstr ""
 
-#: src/Core/Settings.php:131
+#: src/Core/Settings.php:142
 msgid "Used when a post has no SEO title of its own. Variables: %%title%%, %%sitename%%, %%sep%%, %%page%%, %%date%%."
 msgstr ""
 
-#: src/Core/Settings.php:136
+#: src/Core/Settings.php:147
 msgid "Category, tag and taxonomy title"
 msgstr ""
 
-#: src/Core/Settings.php:137
+#: src/Core/Settings.php:148
 msgid "Variables: %%term_title%%, %%sitename%%, %%sep%%, %%page%%."
 msgstr ""
 
-#: src/Core/Settings.php:142
+#: src/Core/Settings.php:153
 msgid "Author archive title"
 msgstr ""
 
-#: src/Core/Settings.php:143
+#: src/Core/Settings.php:154
 msgid "Variables: %%author%%, %%sitename%%, %%sep%%, %%page%%."
 msgstr ""
 
-#: src/Core/Settings.php:148
+#: src/Core/Settings.php:159
 msgid "Post type and date archive title"
 msgstr ""
 
-#: src/Core/Settings.php:149
+#: src/Core/Settings.php:160
 msgid "Variables: %%archive_type%%, %%date%%, %%sitename%%, %%sep%%, %%page%%."
 msgstr ""
 
-#: src/Core/Settings.php:154
+#: src/Core/Settings.php:165
 msgid "Search results title"
 msgstr ""
 
-#: src/Core/Settings.php:155
+#: src/Core/Settings.php:166
 msgid "Variables: %%searchphrase%%, %%sitename%%, %%sep%%, %%page%%."
 msgstr ""
 
-#: src/Core/Settings.php:156
+#: src/Core/Settings.php:167
 msgid "Search for %%searchphrase%% %%sep%% %%sitename%%"
 msgstr ""
 
-#: src/Core/Settings.php:160
+#: src/Core/Settings.php:171
 msgid "Not found title"
 msgstr ""
 
-#: src/Core/Settings.php:161
+#: src/Core/Settings.php:172
 msgid "Variables: %%sitename%%, %%sep%%."
 msgstr ""
 
-#: src/Core/Settings.php:162
+#: src/Core/Settings.php:173
 msgid "Page not found %%sep%% %%sitename%%"
 msgstr ""
 
-#: src/Core/Settings.php:166
+#: src/Core/Settings.php:177
 msgid "Fall back to the excerpt for meta descriptions"
 msgstr ""
 
-#: src/Core/Settings.php:167
+#: src/Core/Settings.php:178
 msgid "When a post has no meta description, derive one from its excerpt or opening content. A description you write yourself is always better."
 msgstr ""
 
-#: src/Core/Settings.php:173
+#: src/Core/Settings.php:184
 #: templates/admin/meta-box.php:18
 msgid "Social"
 msgstr ""
 
-#: src/Core/Settings.php:177
+#: src/Core/Settings.php:188
 msgid "Output Open Graph tags"
 msgstr ""
 
-#: src/Core/Settings.php:178
+#: src/Core/Settings.php:189
 msgid "Used by Facebook, LinkedIn, WhatsApp, Slack and most other platforms that unfurl links."
 msgstr ""
 
-#: src/Core/Settings.php:183
+#: src/Core/Settings.php:194
 msgid "Output X/Twitter card tags"
 msgstr ""
 
-#: src/Core/Settings.php:184
+#: src/Core/Settings.php:195
 msgid "Falls back to the Open Graph values wherever a card-specific value is not set."
 msgstr ""
 
-#: src/Core/Settings.php:189
+#: src/Core/Settings.php:200
 msgid "Card type"
 msgstr ""
 
-#: src/Core/Settings.php:190
+#: src/Core/Settings.php:201
 msgid "A large-image card is downgraded automatically when a page has no image to show."
 msgstr ""
 
-#: src/Core/Settings.php:193
+#: src/Core/Settings.php:204
 msgid "Large image"
 msgstr ""
 
-#: src/Core/Settings.php:194
+#: src/Core/Settings.php:205
 #: templates/admin/brief.php:98
 msgid "Summary"
 msgstr ""
 
-#: src/Core/Settings.php:199
+#: src/Core/Settings.php:210
 msgid "Site X/Twitter handle"
 msgstr ""
 
-#: src/Core/Settings.php:200
+#: src/Core/Settings.php:211
 msgid "Without the @."
 msgstr ""
 
-#: src/Core/Settings.php:205
+#: src/Core/Settings.php:216
 msgid "Default sharing image URL"
 msgstr ""
 
-#: src/Core/Settings.php:206
+#: src/Core/Settings.php:217
 msgid "Used when a page has neither a social image nor a featured image. Absolute URL."
 msgstr ""
 
-#: src/Core/Settings.php:212
+#: src/Core/Settings.php:223
 msgid "Sitemap & Breadcrumbs"
 msgstr ""
 
-#: src/Core/Settings.php:216
+#: src/Core/Settings.php:227
 msgid "Enable the XML sitemap"
 msgstr ""
 
-#: src/Core/Settings.php:217
+#: src/Core/Settings.php:228
 msgid "Shapes the sitemap WordPress already serves at /wp-sitemap.xml rather than publishing a second, competing one. Noindexed content is excluded and a lastmod date is added."
 msgstr ""
 
-#: src/Core/Settings.php:222
+#: src/Core/Settings.php:233
 msgid "Include category and tag archives"
 msgstr ""
 
-#: src/Core/Settings.php:223
+#: src/Core/Settings.php:234
 msgid "Turn off if term archives are thin or duplicate your content."
 msgstr ""
 
-#: src/Core/Settings.php:228
+#: src/Core/Settings.php:239
 msgid "Include author archives"
 msgstr ""
 
-#: src/Core/Settings.php:229
+#: src/Core/Settings.php:240
 msgid "Usually worth turning off on a single-author site."
 msgstr ""
 
-#: src/Core/Settings.php:234
+#: src/Core/Settings.php:245
 msgid "Breadcrumb separator"
 msgstr ""
 
-#: src/Core/Settings.php:235
+#: src/Core/Settings.php:246
 msgid "Hidden from screen readers, so it is decoration only."
 msgstr ""
 
-#: src/Core/Settings.php:240
+#: src/Core/Settings.php:251
 msgid "Breadcrumb home label"
 msgstr ""
 
-#: src/Core/Settings.php:241
+#: src/Core/Settings.php:252
 msgid "Leave empty for “Home”."
 msgstr ""
 
-#: src/Core/Settings.php:251
+#: src/Core/Settings.php:262
 #: templates/admin/ai.php:61
 #: templates/admin/ai.php:166
 msgid "Provider"
 msgstr ""
 
-#: src/Core/Settings.php:252
+#: src/Core/Settings.php:263
 msgid "API keys are entered below the settings form and are stored encrypted, separately from these settings."
 msgstr ""
 
-#: src/Core/Settings.php:255
+#: src/Core/Settings.php:266
 msgid "None — AI features off"
 msgstr ""
 
-#: src/Core/Settings.php:263
+#: src/Core/Settings.php:274
 #: templates/admin/ai.php:64
 #: templates/admin/ai.php:167
 msgid "Model"
 msgstr ""
 
-#: src/Core/Settings.php:264
+#: src/Core/Settings.php:275
 msgid "Leave empty to use the provider default. Model identifiers change often, so this is free text rather than a list that would go stale — copy the exact id from your provider's documentation."
 msgstr ""
 
-#: src/Core/Settings.php:269
+#: src/Core/Settings.php:280
 msgid "Temperature"
 msgstr ""
 
-#: src/Core/Settings.php:270
+#: src/Core/Settings.php:281
 msgid "Higher values give more varied wording. Several current models reject this parameter outright, so it is omitted for those rather than breaking the request."
 msgstr ""
 
-#: src/Core/Settings.php:273
+#: src/Core/Settings.php:284
 msgid "0.2 — predictable"
 msgstr ""
 
-#: src/Core/Settings.php:274
+#: src/Core/Settings.php:285
 msgid "0.5"
 msgstr ""
 
-#: src/Core/Settings.php:275
+#: src/Core/Settings.php:286
 msgid "0.7 — balanced"
 msgstr ""
 
-#: src/Core/Settings.php:276
+#: src/Core/Settings.php:287
 msgid "1.0 — varied"
 msgstr ""
 
-#: src/Core/Settings.php:281
+#: src/Core/Settings.php:292
 msgid "Keep usage entries for"
 msgstr ""
 
-#: src/Core/Settings.php:282
+#: src/Core/Settings.php:293
 msgid "The log records provider, model, action, token counts and outcome. Prompts and generated text are never stored."
 msgstr ""
 
-#: src/Core/Settings.php:285
-#: src/Core/Settings.php:423
+#: src/Core/Settings.php:296
+#: src/Core/Settings.php:434
 msgid "30 days"
 msgstr ""
 
-#: src/Core/Settings.php:286
-#: src/Core/Settings.php:424
+#: src/Core/Settings.php:297
+#: src/Core/Settings.php:435
 msgid "90 days"
 msgstr ""
 
-#: src/Core/Settings.php:287
-#: src/Core/Settings.php:425
+#: src/Core/Settings.php:298
+#: src/Core/Settings.php:436
 msgid "A year"
 msgstr ""
 
-#: src/Core/Settings.php:288
-#: src/Core/Settings.php:426
+#: src/Core/Settings.php:299
+#: src/Core/Settings.php:437
 msgid "Keep everything"
 msgstr ""
 
-#: src/Core/Settings.php:294
+#: src/Core/Settings.php:305
 msgid "Local & Brand"
 msgstr ""
 
-#: src/Core/Settings.php:298
+#: src/Core/Settings.php:309
 msgid "Enable Local SEO"
 msgstr ""
 
-#: src/Core/Settings.php:299
+#: src/Core/Settings.php:310
 msgid "Adds a Locations screen for business details, opening hours and LocalBusiness structured data."
 msgstr ""
 
-#: src/Core/Settings.php:304
+#: src/Core/Settings.php:315
 msgid "Publish location data on"
 msgstr ""
 
-#: src/Core/Settings.php:305
+#: src/Core/Settings.php:316
 msgid "The front page is where a business states who it is. Publishing a shop address on every article would not describe those pages."
 msgstr ""
 
-#: src/Core/Settings.php:308
+#: src/Core/Settings.php:319
 msgid "The front page only"
 msgstr ""
 
-#: src/Core/Settings.php:309
+#: src/Core/Settings.php:320
 msgid "Every page"
 msgstr ""
 
-#: src/Core/Settings.php:314
+#: src/Core/Settings.php:325
 msgid "Brand name"
 msgstr ""
 
-#: src/Core/Settings.php:315
+#: src/Core/Settings.php:326
 msgid "Leave empty if the site has no brand distinct from the organization. Nothing is published unless this is filled in."
 msgstr ""
 
-#: src/Core/Settings.php:320
+#: src/Core/Settings.php:331
 msgid "Brand description"
 msgstr ""
 
-#: src/Core/Settings.php:326
+#: src/Core/Settings.php:337
 msgid "Brand logo URL"
 msgstr ""
 
-#: src/Core/Settings.php:327
+#: src/Core/Settings.php:338
 msgid "Absolute URL."
 msgstr ""
 
-#: src/Core/Settings.php:332
+#: src/Core/Settings.php:343
 msgid "Brand profile URLs"
 msgstr ""
 
-#: src/Core/Settings.php:333
+#: src/Core/Settings.php:344
 #: templates/admin/location.php:65
 msgid "One absolute URL per line. Invalid lines are discarded."
 msgstr ""
 
-#: src/Core/Settings.php:339
+#: src/Core/Settings.php:350
 msgid "WooCommerce"
 msgstr ""
 
-#: src/Core/Settings.php:343
+#: src/Core/Settings.php:354
 msgid "Enable WooCommerce SEO"
 msgstr ""
 
-#: src/Core/Settings.php:344
+#: src/Core/Settings.php:355
 msgid "Has no effect unless WooCommerce is active. Product structured data is built only from data the shop actually holds: no invented price, stock, SKU, brand or rating."
 msgstr ""
 
-#: src/Core/Settings.php:349
+#: src/Core/Settings.php:360
 msgid "Replace WooCommerce structured data"
 msgstr ""
 
-#: src/Core/Settings.php:350
+#: src/Core/Settings.php:361
 msgid "WooCommerce publishes its own product markup. Leaving both on means two descriptions of the same product. This removes one WooCommerce output hook and nothing else; unchecking it restores that output immediately."
 msgstr ""
 
-#: src/Core/Settings.php:360
+#: src/Core/Settings.php:371
 msgid "Track internal links"
 msgstr ""
 
-#: src/Core/Settings.php:361
+#: src/Core/Settings.php:372
 msgid "Records which content links to which when a post is saved, so orphan and under-linked reports stay current."
 msgstr ""
 
-#: src/Core/Settings.php:366
+#: src/Core/Settings.php:377
 msgid "Treat as critical at or below"
 msgstr ""
 
-#: src/Core/Settings.php:367
+#: src/Core/Settings.php:378
 msgid "Incoming internal links. Content in a navigation menu, the front page and the posts page are never reported."
 msgstr ""
 
-#: src/Core/Settings.php:370
+#: src/Core/Settings.php:381
 msgid "0 incoming links"
 msgstr ""
 
-#: src/Core/Settings.php:371
-#: src/Core/Settings.php:393
+#: src/Core/Settings.php:382
+#: src/Core/Settings.php:404
 msgid "1 incoming link"
 msgstr ""
 
-#: src/Core/Settings.php:372
-#: src/Core/Settings.php:394
+#: src/Core/Settings.php:383
+#: src/Core/Settings.php:405
 msgid "2 incoming links"
 msgstr ""
 
-#: src/Core/Settings.php:377
+#: src/Core/Settings.php:388
 msgid "Flag pages untouched for"
 msgstr ""
 
-#: src/Core/Settings.php:378
+#: src/Core/Settings.php:389
 msgid "Used by the site audit. Age alone never raises a page — it also has to be linked to or substantial, because evergreen content that was right years ago is still right."
 msgstr ""
 
-#: src/Core/Settings.php:381
+#: src/Core/Settings.php:392
 msgid "6 months"
 msgstr ""
 
-#: src/Core/Settings.php:382
+#: src/Core/Settings.php:393
 msgid "12 months"
 msgstr ""
 
-#: src/Core/Settings.php:383
+#: src/Core/Settings.php:394
 msgid "2 years"
 msgstr ""
 
-#: src/Core/Settings.php:384
+#: src/Core/Settings.php:395
 msgid "3 years"
 msgstr ""
 
-#: src/Core/Settings.php:389
+#: src/Core/Settings.php:400
 msgid "Treat as a warning at or below"
 msgstr ""
 
-#: src/Core/Settings.php:390
+#: src/Core/Settings.php:401
 msgid "Anything above this is considered healthy. A page with few incoming links is not automatically a problem."
 msgstr ""
 
-#: src/Core/Settings.php:395
+#: src/Core/Settings.php:406
 msgid "3 incoming links"
 msgstr ""
 
-#: src/Core/Settings.php:396
+#: src/Core/Settings.php:407
 msgid "5 incoming links"
 msgstr ""
 
-#: src/Core/Settings.php:402
+#: src/Core/Settings.php:413
 msgid "Redirects & 404s"
 msgstr ""
 
-#: src/Core/Settings.php:406
+#: src/Core/Settings.php:417
 msgid "Enable the redirect manager"
 msgstr ""
 
-#: src/Core/Settings.php:407
+#: src/Core/Settings.php:418
 msgid "Existing rules stay stored when this is off; they simply stop firing."
 msgstr ""
 
-#: src/Core/Settings.php:412
+#: src/Core/Settings.php:423
 msgid "Log 404s"
 msgstr ""
 
-#: src/Core/Settings.php:413
+#: src/Core/Settings.php:424
 msgid "Records the URL, referrer and hit count for requests that were not found. Repeat hits update one row rather than adding another."
 msgstr ""
 
-#: src/Core/Settings.php:418
+#: src/Core/Settings.php:429
 msgid "Keep 404 entries for"
 msgstr ""
 
-#: src/Core/Settings.php:419
+#: src/Core/Settings.php:430
 msgid "Older entries are removed by a daily job, so a scanned site does not accumulate rows forever."
 msgstr ""
 
-#: src/Core/Settings.php:422
+#: src/Core/Settings.php:433
 msgid "7 days"
 msgstr ""
 
-#: src/Core/Settings.php:432
+#: src/Core/Settings.php:443
 msgid "Schema & Entities"
 msgstr ""
 
-#: src/Core/Settings.php:436
+#: src/Core/Settings.php:447
 msgid "Organization type"
 msgstr ""
 
-#: src/Core/Settings.php:437
+#: src/Core/Settings.php:448
 msgid "Pick the most specific type that is actually accurate. A wrong type is worse than a general one."
 msgstr ""
 
-#: src/Core/Settings.php:440
+#: src/Core/Settings.php:451
 msgid "Organization"
 msgstr ""
 
-#: src/Core/Settings.php:441
+#: src/Core/Settings.php:452
 msgid "Corporation"
 msgstr ""
 
-#: src/Core/Settings.php:442
+#: src/Core/Settings.php:453
 msgid "Local business"
 msgstr ""
 
-#: src/Core/Settings.php:443
+#: src/Core/Settings.php:454
 msgid "News media organization"
 msgstr ""
 
-#: src/Core/Settings.php:444
+#: src/Core/Settings.php:455
 #: src/Local/Locations.php:150
 msgid "Educational organization"
 msgstr ""
 
-#: src/Core/Settings.php:445
+#: src/Core/Settings.php:456
 msgid "Government organization"
 msgstr ""
 
-#: src/Core/Settings.php:446
+#: src/Core/Settings.php:457
 msgid "Non-governmental organization"
 msgstr ""
 
-#: src/Core/Settings.php:451
+#: src/Core/Settings.php:462
 msgid "Organization name"
 msgstr ""
 
-#: src/Core/Settings.php:452
+#: src/Core/Settings.php:463
 msgid "Leave empty to use the site title."
 msgstr ""
 
-#: src/Core/Settings.php:457
+#: src/Core/Settings.php:468
 msgid "Organization description"
 msgstr ""
 
-#: src/Core/Settings.php:458
+#: src/Core/Settings.php:469
 msgid "A short factual description of the organization."
 msgstr ""
 
-#: src/Core/Settings.php:463
+#: src/Core/Settings.php:474
 msgid "Logo URL"
 msgstr ""
 
-#: src/Core/Settings.php:464
+#: src/Core/Settings.php:475
 msgid "Absolute URL of the organization logo. Dimensions are read automatically when the image is in the media library."
 msgstr ""
 
-#: src/Core/Settings.php:469
+#: src/Core/Settings.php:480
 msgid "Contact email"
 msgstr ""
 
-#: src/Core/Settings.php:470
+#: src/Core/Settings.php:481
 msgid "Output only if it is a valid address."
 msgstr ""
 
-#: src/Core/Settings.php:475
+#: src/Core/Settings.php:486
 msgid "Contact telephone"
 msgstr ""
 
-#: src/Core/Settings.php:476
+#: src/Core/Settings.php:487
 msgid "Include the international dialling code."
 msgstr ""
 
-#: src/Core/Settings.php:481
+#: src/Core/Settings.php:492
 msgid "Official profile URLs"
 msgstr ""
 
-#: src/Core/Settings.php:482
+#: src/Core/Settings.php:493
 msgid "One absolute URL per line, for profiles the organization genuinely controls. Invalid lines are discarded."
 msgstr ""
 
-#: src/Core/Settings.php:487
+#: src/Core/Settings.php:498
 msgid "Publishing principles URL"
 msgstr ""
 
-#: src/Core/Settings.php:488
+#: src/Core/Settings.php:499
 msgid "Only fill these in if the page genuinely exists. Never state a policy you do not publish."
 msgstr ""
 
-#: src/Core/Settings.php:493
+#: src/Core/Settings.php:504
 msgid "Ownership and funding URL"
 msgstr ""
 
-#: src/Core/Settings.php:499
+#: src/Core/Settings.php:510
 msgid "Corrections policy URL"
 msgstr ""
 
-#: src/Core/Settings.php:505
+#: src/Core/Settings.php:516
 msgid "Actionable feedback policy URL"
 msgstr ""
 
-#: src/Core/Settings.php:511
+#: src/Core/Settings.php:522
 msgid "Diversity policy URL"
 msgstr ""
 
-#: src/Core/Settings.php:517
+#: src/Core/Settings.php:528
 msgid "Expose the aggregated schema API"
 msgstr ""
 
-#: src/Core/Settings.php:518
+#: src/Core/Settings.php:529
 msgid "Publishes structured data for public content under /wp-json/wp-custom-seo/v1/schema/ so tools and assistants can read the site without crawling every page. Only content that is already publicly readable is included."
 msgstr ""
 
-#: src/Core/Settings.php:523
+#: src/Core/Settings.php:534
 msgid "Posts per API page"
 msgstr ""
 
-#: src/Core/Settings.php:524
+#: src/Core/Settings.php:535
 msgid "Lower this for large catalogues. Individual post types can override it with the wpcseo_schema_api_batch filter."
 msgstr ""
 
-#: src/Core/Settings.php:536
+#: src/Core/Settings.php:547
 #: templates/admin/meta-box.php:19
 msgid "Advanced"
 msgstr ""
 
-#: src/Core/Settings.php:540
+#: src/Core/Settings.php:551
 msgid "Delete all plugin data on uninstall"
 msgstr ""
 
-#: src/Core/Settings.php:541
+#: src/Core/Settings.php:552
 msgid "When enabled, deleting the plugin also removes its settings, metadata and tables. Data from other plugins is never touched."
 msgstr ""
 
-#: src/Core/Settings.php:546
+#: src/Core/Settings.php:557
 msgid "Enable debug logging"
 msgstr ""
 
-#: src/Core/Settings.php:547
+#: src/Core/Settings.php:558
 msgid "Write plugin diagnostics to the WordPress debug log. API credentials are never logged."
 msgstr ""
 
-#: src/Core/Settings.php:555
+#: src/Core/Settings.php:566
 msgid "Search Console property"
 msgstr ""
 
-#: src/Core/Settings.php:561
+#: src/Core/Settings.php:572
 msgid "Analytics property id"
 msgstr ""
 
-#: src/Core/Settings.php:572
+#: src/Core/Settings.php:584
+msgid "Publish an llms.txt content map"
+msgstr ""
+
+#: src/Core/Settings.php:585
+msgid "Serves a short markdown index of this site at /llms.txt. Worth knowing before you switch it on: llms.txt is a proposed convention rather than a standard, no major AI company has committed to reading it, and Google has said its Search team does not use it. It is a genuine, accurate map of the site — it is simply not known to change how any assistant sees you. Pages set to noindex are left out."
+msgstr ""
+
+#: src/Core/Settings.php:591
+msgid "Site summary for llms.txt"
+msgstr ""
+
+#: src/Core/Settings.php:592
+msgid "One or two sentences saying what this site is. Leave empty to use the site tagline."
+msgstr ""
+
+#: src/Core/Settings.php:597
 msgid "Reports"
 msgstr ""
 
-#: src/Core/Settings.php:573
+#: src/Core/Settings.php:598
 msgid "A periodic email summarising what the site audit found, and what Google reported if Search Console is connected. It is sent only when there is something to say — a report that arrives every week saying \"nothing to report\" is a report people stop reading."
 msgstr ""
 
-#: src/Core/Settings.php:577
+#: src/Core/Settings.php:602
 msgid "Email a periodic report"
 msgstr ""
 
-#: src/Core/Settings.php:578
+#: src/Core/Settings.php:603
 msgid "Sent by WP-Cron, which runs when the site is visited. A site with no traffic may send late."
 msgstr ""
 
-#: src/Core/Settings.php:583
+#: src/Core/Settings.php:608
 msgid "How often"
 msgstr ""
 
-#: src/Core/Settings.php:586
+#: src/Core/Settings.php:611
 #: src/Reports/Schedule.php:34
 msgid "Weekly"
 msgstr ""
 
-#: src/Core/Settings.php:587
+#: src/Core/Settings.php:612
 #: src/Reports/Schedule.php:35
 msgid "Monthly"
 msgstr ""
 
-#: src/Core/Settings.php:592
+#: src/Core/Settings.php:617
 msgid "Send to"
 msgstr ""
 
-#: src/Core/Settings.php:593
+#: src/Core/Settings.php:618
 msgid "Comma separated. Leave empty to use the site administrator’s address."
 msgstr ""
 
@@ -3876,8 +3892,12 @@ msgstr ""
 msgid "Every figure on this screen is reported by Google. This plugin adds nothing to it, and where Google reports nothing, nothing is shown. Results are cached for twelve hours; the underlying data updates about once a day."
 msgstr ""
 
-#: templates/admin/settings.php:20
+#: templates/admin/settings.php:45
 msgid "Settings saved."
+msgstr ""
+
+#: templates/admin/settings.php:51
+msgid "Settings sections"
 msgstr ""
 
 #. translators: %d: number of cache entries removed.

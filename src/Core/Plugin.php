@@ -11,6 +11,7 @@ namespace WPCustomSeo\Core;
 
 use WPCustomSeo\Abilities\Abilities;
 use WPCustomSeo\Crawlers\AiCrawlers;
+use WPCustomSeo\Crawlers\LlmsTxt;
 use WPCustomSeo\Admin\AIPage;
 use WPCustomSeo\Admin\AuditPage;
 use WPCustomSeo\Admin\BriefPage;
@@ -88,6 +89,7 @@ final class Plugin {
 		Integration::init();
 		ReportSchedule::init();
 		AiCrawlers::init();
+		LlmsTxt::init();
 		Abilities::init();
 		CliCommand::init();
 

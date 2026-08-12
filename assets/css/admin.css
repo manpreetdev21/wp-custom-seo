@@ -1,87 +1,318 @@
-/* WP Custom SEO — admin screens. */
+/**
+ * WP Custom SEO — admin screens.
+ *
+ * Written to sit inside the WordPress admin rather than on top of it: the
+ * chrome, the buttons and the notices stay WordPress's, and this refines the
+ * space between them. Everything is scoped to .wpcseo-wrap so no other plugin's
+ * screen is restyled by accident.
+ */
+
+.wpcseo-wrap {
+	/* One place for every value used more than once. */
+	--wpcseo-bg: #fff;
+	--wpcseo-sunk: #f6f7f7;
+	--wpcseo-line: #e0e0e3;
+	--wpcseo-line-soft: #f0f0f1;
+	--wpcseo-ink: #1e1e1e;
+	--wpcseo-ink-soft: #50575e;
+	--wpcseo-ink-faint: #787c82;
+	--wpcseo-accent: #2271b1;
+	--wpcseo-accent-soft: #f0f6fc;
+
+	--wpcseo-critical: #d63638;
+	--wpcseo-important: #dba617;
+	--wpcseo-opportunity: #3582c4;
+	--wpcseo-good: #00a32a;
+
+	--wpcseo-radius: 8px;
+	--wpcseo-radius-sm: 5px;
+	--wpcseo-gap: 20px;
+
+	/* Two shadows rather than a border: a hairline for definition and a soft
+	   drop for depth. Flat borders on white read as unfinished at this size. */
+	--wpcseo-shadow: 0 0 0 1px rgba(0, 0, 0, .07), 0 1px 2px rgba(0, 0, 0, .04);
+	--wpcseo-shadow-raised: 0 0 0 1px rgba(0, 0, 0, .07), 0 2px 8px rgba(0, 0, 0, .07);
+
+	color: var(--wpcseo-ink);
+}
+
+/* --- Page header ---------------------------------------------------------- */
+
+.wpcseo-wrap > h1 {
+	font-size: 23px;
+	font-weight: 600;
+	line-height: 1.3;
+	margin: 0 0 4px;
+	padding: 0;
+}
 
 .wpcseo-wrap .wpcseo-lede {
-	max-width: 60ch;
-	color: #50575e;
+	max-width: 68ch;
+	margin: 0 0 var(--wpcseo-gap);
+	color: var(--wpcseo-ink-soft);
 	font-size: 14px;
+	line-height: 1.6;
 }
+
+/* WordPress puts admin notices directly under the h1; give them room. */
+.wpcseo-wrap > .notice {
+	margin: 16px 0;
+	border-radius: var(--wpcseo-radius-sm);
+}
+
+/* --- Settings tabs --------------------------------------------------------- */
+
+.wpcseo-tabnav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2px;
+	margin: 18px 0 var(--wpcseo-gap);
+	padding: 0 0 0 2px;
+	border-bottom: 1px solid var(--wpcseo-line);
+}
+
+.wpcseo-tabnav .nav-tab {
+	margin: 0;
+	padding: 9px 16px;
+	border: 1px solid transparent;
+	border-bottom: 0;
+	border-radius: var(--wpcseo-radius-sm) var(--wpcseo-radius-sm) 0 0;
+	background: transparent;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.5;
+	color: var(--wpcseo-ink-soft);
+	transition: background .14s ease, color .14s ease;
+}
+
+.wpcseo-tabnav .nav-tab:hover {
+	background: var(--wpcseo-sunk);
+	color: var(--wpcseo-ink);
+}
+
+.wpcseo-tabnav .nav-tab-active,
+.wpcseo-tabnav .nav-tab-active:hover {
+	background: var(--wpcseo-bg);
+	border-color: var(--wpcseo-line);
+	color: var(--wpcseo-ink);
+	font-weight: 600;
+	/* Sits over the wrapper's own line so the active tab joins the panel. */
+	margin-bottom: -1px;
+	padding-bottom: 10px;
+}
+
+/* --- Cards ---------------------------------------------------------------- */
 
 .wpcseo-grid {
 	display: grid;
-	gap: 16px;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	margin-top: 16px;
+	gap: var(--wpcseo-gap);
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	margin-top: var(--wpcseo-gap);
+	align-items: start;
 }
 
 .wpcseo-card {
-	background: #fff;
-	border: 1px solid #dcdcde;
-	border-radius: 6px;
-	padding: 16px 20px;
+	background: var(--wpcseo-bg);
+	border: 0;
+	border-radius: var(--wpcseo-radius);
+	box-shadow: var(--wpcseo-shadow);
+	padding: 20px 22px;
+	margin: 0 0 var(--wpcseo-gap);
+	transition: box-shadow .16s ease;
+}
+
+.wpcseo-grid .wpcseo-card {
+	margin: 0;
+	height: 100%;
+}
+
+.wpcseo-card:hover {
+	box-shadow: var(--wpcseo-shadow-raised);
 }
 
 .wpcseo-card h2 {
-	font-size: 14px;
-	margin: 0 0 12px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1.4;
+	margin: 0 0 14px;
+	padding: 0;
 	text-transform: uppercase;
-	letter-spacing: .04em;
-	color: #50575e;
+	letter-spacing: .06em;
+	color: var(--wpcseo-ink-faint);
 }
+
+.wpcseo-card h3 {
+	font-size: 13px;
+	font-weight: 600;
+	margin: 18px 0 8px;
+}
+
+.wpcseo-card p {
+	margin: 0 0 12px;
+	line-height: 1.6;
+}
+
+.wpcseo-card p:last-child,
+.wpcseo-card form:last-child {
+	margin-bottom: 0;
+}
+
+.wpcseo-card hr {
+	border: 0;
+	border-top: 1px solid var(--wpcseo-line-soft);
+	margin: 18px 0;
+}
+
+/* A notice inside a card should not float away from it. */
+.wpcseo-card .notice.inline {
+	margin: 0 0 12px;
+	border-radius: var(--wpcseo-radius-sm);
+}
+
+/* --- Definition lists (the figure blocks) --------------------------------- */
 
 .wpcseo-list {
 	display: grid;
 	grid-template-columns: auto 1fr;
-	gap: 6px 16px;
+	gap: 8px 20px;
 	margin: 0;
+	font-size: 13px;
 }
 
 .wpcseo-list dt {
-	color: #50575e;
+	color: var(--wpcseo-ink-soft);
 }
 
 .wpcseo-list dd {
 	margin: 0;
 	font-weight: 600;
+	font-variant-numeric: tabular-nums;
 }
 
-.wpcseo-modules {
-	margin: 0 0 16px;
+/* A card whose whole job is one number should show it like one. */
+.wpcseo-card > .wpcseo-list:only-of-type dd {
+	font-size: 15px;
 }
 
-.wpcseo-modules li {
-	margin: 0 0 8px;
-}
+/* --- Badges and pills ------------------------------------------------------ */
 
 .wpcseo-badge {
-	display: inline-block;
-	min-width: 34px;
-	text-align: center;
-	padding: 1px 8px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 36px;
+	padding: 2px 9px;
 	margin-right: 8px;
-	border-radius: 10px;
+	border-radius: 999px;
 	font-size: 11px;
 	font-weight: 600;
+	line-height: 1.6;
 	border: 1px solid transparent;
+	white-space: nowrap;
 }
 
 .wpcseo-badge.is-on {
 	background: #edfaef;
-	border-color: #68de7c;
-	color: #0a5c23;
+	border-color: #a7e5b3;
+	color: #005c12;
 }
 
 .wpcseo-badge.is-off {
-	background: #f6f7f7;
-	border-color: #c3c4c7;
-	color: #50575e;
+	background: var(--wpcseo-sunk);
+	border-color: #dcdcde;
+	color: var(--wpcseo-ink-soft);
 }
 
-.wpcseo-schema-picker {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin: 16px 0 0;
+.wpcseo-modules {
+	margin: 0;
 }
+
+.wpcseo-modules li {
+	display: flex;
+	align-items: baseline;
+	gap: 4px;
+	padding: 7px 0;
+	border-bottom: 1px solid var(--wpcseo-line-soft);
+	line-height: 1.5;
+}
+
+.wpcseo-modules li:last-child {
+	border-bottom: 0;
+	padding-bottom: 0;
+}
+
+/* --- Findings (site audit) ------------------------------------------------- */
+
+.wpcseo-finding {
+	position: relative;
+	background: var(--wpcseo-bg);
+	border: 0;
+	border-radius: var(--wpcseo-radius);
+	box-shadow: var(--wpcseo-shadow);
+	padding: 16px 20px 16px 22px;
+	margin: 0 0 12px;
+	overflow: hidden;
+}
+
+/* The severity stripe is drawn rather than bordered so the card keeps its
+   rounded corner instead of squaring off on one side. */
+.wpcseo-finding::before {
+	content: "";
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 4px;
+	background: var(--wpcseo-line);
+}
+
+.wpcseo-finding.is-critical::before {
+	background: var(--wpcseo-critical);
+}
+
+.wpcseo-finding.is-important::before {
+	background: var(--wpcseo-important);
+}
+
+.wpcseo-finding.is-opportunity::before {
+	background: var(--wpcseo-opportunity);
+}
+
+.wpcseo-finding.is-good::before {
+	background: var(--wpcseo-good);
+}
+
+.wpcseo-finding h2 {
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.45;
+	margin: 0 0 8px;
+	padding: 0;
+	text-transform: none;
+	letter-spacing: 0;
+	color: var(--wpcseo-ink);
+}
+
+.wpcseo-finding p {
+	margin: 0 0 8px;
+	line-height: 1.6;
+	color: var(--wpcseo-ink-soft);
+}
+
+.wpcseo-finding summary {
+	cursor: pointer;
+	color: var(--wpcseo-accent);
+	font-size: 13px;
+	padding: 2px 0;
+	border-radius: 3px;
+}
+
+.wpcseo-finding summary:hover {
+	color: #135e96;
+}
+
+/* --- Validation issues ------------------------------------------------------ */
 
 .wpcseo-issues {
 	margin: 0;
@@ -90,88 +321,208 @@
 }
 
 .wpcseo-issue {
-	border-left: 3px solid #c3c4c7;
-	padding: 4px 0 4px 12px;
-	margin: 0 0 10px;
+	border-left: 3px solid var(--wpcseo-line);
+	background: var(--wpcseo-sunk);
+	border-radius: 0 var(--wpcseo-radius-sm) var(--wpcseo-radius-sm) 0;
+	padding: 8px 12px;
+	margin: 0 0 8px;
 }
 
 .wpcseo-issue.is-error {
-	border-left-color: #d63638;
+	border-left-color: var(--wpcseo-critical);
+	background: #fcf0f1;
 }
 
 .wpcseo-issue.is-warning {
-	border-left-color: #dba617;
+	border-left-color: var(--wpcseo-important);
+	background: #fcf9e8;
 }
 
 .wpcseo-issue.is-notice {
-	border-left-color: #72aee6;
+	border-left-color: var(--wpcseo-opportunity);
+	background: var(--wpcseo-accent-soft);
 }
 
 .wpcseo-issue p {
 	margin: 2px 0;
+	line-height: 1.55;
 }
 
 .wpcseo-issue code {
 	font-size: 11px;
 	word-break: break-all;
+	background: rgba(0, 0, 0, .05);
 }
 
-.wpcseo-check-badge {
-	display: block;
-	font-size: 11px;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: .04em;
-	color: #50575e;
-}
+/* --- Code and JSON ---------------------------------------------------------- */
 
 .wpcseo-json {
 	max-height: 480px;
 	overflow: auto;
-	padding: 12px 14px;
-	border: 1px solid #dcdcde;
-	border-radius: 6px;
-	background: #fff;
+	padding: 14px 16px;
+	border: 0;
+	border-radius: var(--wpcseo-radius);
+	box-shadow: var(--wpcseo-shadow);
+	background: var(--wpcseo-sunk);
 	font-size: 12px;
+	line-height: 1.6;
+	tab-size: 2;
+}
+
+.wpcseo-wrap code {
+	border-radius: 3px;
+	font-size: 12px;
+}
+
+/* --- Tables ------------------------------------------------------------------ */
+
+.wpcseo-wrap .wp-list-table {
+	border: 0;
+	border-radius: var(--wpcseo-radius);
+	box-shadow: var(--wpcseo-shadow);
+	overflow: hidden;
+}
+
+.wpcseo-wrap .wp-list-table thead th {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	color: var(--wpcseo-ink-faint);
+	padding-top: 12px;
+	padding-bottom: 12px;
+	background: var(--wpcseo-sunk);
+	border-bottom: 1px solid var(--wpcseo-line);
+}
+
+.wpcseo-wrap .wp-list-table td {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	line-height: 1.5;
+	vertical-align: middle;
+}
+
+/* Counts and rates line up when their digits do. */
+.wpcseo-wrap .wp-list-table td:not(:first-child) {
+	font-variant-numeric: tabular-nums;
+}
+
+.wpcseo-card .wp-list-table {
+	box-shadow: 0 0 0 1px var(--wpcseo-line);
+}
+
+/* --- Forms --------------------------------------------------------------------- */
+
+.wpcseo-wrap .form-table th {
+	padding: 18px 10px 18px 0;
+	font-weight: 600;
 	line-height: 1.5;
 }
 
-.wpcseo-outline ul {
-	margin: 4px 0 0 18px;
-	list-style: circle;
+.wpcseo-wrap .form-table td {
+	padding: 14px 10px;
 }
 
-.wpcseo-finding {
-	background: #fff;
-	border: 1px solid #dcdcde;
-	border-left-width: 4px;
-	border-radius: 6px;
-	padding: 12px 16px;
-	margin: 0 0 12px;
+.wpcseo-wrap .form-table td p.description {
+	max-width: 62ch;
+	margin-top: 6px;
+	color: var(--wpcseo-ink-soft);
+	line-height: 1.6;
 }
 
-.wpcseo-finding.is-critical {
-	border-left-color: #d63638;
+/* The settings sections read as a stack of cards rather than one long form. */
+.wpcseo-wrap form .form-table {
+	background: var(--wpcseo-bg);
+	border-radius: var(--wpcseo-radius);
+	box-shadow: var(--wpcseo-shadow);
+	margin: 0 0 var(--wpcseo-gap);
+	padding: 4px 20px;
+	border-collapse: separate;
 }
 
-.wpcseo-finding.is-important {
-	border-left-color: #dba617;
-}
-
-.wpcseo-finding.is-opportunity {
-	border-left-color: #72aee6;
-}
-
-.wpcseo-finding.is-good {
-	border-left-color: #68de7c;
-}
-
-.wpcseo-finding h2 {
+.wpcseo-wrap form h2 {
 	font-size: 15px;
-	margin: 0 0 8px;
+	font-weight: 600;
+	margin: 28px 0 10px;
+	padding: 0;
 }
 
-.wpcseo-finding summary {
-	cursor: pointer;
-	color: #50575e;
+.wpcseo-wrap form h2 + p.description {
+	max-width: 78ch;
+	margin: 0 0 12px;
+	color: var(--wpcseo-ink-soft);
+	line-height: 1.65;
+}
+
+.wpcseo-field {
+	margin: 0 0 14px;
+}
+
+.wpcseo-field label {
+	display: inline-block;
+	margin-bottom: 4px;
+	font-weight: 600;
+}
+
+.wpcseo-schema-picker {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: var(--wpcseo-gap) 0 0;
+}
+
+/* --- Accessibility --------------------------------------------------------------- */
+
+.wpcseo-wrap :focus-visible {
+	outline: 2px solid var(--wpcseo-accent);
+	outline-offset: 1px;
+	border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wpcseo-wrap * {
+		transition: none !important;
+		animation: none !important;
+	}
+}
+
+/* Windows high-contrast mode drops background colours, so the severity stripe
+   and the card edges have to survive without them. */
+@media (forced-colors: active) {
+	.wpcseo-card,
+	.wpcseo-finding,
+	.wpcseo-json,
+	.wpcseo-wrap .wp-list-table {
+		border: 1px solid CanvasText;
+	}
+
+	.wpcseo-finding::before {
+		background: CanvasText;
+	}
+}
+
+/* --- Narrow screens ---------------------------------------------------------------- */
+
+@media screen and (max-width: 782px) {
+	.wpcseo-wrap {
+		--wpcseo-gap: 14px;
+	}
+
+	.wpcseo-card {
+		padding: 16px;
+	}
+
+	.wpcseo-list {
+		grid-template-columns: 1fr;
+		gap: 2px;
+	}
+
+	.wpcseo-list dd {
+		margin-bottom: 10px;
+	}
+
+	.wpcseo-wrap form .form-table {
+		padding: 4px 12px;
+	}
 }

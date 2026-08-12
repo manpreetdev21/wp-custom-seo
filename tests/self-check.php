@@ -41,6 +41,15 @@ function _n( string $single, string $plural, int $number ): string {
 /**
  * Stub.
  *
+ * @param string $key Raw key.
+ */
+function sanitize_key( string $key ): string {
+	return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( $key ) ) ?? '';
+}
+
+/**
+ * Stub.
+ *
  * @param string   $hook     Filter name.
  * @param callable $callback Callback.
  */
@@ -1437,6 +1446,54 @@ wpcseo_check( 'report: a clean site gets a plain subject', 'SEO report for Examp
 
 wpcseo_check( 'report: two frequencies are offered', array( 'weekly', 'monthly' ) === array_keys( Schedule::frequencies() ) );
 wpcseo_check( 'report: a monthly interval is added, longer than core offers', 30 * DAY_IN_SECONDS === Schedule::add_interval( array() )['wpcseo_monthly']['interval'] );
+
+// --- Phase 18: a tabbed save must not clear the tabs it did not show -----------
+
+// options.php posts only the section on screen. An unchecked box and a field
+// that was never rendered look identical in the POST, so the form declares
+// which sections it covered — without that, saving one tab would switch off
+// every checkbox on all the others.
+unset( $GLOBALS['wpcseo_test_options']['wpcseo_settings'] );
+Settings::flush();
+
+wpcseo_check( 'tabs: fields_in is scoped to the section asked for', in_array( 'enable_seo', Settings::fields_in( array( 'general' ) ), true ) && ! in_array( 'enable_sitemap', Settings::fields_in( array( 'general' ) ), true ) );
+wpcseo_check( 'tabs: an unknown section has no fields', array() === Settings::fields_in( array( 'not-a-section' ) ) );
+
+// The screen has the Settings API's registered id, not the schema key. Both
+// must resolve, or a tabbed save would find no fields in scope and quietly
+// save nothing at all.
+wpcseo_check( 'tabs: the registered section id resolves too', Settings::fields_in( array( 'general' ) ) === Settings::fields_in( array( Settings::SECTION_PREFIX . 'general' ) ) );
+
+$prefixed = Settings::sanitize(
+	array(
+		'wpcseo_sections' => array( Settings::SECTION_PREFIX . 'general' ),
+		'enable_seo'      => '1',
+	)
+);
+
+wpcseo_check( 'tabs: a save using the registered id takes effect', ! empty( $prefixed['enable_seo'] ) && empty( $prefixed['enable_analysis'] ) );
+wpcseo_check( 'tabs: and still leaves other sections alone', ! empty( $prefixed['enable_sitemap'] ) );
+
+$tabbed = Settings::sanitize(
+	array(
+		'wpcseo_sections' => array( 'general' ),
+		'enable_seo'      => '1',
+	)
+);
+
+wpcseo_check( 'tabs: a tick on the saved tab is kept', ! empty( $tabbed['enable_seo'] ) );
+wpcseo_check( 'tabs: an unticked box on the saved tab is cleared', empty( $tabbed['enable_analysis'] ) );
+wpcseo_check( 'tabs: a default-on checkbox elsewhere survives', ! empty( $tabbed['enable_sitemap'] ) );
+wpcseo_check( 'tabs: and so does another one', ! empty( $tabbed['social_open_graph'] ) );
+wpcseo_check( 'tabs: the marker itself is not stored', ! array_key_exists( 'wpcseo_sections', $tabbed ) );
+
+// A save with no marker — a programmatic update — still covers everything.
+$whole = Settings::sanitize( array_merge( Settings::all(), array( 'enable_seo' => false ) ) );
+wpcseo_check( 'tabs: a full save still clears what it is told to', empty( $whole['enable_seo'] ) );
+wpcseo_check( 'tabs: without disturbing the rest', ! empty( $whole['enable_sitemap'] ) );
+
+unset( $GLOBALS['wpcseo_test_options']['wpcseo_settings'] );
+Settings::flush();
 
 // --- Phase 17: AI crawler controls ---------------------------------------------
 

@@ -57,7 +57,16 @@ defined( 'ABSPATH' ) || exit;
 	</form>
 
 	<?php if ( ! $report['findings'] ) : ?>
-		<p><?php esc_html_e( 'Nothing to report.', 'wp-custom-seo' ); ?></p>
+		<?php
+		$wpcseo_empty = \WPCustomSeo\Admin\UI::empty_state(
+			'shield',
+			__( 'Nothing to report', 'wp-custom-seo' ),
+			__( 'Every check the audit runs came back clean. Findings appear here as content is published and the site grows.', 'wp-custom-seo' )
+		);
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- UI::empty_state() escapes every argument it is given and returns finished markup.
+		echo $wpcseo_empty;
+		?>
 	<?php endif; ?>
 
 	<?php foreach ( $report['findings'] as $wpcseo_finding ) : ?>

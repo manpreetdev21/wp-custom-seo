@@ -1,318 +1,1250 @@
 /**
- * WP Custom SEO — admin screens.
+ * WP Custom SEO — admin design system.
  *
- * Written to sit inside the WordPress admin rather than on top of it: the
- * chrome, the buttons and the notices stay WordPress's, and this refines the
- * space between them. Everything is scoped to .wpcseo-wrap so no other plugin's
- * screen is restyled by accident.
+ * Everything is scoped to .wpcseo-app or .wpcseo-wrap. There is no bare
+ * element selector anywhere in this file, no `*`, and nothing touches `body`,
+ * `#wpwrap` or any WordPress admin class outside our own containers — a plugin
+ * that restyles the admin globally is a plugin that breaks every other plugin's
+ * screens.
+ *
+ * Tokens are declared twice: once for light and once under
+ * [data-wpcseo-theme="dark"], which the shell sets on its own root element and
+ * nowhere else. The dark palette is designed rather than inverted — surfaces
+ * lift as they come forward, the way they do in light, instead of the contrast
+ * flipping and the shadows turning into glows.
  */
 
+/* ==========================================================================
+   1. Design tokens
+   ========================================================================== */
+
+.wpcseo-app,
 .wpcseo-wrap {
-	/* One place for every value used more than once. */
-	--wpcseo-bg: #fff;
-	--wpcseo-sunk: #f6f7f7;
-	--wpcseo-line: #e0e0e3;
-	--wpcseo-line-soft: #f0f0f1;
-	--wpcseo-ink: #1e1e1e;
-	--wpcseo-ink-soft: #50575e;
-	--wpcseo-ink-faint: #787c82;
-	--wpcseo-accent: #2271b1;
-	--wpcseo-accent-soft: #f0f6fc;
+	/* Brand: a single blue-violet, in the six steps the interface actually uses.
+	   One hue keeps the UI calm; the accents below carry status instead. */
+	--wpcseo-brand-50: #eef2ff;
+	--wpcseo-brand-100: #e0e7ff;
+	--wpcseo-brand-300: #a5b4fc;
+	--wpcseo-brand-500: #4f46e5;
+	--wpcseo-brand-600: #4338ca;
+	--wpcseo-brand-700: #3730a3;
 
-	--wpcseo-critical: #d63638;
-	--wpcseo-important: #dba617;
-	--wpcseo-opportunity: #3582c4;
-	--wpcseo-good: #00a32a;
+	/* Surfaces, from the page ground upward. */
+	--wpcseo-bg: #f6f7f9;
+	--wpcseo-surface: #fff;
+	--wpcseo-surface-2: #fafafb;
+	--wpcseo-surface-3: #f1f2f4;
+	--wpcseo-overlay: rgba(15, 18, 25, .38);
 
-	--wpcseo-radius: 8px;
-	--wpcseo-radius-sm: 5px;
-	--wpcseo-gap: 20px;
+	/* Lines. Soft for grouping, plain for real separation. */
+	--wpcseo-line: #e4e5e9;
+	--wpcseo-line-soft: #eef0f2;
+	--wpcseo-line-strong: #d3d5da;
 
-	/* Two shadows rather than a border: a hairline for definition and a soft
-	   drop for depth. Flat borders on white read as unfinished at this size. */
-	--wpcseo-shadow: 0 0 0 1px rgba(0, 0, 0, .07), 0 1px 2px rgba(0, 0, 0, .04);
-	--wpcseo-shadow-raised: 0 0 0 1px rgba(0, 0, 0, .07), 0 2px 8px rgba(0, 0, 0, .07);
+	/* Text, in three weights of emphasis. */
+	--wpcseo-text: #14161c;
+	--wpcseo-text-muted: #5b6070;
+	--wpcseo-text-faint: #868b99;
+	--wpcseo-text-invert: #fff;
 
-	color: var(--wpcseo-ink);
+	/* Status. Each has a solid, a wash and a text tone so a badge, a bar and a
+	   sentence can all use the same idea without hand-picked hex values. */
+	--wpcseo-good: #0f8a4a;
+	--wpcseo-good-wash: #e8f7ee;
+	--wpcseo-good-line: #a8ddbe;
+	--wpcseo-good-text: #0a5c31;
+
+	--wpcseo-warn: #b7791f;
+	--wpcseo-warn-wash: #fdf6e3;
+	--wpcseo-warn-line: #ecd08a;
+	--wpcseo-warn-text: #7d5310;
+
+	--wpcseo-bad: #cf2e3c;
+	--wpcseo-bad-wash: #fdeef0;
+	--wpcseo-bad-line: #f2b5bc;
+	--wpcseo-bad-text: #91121e;
+
+	--wpcseo-info: #2563a8;
+	--wpcseo-info-wash: #eef4fc;
+	--wpcseo-info-line: #b3cded;
+	--wpcseo-info-text: #17457c;
+
+	/* Radius. */
+	--wpcseo-radius-sm: 6px;
+	--wpcseo-radius-md: 10px;
+	--wpcseo-radius-lg: 14px;
+	--wpcseo-radius-pill: 999px;
+
+	/* Elevation. A hairline ring plus a soft drop — a border alone reads flat at
+	   this size, and a drop alone loses its edge on a tinted ground. */
+	--wpcseo-shadow-sm: 0 0 0 1px rgba(18, 20, 28, .06), 0 1px 2px rgba(18, 20, 28, .05);
+	--wpcseo-shadow-md: 0 0 0 1px rgba(18, 20, 28, .06), 0 4px 12px rgba(18, 20, 28, .07);
+	--wpcseo-shadow-lg: 0 0 0 1px rgba(18, 20, 28, .07), 0 16px 40px rgba(18, 20, 28, .16);
+
+	/* Spacing, on a 4px rhythm. */
+	--wpcseo-space-1: 4px;
+	--wpcseo-space-2: 8px;
+	--wpcseo-space-3: 12px;
+	--wpcseo-space-4: 16px;
+	--wpcseo-space-5: 20px;
+	--wpcseo-space-6: 24px;
+	--wpcseo-space-8: 32px;
+	--wpcseo-space-10: 40px;
+
+	/* Type. System stack only — a webfont would cost a network request on an
+	   admin screen to change nothing a reader would notice. */
+	--wpcseo-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--wpcseo-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+	--wpcseo-text-xs: 11px;
+	--wpcseo-text-sm: 12px;
+	--wpcseo-text-base: 13px;
+	--wpcseo-text-md: 14px;
+	--wpcseo-text-lg: 16px;
+	--wpcseo-text-xl: 20px;
+	--wpcseo-text-2xl: 26px;
+
+	/* Motion. Short enough to feel like response rather than animation. */
+	--wpcseo-ease: cubic-bezier(.32, .72, 0, 1);
+	--wpcseo-fast: .13s;
+	--wpcseo-slow: .22s;
+
+	/* Layout. */
+	--wpcseo-sidebar-w: 236px;
+	--wpcseo-sidebar-collapsed-w: 60px;
+	--wpcseo-topbar-h: 56px;
+
+	color: var(--wpcseo-text);
+	font-family: var(--wpcseo-font);
 }
 
-/* --- Page header ---------------------------------------------------------- */
+/* Dark theme. Set by the shell on its own element; the toggle writes it and
+   "system" removes it so the media query below decides. */
+.wpcseo-app[data-wpcseo-theme="dark"],
+.wpcseo-app[data-wpcseo-theme="dark"] .wpcseo-wrap {
+	--wpcseo-brand-50: #1e1b41;
+	--wpcseo-brand-100: #272254;
+	--wpcseo-brand-300: #6f66e8;
+	--wpcseo-brand-500: #8b83ff;
+	--wpcseo-brand-600: #9d96ff;
+	--wpcseo-brand-700: #b4aeff;
 
-.wpcseo-wrap > h1 {
-	font-size: 23px;
-	font-weight: 600;
-	line-height: 1.3;
-	margin: 0 0 4px;
-	padding: 0;
+	--wpcseo-bg: #0e1016;
+	--wpcseo-surface: #171a22;
+	--wpcseo-surface-2: #1c2029;
+	--wpcseo-surface-3: #232833;
+	--wpcseo-overlay: rgba(0, 0, 0, .6);
+
+	--wpcseo-line: #2b303c;
+	--wpcseo-line-soft: #232833;
+	--wpcseo-line-strong: #3a4150;
+
+	--wpcseo-text: #eceef3;
+	--wpcseo-text-muted: #a3aab9;
+	--wpcseo-text-faint: #7b8394;
+
+	--wpcseo-good: #3ecf7f;
+	--wpcseo-good-wash: #10281c;
+	--wpcseo-good-line: #1f5a3b;
+	--wpcseo-good-text: #7ee2a8;
+
+	--wpcseo-warn: #e8b339;
+	--wpcseo-warn-wash: #2a2211;
+	--wpcseo-warn-line: #5d4a1c;
+	--wpcseo-warn-text: #f2cd77;
+
+	--wpcseo-bad: #ff6b78;
+	--wpcseo-bad-wash: #2c1418;
+	--wpcseo-bad-line: #63262e;
+	--wpcseo-bad-text: #ff9aa3;
+
+	--wpcseo-info: #63a4f5;
+	--wpcseo-info-wash: #11202f;
+	--wpcseo-info-line: #24455f;
+	--wpcseo-info-text: #99c4f8;
+
+	/* On a dark ground a drop shadow does nothing, so elevation is carried by
+	   the ring and a faint top highlight instead. */
+	--wpcseo-shadow-sm: 0 0 0 1px rgba(255, 255, 255, .06);
+	--wpcseo-shadow-md: 0 0 0 1px rgba(255, 255, 255, .08), 0 4px 14px rgba(0, 0, 0, .4);
+	--wpcseo-shadow-lg: 0 0 0 1px rgba(255, 255, 255, .1), 0 20px 48px rgba(0, 0, 0, .6);
 }
 
-.wpcseo-wrap .wpcseo-lede {
-	max-width: 68ch;
-	margin: 0 0 var(--wpcseo-gap);
-	color: var(--wpcseo-ink-soft);
-	font-size: 14px;
-	line-height: 1.6;
+@media (prefers-color-scheme: dark) {
+	.wpcseo-app[data-wpcseo-theme="system"],
+	.wpcseo-app[data-wpcseo-theme="system"] .wpcseo-wrap {
+		--wpcseo-brand-50: #1e1b41;
+		--wpcseo-brand-100: #272254;
+		--wpcseo-brand-300: #6f66e8;
+		--wpcseo-brand-500: #8b83ff;
+		--wpcseo-brand-600: #9d96ff;
+		--wpcseo-brand-700: #b4aeff;
+
+		--wpcseo-bg: #0e1016;
+		--wpcseo-surface: #171a22;
+		--wpcseo-surface-2: #1c2029;
+		--wpcseo-surface-3: #232833;
+		--wpcseo-overlay: rgba(0, 0, 0, .6);
+
+		--wpcseo-line: #2b303c;
+		--wpcseo-line-soft: #232833;
+		--wpcseo-line-strong: #3a4150;
+
+		--wpcseo-text: #eceef3;
+		--wpcseo-text-muted: #a3aab9;
+		--wpcseo-text-faint: #7b8394;
+
+		--wpcseo-good: #3ecf7f;
+		--wpcseo-good-wash: #10281c;
+		--wpcseo-good-line: #1f5a3b;
+		--wpcseo-good-text: #7ee2a8;
+
+		--wpcseo-warn: #e8b339;
+		--wpcseo-warn-wash: #2a2211;
+		--wpcseo-warn-line: #5d4a1c;
+		--wpcseo-warn-text: #f2cd77;
+
+		--wpcseo-bad: #ff6b78;
+		--wpcseo-bad-wash: #2c1418;
+		--wpcseo-bad-line: #63262e;
+		--wpcseo-bad-text: #ff9aa3;
+
+		--wpcseo-info: #63a4f5;
+		--wpcseo-info-wash: #11202f;
+		--wpcseo-info-line: #24455f;
+		--wpcseo-info-text: #99c4f8;
+
+		--wpcseo-shadow-sm: 0 0 0 1px rgba(255, 255, 255, .06);
+		--wpcseo-shadow-md: 0 0 0 1px rgba(255, 255, 255, .08), 0 4px 14px rgba(0, 0, 0, .4);
+		--wpcseo-shadow-lg: 0 0 0 1px rgba(255, 255, 255, .1), 0 20px 48px rgba(0, 0, 0, .6);
+	}
 }
 
-/* WordPress puts admin notices directly under the h1; give them room. */
-.wpcseo-wrap > .notice {
-	margin: 16px 0;
-	border-radius: var(--wpcseo-radius-sm);
-}
+/* ==========================================================================
+   2. Application shell
+   ========================================================================== */
 
-/* --- Settings tabs --------------------------------------------------------- */
-
-.wpcseo-tabnav {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 2px;
-	margin: 18px 0 var(--wpcseo-gap);
-	padding: 0 0 0 2px;
-	border-bottom: 1px solid var(--wpcseo-line);
-}
-
-.wpcseo-tabnav .nav-tab {
-	margin: 0;
-	padding: 9px 16px;
-	border: 1px solid transparent;
-	border-bottom: 0;
-	border-radius: var(--wpcseo-radius-sm) var(--wpcseo-radius-sm) 0 0;
-	background: transparent;
-	font-size: 13px;
-	font-weight: 500;
-	line-height: 1.5;
-	color: var(--wpcseo-ink-soft);
-	transition: background .14s ease, color .14s ease;
-}
-
-.wpcseo-tabnav .nav-tab:hover {
-	background: var(--wpcseo-sunk);
-	color: var(--wpcseo-ink);
-}
-
-.wpcseo-tabnav .nav-tab-active,
-.wpcseo-tabnav .nav-tab-active:hover {
+.wpcseo-app {
+	position: relative;
+	margin: 0 0 0 -20px;
+	min-height: calc(100vh - 32px);
 	background: var(--wpcseo-bg);
-	border-color: var(--wpcseo-line);
-	color: var(--wpcseo-ink);
-	font-weight: 600;
-	/* Sits over the wrapper's own line so the active tab joins the panel. */
-	margin-bottom: -1px;
-	padding-bottom: 10px;
+	font-size: var(--wpcseo-text-base);
+	line-height: 1.55;
 }
 
-/* --- Cards ---------------------------------------------------------------- */
-
-.wpcseo-grid {
+.wpcseo-app__body {
 	display: grid;
-	gap: var(--wpcseo-gap);
-	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-	margin-top: var(--wpcseo-gap);
+	grid-template-columns: var(--wpcseo-sidebar-w) minmax(0, 1fr);
 	align-items: start;
 }
 
-.wpcseo-card {
-	background: var(--wpcseo-bg);
+.wpcseo-app.is-collapsed .wpcseo-app__body {
+	grid-template-columns: var(--wpcseo-sidebar-collapsed-w) minmax(0, 1fr);
+}
+
+.wpcseo-app__main {
+	min-width: 0;
+	padding: var(--wpcseo-space-6) var(--wpcseo-space-8) var(--wpcseo-space-10);
+}
+
+.wpcseo-app__main:focus {
+	outline: none;
+}
+
+.wpcseo-skip:focus {
+	position: fixed;
+	top: var(--wpcseo-space-2);
+	left: var(--wpcseo-space-2);
+	z-index: 100;
+	width: auto;
+	height: auto;
+	clip: auto;
+	clip-path: none;
+	padding: var(--wpcseo-space-2) var(--wpcseo-space-4);
+	border-radius: var(--wpcseo-radius-sm);
+	background: var(--wpcseo-brand-500);
+	color: #fff;
+}
+
+/* The templates still carry WordPress's own .wrap. Its margins would fight the
+   shell's padding, so they are neutralised here rather than by editing fifteen
+   templates and losing the class WordPress relocates notices into. */
+.wpcseo-app .wpcseo-wrap {
+	margin: 0;
+	padding: 0;
+}
+
+/* --- Top bar -------------------------------------------------------------- */
+
+.wpcseo-topbar {
+	position: sticky;
+	top: var(--wpcseo-admin-offset, 32px);
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-4);
+	height: var(--wpcseo-topbar-h);
+	padding: 0 var(--wpcseo-space-5);
+	background: var(--wpcseo-surface);
+	border-bottom: 1px solid var(--wpcseo-line);
+}
+
+.wpcseo-topbar__brand {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-2);
+	flex: 0 0 auto;
+}
+
+.wpcseo-logo {
+	display: grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	border-radius: var(--wpcseo-radius-sm);
+	background: var(--wpcseo-brand-500);
+	color: #fff;
+}
+
+.wpcseo-topbar__name {
+	font-size: var(--wpcseo-text-md);
+	font-weight: 650;
+	letter-spacing: -.01em;
+	white-space: nowrap;
+}
+
+.wpcseo-topbar__search {
+	flex: 1 1 auto;
+	display: flex;
+	justify-content: center;
+	min-width: 0;
+}
+
+.wpcseo-search-trigger {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-2);
+	width: 100%;
+	max-width: 460px;
+	padding: 6px var(--wpcseo-space-3);
+	border: 1px solid var(--wpcseo-line);
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface-2);
+	color: var(--wpcseo-text-faint);
+	font-family: inherit;
+	font-size: var(--wpcseo-text-base);
+	text-align: left;
+	cursor: pointer;
+	transition: border-color var(--wpcseo-fast) var(--wpcseo-ease), background var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-search-trigger:hover {
+	border-color: var(--wpcseo-line-strong);
+	background: var(--wpcseo-surface);
+}
+
+.wpcseo-search-trigger > span {
+	flex: 1 1 auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wpcseo-kbd {
+	flex: 0 0 auto;
+	padding: 1px 6px;
+	border: 1px solid var(--wpcseo-line);
+	border-radius: var(--wpcseo-radius-sm);
+	background: var(--wpcseo-surface);
+	color: var(--wpcseo-text-faint);
+	font-family: var(--wpcseo-mono);
+	font-size: var(--wpcseo-text-xs);
+	line-height: 1.6;
+}
+
+.wpcseo-topbar__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-1);
+	flex: 0 0 auto;
+}
+
+.wpcseo-iconbtn {
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	padding: 0;
 	border: 0;
-	border-radius: var(--wpcseo-radius);
-	box-shadow: var(--wpcseo-shadow);
-	padding: 20px 22px;
-	margin: 0 0 var(--wpcseo-gap);
-	transition: box-shadow .16s ease;
+	border-radius: var(--wpcseo-radius-sm);
+	background: transparent;
+	color: var(--wpcseo-text-muted);
+	cursor: pointer;
+	text-decoration: none;
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease), color var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-iconbtn:hover {
+	background: var(--wpcseo-surface-3);
+	color: var(--wpcseo-text);
+}
+
+.wpcseo-topbar__alert {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--wpcseo-space-1);
+	margin-left: var(--wpcseo-space-2);
+	padding: 4px var(--wpcseo-space-3);
+	border: 1px solid var(--wpcseo-bad-line);
+	border-radius: var(--wpcseo-radius-pill);
+	background: var(--wpcseo-bad-wash);
+	color: var(--wpcseo-bad-text);
+	font-size: var(--wpcseo-text-sm);
+	font-weight: 600;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.wpcseo-topbar__alert:hover {
+	color: var(--wpcseo-bad-text);
+	border-color: var(--wpcseo-bad);
+}
+
+/* --- Sidebar --------------------------------------------------------------- */
+
+.wpcseo-sidebar {
+	position: sticky;
+	top: calc(var(--wpcseo-topbar-h) + var(--wpcseo-admin-offset, 32px));
+	align-self: start;
+	max-height: calc(100vh - var(--wpcseo-topbar-h) - var(--wpcseo-admin-offset, 32px));
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	padding: var(--wpcseo-space-4) var(--wpcseo-space-3) var(--wpcseo-space-8);
+	border-right: 1px solid var(--wpcseo-line);
+	background: var(--wpcseo-surface);
+}
+
+.wpcseo-navgroup + .wpcseo-navgroup {
+	margin-top: var(--wpcseo-space-5);
+}
+
+.wpcseo-navgroup__label {
+	margin: 0 0 var(--wpcseo-space-2);
+	padding: 0 var(--wpcseo-space-3);
+	color: var(--wpcseo-text-faint);
+	font-size: var(--wpcseo-text-xs);
+	font-weight: 700;
+	letter-spacing: .07em;
+	text-transform: uppercase;
+}
+
+.wpcseo-navgroup__list {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.wpcseo-navgroup__list li {
+	margin: 0;
+}
+
+.wpcseo-navlink {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-3);
+	padding: 7px var(--wpcseo-space-3);
+	border-radius: var(--wpcseo-radius-sm);
+	color: var(--wpcseo-text-muted);
+	font-size: var(--wpcseo-text-base);
+	font-weight: 500;
+	text-decoration: none;
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease), color var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-navlink:hover {
+	background: var(--wpcseo-surface-3);
+	color: var(--wpcseo-text);
+}
+
+.wpcseo-navlink.is-current {
+	background: var(--wpcseo-brand-50);
+	color: var(--wpcseo-brand-600);
+	font-weight: 600;
+}
+
+.wpcseo-navlink .wpcseo-icon {
+	flex: 0 0 auto;
+	opacity: .9;
+}
+
+.wpcseo-navlink__label {
+	flex: 1 1 auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wpcseo-navlink__count {
+	flex: 0 0 auto;
+	min-width: 18px;
+	padding: 0 5px;
+	border-radius: var(--wpcseo-radius-pill);
+	background: var(--wpcseo-bad);
+	color: #fff;
+	font-size: var(--wpcseo-text-xs);
+	font-weight: 700;
+	line-height: 18px;
+	text-align: center;
+}
+
+/* Collapsed: labels go, icons centre, and the label returns as a tooltip so the
+   navigation is still readable rather than a column of guesses. */
+.wpcseo-app.is-collapsed .wpcseo-navgroup__label,
+.wpcseo-app.is-collapsed .wpcseo-navlink__label,
+.wpcseo-app.is-collapsed .wpcseo-topbar__name {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.wpcseo-app.is-collapsed .wpcseo-sidebar {
+	padding-left: var(--wpcseo-space-2);
+	padding-right: var(--wpcseo-space-2);
+}
+
+.wpcseo-app.is-collapsed .wpcseo-navlink {
+	justify-content: center;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.wpcseo-app.is-collapsed .wpcseo-navgroup + .wpcseo-navgroup {
+	margin-top: var(--wpcseo-space-3);
+	padding-top: var(--wpcseo-space-3);
+	border-top: 1px solid var(--wpcseo-line-soft);
+}
+
+.wpcseo-app.is-collapsed .wpcseo-navlink__count {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	min-width: 15px;
+	line-height: 15px;
+	font-size: 9px;
+}
+
+.wpcseo-app.is-collapsed .wpcseo-navlink::after {
+	content: attr(data-wpcseo-tip);
+	position: absolute;
+	left: calc(100% + 10px);
+	top: 50%;
+	z-index: 30;
+	transform: translateY(-50%);
+	padding: 4px var(--wpcseo-space-2);
+	border-radius: var(--wpcseo-radius-sm);
+	background: var(--wpcseo-text);
+	color: var(--wpcseo-surface);
+	font-size: var(--wpcseo-text-sm);
+	white-space: nowrap;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-app.is-collapsed .wpcseo-navlink:hover::after,
+.wpcseo-app.is-collapsed .wpcseo-navlink:focus-visible::after {
+	opacity: 1;
+}
+
+/* ==========================================================================
+   3. Page structure
+   ========================================================================== */
+
+.wpcseo-page-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--wpcseo-space-5);
+	flex-wrap: wrap;
+	margin: 0 0 var(--wpcseo-space-6);
+}
+
+.wpcseo-page-head__text {
+	min-width: 0;
+}
+
+.wpcseo-page-head__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-2);
+	flex-wrap: wrap;
+}
+
+.wpcseo-wrap .wpcseo-page-title,
+.wpcseo-wrap > h1 {
+	margin: 0;
+	padding: 0;
+	color: var(--wpcseo-text);
+	font-size: var(--wpcseo-text-2xl);
+	font-weight: 650;
+	letter-spacing: -.02em;
+	line-height: 1.25;
+}
+
+.wpcseo-wrap .wpcseo-lede {
+	max-width: 72ch;
+	margin: var(--wpcseo-space-2) 0 0;
+	color: var(--wpcseo-text-muted);
+	font-size: var(--wpcseo-text-md);
+	line-height: 1.6;
+}
+
+.wpcseo-wrap > h1 + .wpcseo-lede {
+	margin-bottom: var(--wpcseo-space-6);
+}
+
+.wpcseo-wrap h2 {
+	margin: var(--wpcseo-space-8) 0 var(--wpcseo-space-3);
+	padding: 0;
+	font-size: var(--wpcseo-text-xl);
+	font-weight: 650;
+	letter-spacing: -.015em;
+	line-height: 1.35;
+}
+
+.wpcseo-wrap h3 {
+	margin: var(--wpcseo-space-5) 0 var(--wpcseo-space-2);
+	font-size: var(--wpcseo-text-lg);
+	font-weight: 600;
+}
+
+.wpcseo-wrap > .notice,
+.wpcseo-wrap .notice {
+	margin: 0 0 var(--wpcseo-space-4);
+	border-radius: var(--wpcseo-radius-md);
+	box-shadow: var(--wpcseo-shadow-sm);
+	border-left-width: 3px;
+}
+
+.wpcseo-wrap p.description {
+	max-width: 72ch;
+	color: var(--wpcseo-text-muted);
+	font-size: var(--wpcseo-text-base);
+	line-height: 1.6;
+}
+
+/* ==========================================================================
+   4. Cards and grid
+   ========================================================================== */
+
+/* Cards size to their own content — `align-items: start` — and must NOT also be
+ * given `height: 100%`.
+ *
+ * That pairing is a trap: the item is told to fill a row whose height is derived
+ * from the item, so the row resolves against an indefinite size, the container
+ * reports a height shorter than what it holds, and the second row is painted on
+ * top of whatever follows the grid. On the Site Audit screen that put the fourth
+ * severity card over the paragraph beneath it.
+ *
+ * Stretching the rows instead would fix the overlap but is the wrong look here:
+ * these grids hold cards of very different lengths, and equal heights leave a
+ * short card like "Schema cache" with several hundred pixels of dead space. */
+.wpcseo-grid {
+	display: grid;
+	gap: var(--wpcseo-space-5);
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	align-items: start;
+	margin: 0 0 var(--wpcseo-space-6);
+}
+
+.wpcseo-grid--stats {
+	grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.wpcseo-card {
+	position: relative;
+	margin: 0 0 var(--wpcseo-space-5);
+	padding: var(--wpcseo-space-5);
+	border: 0;
+	border-radius: var(--wpcseo-radius-lg);
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-sm);
+	transition: box-shadow var(--wpcseo-slow) var(--wpcseo-ease);
 }
 
 .wpcseo-grid .wpcseo-card {
 	margin: 0;
-	height: 100%;
 }
 
 .wpcseo-card:hover {
-	box-shadow: var(--wpcseo-shadow-raised);
+	box-shadow: var(--wpcseo-shadow-md);
 }
 
-.wpcseo-card h2 {
+.wpcseo-card__title,
+.wpcseo-card > h2 {
 	display: flex;
 	align-items: center;
-	gap: 8px;
-	font-size: 11px;
-	font-weight: 700;
-	line-height: 1.4;
-	margin: 0 0 14px;
+	gap: var(--wpcseo-space-2);
+	margin: 0 0 var(--wpcseo-space-4);
 	padding: 0;
+	color: var(--wpcseo-text-faint);
+	font-size: var(--wpcseo-text-xs);
+	font-weight: 700;
+	letter-spacing: .07em;
+	line-height: 1.4;
 	text-transform: uppercase;
-	letter-spacing: .06em;
-	color: var(--wpcseo-ink-faint);
 }
 
 .wpcseo-card h3 {
-	font-size: 13px;
+	margin: var(--wpcseo-space-4) 0 var(--wpcseo-space-2);
+	font-size: var(--wpcseo-text-md);
 	font-weight: 600;
-	margin: 18px 0 8px;
 }
 
 .wpcseo-card p {
-	margin: 0 0 12px;
+	margin: 0 0 var(--wpcseo-space-3);
 	line-height: 1.6;
 }
 
 .wpcseo-card p:last-child,
-.wpcseo-card form:last-child {
+.wpcseo-card form:last-child,
+.wpcseo-card .wpcseo-list:last-child {
 	margin-bottom: 0;
 }
 
 .wpcseo-card hr {
+	margin: var(--wpcseo-space-4) 0;
 	border: 0;
 	border-top: 1px solid var(--wpcseo-line-soft);
-	margin: 18px 0;
 }
 
-/* A notice inside a card should not float away from it. */
 .wpcseo-card .notice.inline {
-	margin: 0 0 12px;
-	border-radius: var(--wpcseo-radius-sm);
+	margin: 0 0 var(--wpcseo-space-3);
 }
 
-/* --- Definition lists (the figure blocks) --------------------------------- */
+.wpcseo-card--wide {
+	grid-column: 1 / -1;
+}
+
+/* ==========================================================================
+   5. Definition lists and stats
+   ========================================================================== */
 
 .wpcseo-list {
 	display: grid;
 	grid-template-columns: auto 1fr;
-	gap: 8px 20px;
+	gap: var(--wpcseo-space-2) var(--wpcseo-space-5);
 	margin: 0;
-	font-size: 13px;
+	font-size: var(--wpcseo-text-base);
 }
 
 .wpcseo-list dt {
-	color: var(--wpcseo-ink-soft);
+	color: var(--wpcseo-text-muted);
 }
 
 .wpcseo-list dd {
 	margin: 0;
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
+	text-align: right;
+	/* Values are usually short numbers, but a URL is a value too — without this
+	   it pushes the column wide enough to break the card. */
+	overflow-wrap: anywhere;
+	min-width: 0;
 }
 
-/* A card whose whole job is one number should show it like one. */
-.wpcseo-card > .wpcseo-list:only-of-type dd {
-	font-size: 15px;
+/* A list whose values are prose or URLs rather than figures. Right-aligning a
+   wrapping URL against a label reads as a mistake, so these stack instead. */
+.wpcseo-list--stack {
+	grid-template-columns: minmax(0, 1fr);
+	gap: var(--wpcseo-space-1);
 }
 
-/* --- Badges and pills ------------------------------------------------------ */
+.wpcseo-list--stack dt {
+	font-weight: 600;
+	color: var(--wpcseo-text);
+}
+
+.wpcseo-list--stack dd {
+	margin: 0 0 var(--wpcseo-space-3);
+	font-weight: 400;
+	text-align: left;
+	color: var(--wpcseo-text-muted);
+}
+
+/* `.wpcseo-list` is a description list. Applied to a UL its children would be
+   dealt alternately into the two columns, which is nonsense — so a UL gets a
+   plain single column instead of silently laying out wrong. */
+ul.wpcseo-list {
+	display: block;
+	padding-left: 18px;
+	list-style: disc;
+}
+
+ul.wpcseo-list li {
+	margin: 0 0 var(--wpcseo-space-1);
+}
+
+.wpcseo-stat {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wpcseo-space-1);
+}
+
+.wpcseo-stat__label {
+	color: var(--wpcseo-text-muted);
+	font-size: var(--wpcseo-text-sm);
+	font-weight: 500;
+}
+
+.wpcseo-stat__value {
+	color: var(--wpcseo-text);
+	font-size: var(--wpcseo-text-2xl);
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -.02em;
+	line-height: 1.15;
+}
+
+.wpcseo-stat__note {
+	font-size: var(--wpcseo-text-sm);
+	color: var(--wpcseo-text-faint);
+}
+
+.wpcseo-stat__action {
+	margin: var(--wpcseo-space-3) 0 0;
+}
+
+.wpcseo-stat__note.is-good { color: var(--wpcseo-good-text); }
+.wpcseo-stat__note.is-warn { color: var(--wpcseo-warn-text); }
+.wpcseo-stat__note.is-bad { color: var(--wpcseo-bad-text); }
+.wpcseo-stat__note.is-info { color: var(--wpcseo-info-text); }
+
+/* ==========================================================================
+   6. Score ring
+   ========================================================================== */
+
+.wpcseo-ring {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: var(--wpcseo-ring-size, 148px);
+	height: var(--wpcseo-ring-size, 148px);
+	color: var(--wpcseo-good);
+}
+
+.wpcseo-ring.is-warn { color: var(--wpcseo-warn); }
+.wpcseo-ring.is-bad { color: var(--wpcseo-bad); }
+
+.wpcseo-ring__svg {
+	width: 100%;
+	height: 100%;
+	transform: rotate(-90deg);
+}
+
+.wpcseo-ring__track,
+.wpcseo-ring__value {
+	fill: none;
+	stroke-width: 10;
+	stroke-linecap: round;
+}
+
+.wpcseo-ring__track {
+	stroke: var(--wpcseo-surface-3);
+}
+
+.wpcseo-ring__value {
+	stroke: currentColor;
+	transition: stroke-dashoffset .7s var(--wpcseo-ease);
+}
+
+.wpcseo-ring__text {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+}
+
+.wpcseo-ring__score {
+	color: var(--wpcseo-text);
+	font-size: 34px;
+	font-weight: 680;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -.03em;
+	line-height: 1;
+}
+
+.wpcseo-ring__caption {
+	color: currentColor;
+	font-size: var(--wpcseo-text-sm);
+	font-weight: 600;
+}
+
+/* Ring beside its breakdown. Collapses to a stack when the card is narrow,
+   which is what happens first on a tablet rather than at any page breakpoint. */
+.wpcseo-health {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-6);
+	flex-wrap: wrap;
+	margin-bottom: var(--wpcseo-space-4);
+}
+
+.wpcseo-health .wpcseo-ring {
+	flex: 0 0 auto;
+}
+
+.wpcseo-health .wpcseo-meters {
+	flex: 1 1 240px;
+	min-width: 0;
+}
+
+/* ==========================================================================
+   7. Meters
+   ========================================================================== */
+
+.wpcseo-meters {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wpcseo-space-3);
+}
+
+.wpcseo-meter {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: var(--wpcseo-space-1) var(--wpcseo-space-3);
+	padding: var(--wpcseo-space-2);
+	margin: 0 calc(var(--wpcseo-space-2) * -1);
+	border-radius: var(--wpcseo-radius-sm);
+	color: inherit;
+	text-decoration: none;
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+a.wpcseo-meter:hover {
+	background: var(--wpcseo-surface-3);
+}
+
+.wpcseo-meter__label {
+	color: var(--wpcseo-text);
+	font-size: var(--wpcseo-text-base);
+	font-weight: 500;
+}
+
+.wpcseo-meter__value {
+	color: var(--wpcseo-text-muted);
+	font-size: var(--wpcseo-text-base);
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+}
+
+.wpcseo-meter__track {
+	grid-column: 1 / -1;
+	height: 6px;
+	border-radius: var(--wpcseo-radius-pill);
+	background: var(--wpcseo-surface-3);
+	overflow: hidden;
+}
+
+.wpcseo-meter__fill {
+	display: block;
+	height: 100%;
+	border-radius: inherit;
+	background: var(--wpcseo-good);
+	transition: width .7s var(--wpcseo-ease);
+}
+
+.wpcseo-meter.is-warn .wpcseo-meter__fill { background: var(--wpcseo-warn); }
+.wpcseo-meter.is-bad .wpcseo-meter__fill { background: var(--wpcseo-bad); }
+
+/* ==========================================================================
+   8. Badges
+   ========================================================================== */
 
 .wpcseo-badge {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 36px;
-	padding: 2px 9px;
-	margin-right: 8px;
-	border-radius: 999px;
-	font-size: 11px;
-	font-weight: 600;
-	line-height: 1.6;
+	gap: var(--wpcseo-space-1);
+	padding: 2px var(--wpcseo-space-2);
 	border: 1px solid transparent;
+	border-radius: var(--wpcseo-radius-pill);
+	font-size: var(--wpcseo-text-xs);
+	font-weight: 650;
+	line-height: 1.65;
 	white-space: nowrap;
 }
 
-.wpcseo-badge.is-on {
-	background: #edfaef;
-	border-color: #a7e5b3;
-	color: #005c12;
+.wpcseo-badge.is-neutral {
+	background: var(--wpcseo-surface-3);
+	border-color: var(--wpcseo-line);
+	color: var(--wpcseo-text-muted);
 }
 
+.wpcseo-badge.is-good,
+.wpcseo-badge.is-on {
+	background: var(--wpcseo-good-wash);
+	border-color: var(--wpcseo-good-line);
+	color: var(--wpcseo-good-text);
+}
+
+.wpcseo-badge.is-warn {
+	background: var(--wpcseo-warn-wash);
+	border-color: var(--wpcseo-warn-line);
+	color: var(--wpcseo-warn-text);
+}
+
+.wpcseo-badge.is-bad {
+	background: var(--wpcseo-bad-wash);
+	border-color: var(--wpcseo-bad-line);
+	color: var(--wpcseo-bad-text);
+}
+
+.wpcseo-badge.is-info,
+.wpcseo-badge.is-accent {
+	background: var(--wpcseo-info-wash);
+	border-color: var(--wpcseo-info-line);
+	color: var(--wpcseo-info-text);
+}
+
+/* The legacy off-state spelling, kept so templates written against it keep
+   working rather than losing their styling on upgrade. */
 .wpcseo-badge.is-off {
-	background: var(--wpcseo-sunk);
-	border-color: #dcdcde;
-	color: var(--wpcseo-ink-soft);
+	background: var(--wpcseo-surface-3);
+	border-color: var(--wpcseo-line);
+	color: var(--wpcseo-text-muted);
 }
 
 .wpcseo-modules {
 	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .wpcseo-modules li {
 	display: flex;
-	align-items: baseline;
-	gap: 4px;
-	padding: 7px 0;
+	align-items: center;
+	gap: var(--wpcseo-space-2);
+	padding: var(--wpcseo-space-2) 0;
 	border-bottom: 1px solid var(--wpcseo-line-soft);
 	line-height: 1.5;
 }
 
 .wpcseo-modules li:last-child {
-	border-bottom: 0;
 	padding-bottom: 0;
+	border-bottom: 0;
 }
 
-/* --- Findings (site audit) ------------------------------------------------- */
+/* ==========================================================================
+   9. Buttons
+   ========================================================================== */
+
+.wpcseo-wrap .wpcseo-btn,
+.wpcseo-app .wpcseo-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--wpcseo-space-2);
+	height: auto;
+	padding: 6px var(--wpcseo-space-4);
+	border-radius: var(--wpcseo-radius-md);
+	font-size: var(--wpcseo-text-base);
+	font-weight: 550;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: transform var(--wpcseo-fast) var(--wpcseo-ease), box-shadow var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-wrap .wpcseo-btn:active {
+	transform: translateY(1px);
+}
+
+.wpcseo-wrap .wpcseo-btn.is-ghost {
+	border-color: transparent;
+	background: transparent;
+	box-shadow: none;
+}
+
+.wpcseo-wrap .wpcseo-btn.is-ghost:hover {
+	background: var(--wpcseo-surface-3);
+}
+
+/* WordPress's own buttons keep their shape but pick up the system's radius, so
+   a core submit button next to one of ours does not look like a different era. */
+.wpcseo-wrap .button,
+.wpcseo-wrap .button-primary,
+.wpcseo-wrap .button-secondary {
+	border-radius: var(--wpcseo-radius-md);
+}
+
+/* ==========================================================================
+   10. Alerts and empty states
+   ========================================================================== */
+
+.wpcseo-alert {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--wpcseo-space-3);
+	margin: 0 0 var(--wpcseo-space-4);
+	padding: var(--wpcseo-space-3) var(--wpcseo-space-4);
+	border: 1px solid var(--wpcseo-line);
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface-2);
+	font-size: var(--wpcseo-text-base);
+	line-height: 1.6;
+}
+
+.wpcseo-alert__icon {
+	flex: 0 0 auto;
+	margin-top: 1px;
+}
+
+.wpcseo-alert__text strong {
+	font-weight: 650;
+}
+
+.wpcseo-alert__text span {
+	color: var(--wpcseo-text-muted);
+}
+
+.wpcseo-alert.is-good {
+	border-color: var(--wpcseo-good-line);
+	background: var(--wpcseo-good-wash);
+	color: var(--wpcseo-good-text);
+}
+
+.wpcseo-alert.is-warn {
+	border-color: var(--wpcseo-warn-line);
+	background: var(--wpcseo-warn-wash);
+	color: var(--wpcseo-warn-text);
+}
+
+.wpcseo-alert.is-bad {
+	border-color: var(--wpcseo-bad-line);
+	background: var(--wpcseo-bad-wash);
+	color: var(--wpcseo-bad-text);
+}
+
+.wpcseo-alert.is-info {
+	border-color: var(--wpcseo-info-line);
+	background: var(--wpcseo-info-wash);
+	color: var(--wpcseo-info-text);
+}
+
+.wpcseo-alert.is-good .wpcseo-alert__text span,
+.wpcseo-alert.is-warn .wpcseo-alert__text span,
+.wpcseo-alert.is-bad .wpcseo-alert__text span,
+.wpcseo-alert.is-info .wpcseo-alert__text span {
+	color: inherit;
+	opacity: .85;
+}
+
+.wpcseo-empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--wpcseo-space-2);
+	padding: var(--wpcseo-space-10) var(--wpcseo-space-6);
+	border: 1px dashed var(--wpcseo-line-strong);
+	border-radius: var(--wpcseo-radius-lg);
+	background: var(--wpcseo-surface);
+	text-align: center;
+}
+
+.wpcseo-empty__icon {
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	margin-bottom: var(--wpcseo-space-1);
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface-3);
+	color: var(--wpcseo-text-faint);
+}
+
+.wpcseo-empty__title {
+	margin: 0;
+	font-size: var(--wpcseo-text-lg);
+	font-weight: 650;
+}
+
+.wpcseo-empty__body {
+	max-width: 46ch;
+	margin: 0;
+	color: var(--wpcseo-text-muted);
+	line-height: 1.6;
+}
+
+.wpcseo-empty__actions {
+	margin-top: var(--wpcseo-space-3);
+	display: flex;
+	gap: var(--wpcseo-space-2);
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+/* ==========================================================================
+   11. Issues, findings, validation
+   ========================================================================== */
 
 .wpcseo-finding {
 	position: relative;
-	background: var(--wpcseo-bg);
+	margin: 0 0 var(--wpcseo-space-3);
+	padding: var(--wpcseo-space-4) var(--wpcseo-space-5) var(--wpcseo-space-4) var(--wpcseo-space-6);
 	border: 0;
-	border-radius: var(--wpcseo-radius);
-	box-shadow: var(--wpcseo-shadow);
-	padding: 16px 20px 16px 22px;
-	margin: 0 0 12px;
+	border-radius: var(--wpcseo-radius-lg);
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-sm);
 	overflow: hidden;
 }
 
-/* The severity stripe is drawn rather than bordered so the card keeps its
-   rounded corner instead of squaring off on one side. */
 .wpcseo-finding::before {
 	content: "";
 	position: absolute;
 	inset: 0 auto 0 0;
-	width: 4px;
-	background: var(--wpcseo-line);
+	width: 3px;
+	background: var(--wpcseo-line-strong);
 }
 
-.wpcseo-finding.is-critical::before {
-	background: var(--wpcseo-critical);
-}
-
-.wpcseo-finding.is-important::before {
-	background: var(--wpcseo-important);
-}
-
-.wpcseo-finding.is-opportunity::before {
-	background: var(--wpcseo-opportunity);
-}
-
-.wpcseo-finding.is-good::before {
-	background: var(--wpcseo-good);
-}
+.wpcseo-finding.is-critical::before { background: var(--wpcseo-bad); }
+.wpcseo-finding.is-important::before { background: var(--wpcseo-warn); }
+.wpcseo-finding.is-opportunity::before { background: var(--wpcseo-info); }
+.wpcseo-finding.is-good::before { background: var(--wpcseo-good); }
 
 .wpcseo-finding h2 {
-	font-size: 15px;
-	font-weight: 600;
-	line-height: 1.45;
-	margin: 0 0 8px;
+	margin: 0 0 var(--wpcseo-space-2);
 	padding: 0;
+	color: var(--wpcseo-text);
+	font-size: var(--wpcseo-text-lg);
+	font-weight: 620;
+	letter-spacing: -.01em;
+	line-height: 1.45;
 	text-transform: none;
-	letter-spacing: 0;
-	color: var(--wpcseo-ink);
 }
 
 .wpcseo-finding p {
-	margin: 0 0 8px;
+	margin: 0 0 var(--wpcseo-space-2);
+	color: var(--wpcseo-text-muted);
 	line-height: 1.6;
-	color: var(--wpcseo-ink-soft);
 }
 
 .wpcseo-finding summary {
-	cursor: pointer;
-	color: var(--wpcseo-accent);
-	font-size: 13px;
 	padding: 2px 0;
-	border-radius: 3px;
+	border-radius: var(--wpcseo-radius-sm);
+	color: var(--wpcseo-brand-600);
+	cursor: pointer;
+	font-size: var(--wpcseo-text-base);
+	font-weight: 550;
 }
-
-.wpcseo-finding summary:hover {
-	color: #135e96;
-}
-
-/* --- Validation issues ------------------------------------------------------ */
 
 .wpcseo-issues {
 	margin: 0;
@@ -321,26 +1253,26 @@
 }
 
 .wpcseo-issue {
-	border-left: 3px solid var(--wpcseo-line);
-	background: var(--wpcseo-sunk);
+	margin: 0 0 var(--wpcseo-space-2);
+	padding: var(--wpcseo-space-2) var(--wpcseo-space-3);
+	border-left: 3px solid var(--wpcseo-line-strong);
 	border-radius: 0 var(--wpcseo-radius-sm) var(--wpcseo-radius-sm) 0;
-	padding: 8px 12px;
-	margin: 0 0 8px;
+	background: var(--wpcseo-surface-3);
 }
 
 .wpcseo-issue.is-error {
-	border-left-color: var(--wpcseo-critical);
-	background: #fcf0f1;
+	border-left-color: var(--wpcseo-bad);
+	background: var(--wpcseo-bad-wash);
 }
 
 .wpcseo-issue.is-warning {
-	border-left-color: var(--wpcseo-important);
-	background: #fcf9e8;
+	border-left-color: var(--wpcseo-warn);
+	background: var(--wpcseo-warn-wash);
 }
 
 .wpcseo-issue.is-notice {
-	border-left-color: var(--wpcseo-opportunity);
-	background: var(--wpcseo-accent-soft);
+	border-left-color: var(--wpcseo-info);
+	background: var(--wpcseo-info-wash);
 }
 
 .wpcseo-issue p {
@@ -348,61 +1280,88 @@
 	line-height: 1.55;
 }
 
-.wpcseo-issue code {
-	font-size: 11px;
-	word-break: break-all;
-	background: rgba(0, 0, 0, .05);
+/* A compact issue row for the dashboard. */
+.wpcseo-issuerow {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-3);
+	padding: var(--wpcseo-space-3) var(--wpcseo-space-2);
+	margin: 0 calc(var(--wpcseo-space-2) * -1);
+	border-bottom: 1px solid var(--wpcseo-line-soft);
+	border-radius: var(--wpcseo-radius-sm);
+	color: inherit;
+	text-decoration: none;
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease);
 }
 
-/* --- Code and JSON ---------------------------------------------------------- */
-
-.wpcseo-json {
-	max-height: 480px;
-	overflow: auto;
-	padding: 14px 16px;
-	border: 0;
-	border-radius: var(--wpcseo-radius);
-	box-shadow: var(--wpcseo-shadow);
-	background: var(--wpcseo-sunk);
-	font-size: 12px;
-	line-height: 1.6;
-	tab-size: 2;
+.wpcseo-issuerow:last-child {
+	border-bottom: 0;
 }
 
-.wpcseo-wrap code {
-	border-radius: 3px;
-	font-size: 12px;
+.wpcseo-issuerow:hover {
+	background: var(--wpcseo-surface-3);
+	color: inherit;
 }
 
-/* --- Tables ------------------------------------------------------------------ */
+.wpcseo-issuerow__dot {
+	flex: 0 0 auto;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--wpcseo-line-strong);
+}
+
+.wpcseo-issuerow.is-critical .wpcseo-issuerow__dot { background: var(--wpcseo-bad); }
+.wpcseo-issuerow.is-important .wpcseo-issuerow__dot { background: var(--wpcseo-warn); }
+.wpcseo-issuerow.is-opportunity .wpcseo-issuerow__dot { background: var(--wpcseo-info); }
+
+.wpcseo-issuerow__title {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-weight: 500;
+	line-height: 1.45;
+}
+
+/* ==========================================================================
+   12. Tables
+   ========================================================================== */
 
 .wpcseo-wrap .wp-list-table {
 	border: 0;
-	border-radius: var(--wpcseo-radius);
-	box-shadow: var(--wpcseo-shadow);
+	border-radius: var(--wpcseo-radius-lg);
+	box-shadow: var(--wpcseo-shadow-sm);
+	background: var(--wpcseo-surface);
 	overflow: hidden;
 }
 
 .wpcseo-wrap .wp-list-table thead th {
-	font-size: 11px;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: .05em;
-	color: var(--wpcseo-ink-faint);
-	padding-top: 12px;
-	padding-bottom: 12px;
-	background: var(--wpcseo-sunk);
+	padding-top: var(--wpcseo-space-3);
+	padding-bottom: var(--wpcseo-space-3);
 	border-bottom: 1px solid var(--wpcseo-line);
+	background: var(--wpcseo-surface-2);
+	color: var(--wpcseo-text-faint);
+	font-size: var(--wpcseo-text-xs);
+	font-weight: 700;
+	letter-spacing: .06em;
+	text-transform: uppercase;
 }
 
-.wpcseo-wrap .wp-list-table td {
-	padding-top: 12px;
-	padding-bottom: 12px;
+.wpcseo-wrap .wp-list-table td,
+.wpcseo-wrap .wp-list-table th {
+	padding-top: var(--wpcseo-space-3);
+	padding-bottom: var(--wpcseo-space-3);
 	line-height: 1.5;
 	vertical-align: middle;
 }
 
-/* Counts and rates line up when their digits do. */
+.wpcseo-wrap .wp-list-table tbody tr {
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-wrap .wp-list-table tbody tr:hover {
+	background: var(--wpcseo-surface-2);
+}
+
 .wpcseo-wrap .wp-list-table td:not(:first-child) {
 	font-variant-numeric: tabular-nums;
 }
@@ -411,56 +1370,191 @@
 	box-shadow: 0 0 0 1px var(--wpcseo-line);
 }
 
-/* --- Forms --------------------------------------------------------------------- */
+/* ==========================================================================
+   13. Settings: tabs and forms
+   ========================================================================== */
+
+.wpcseo-tabnav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wpcseo-space-1);
+	margin: 0 0 var(--wpcseo-space-6);
+	padding: var(--wpcseo-space-1);
+	border: 0;
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface-3);
+}
+
+.wpcseo-wrap .wpcseo-tabnav .nav-tab {
+	margin: 0;
+	padding: 6px var(--wpcseo-space-4);
+	border: 0;
+	border-radius: var(--wpcseo-radius-sm);
+	background: transparent;
+	color: var(--wpcseo-text-muted);
+	font-size: var(--wpcseo-text-base);
+	font-weight: 550;
+	line-height: 1.6;
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease), color var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-wrap .wpcseo-tabnav .nav-tab:hover {
+	color: var(--wpcseo-text);
+}
+
+.wpcseo-wrap .wpcseo-tabnav .nav-tab-active,
+.wpcseo-wrap .wpcseo-tabnav .nav-tab-active:hover {
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-sm);
+	color: var(--wpcseo-text);
+	font-weight: 650;
+}
+
+.wpcseo-wrap form .form-table {
+	margin: 0 0 var(--wpcseo-space-5);
+	padding: var(--wpcseo-space-2) var(--wpcseo-space-5);
+	border-collapse: separate;
+	border-radius: var(--wpcseo-radius-lg);
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-sm);
+}
 
 .wpcseo-wrap .form-table th {
-	padding: 18px 10px 18px 0;
+	padding: var(--wpcseo-space-5) var(--wpcseo-space-3) var(--wpcseo-space-5) 0;
+	color: var(--wpcseo-text);
+	font-size: var(--wpcseo-text-md);
 	font-weight: 600;
 	line-height: 1.5;
 }
 
 .wpcseo-wrap .form-table td {
-	padding: 14px 10px;
+	padding: var(--wpcseo-space-4) var(--wpcseo-space-3);
+}
+
+.wpcseo-wrap .form-table tr + tr th,
+.wpcseo-wrap .form-table tr + tr td {
+	border-top: 1px solid var(--wpcseo-line-soft);
 }
 
 .wpcseo-wrap .form-table td p.description {
-	max-width: 62ch;
-	margin-top: 6px;
-	color: var(--wpcseo-ink-soft);
-	line-height: 1.6;
-}
-
-/* The settings sections read as a stack of cards rather than one long form. */
-.wpcseo-wrap form .form-table {
-	background: var(--wpcseo-bg);
-	border-radius: var(--wpcseo-radius);
-	box-shadow: var(--wpcseo-shadow);
-	margin: 0 0 var(--wpcseo-gap);
-	padding: 4px 20px;
-	border-collapse: separate;
+	margin-top: var(--wpcseo-space-2);
 }
 
 .wpcseo-wrap form h2 {
-	font-size: 15px;
-	font-weight: 600;
-	margin: 28px 0 10px;
-	padding: 0;
+	margin: var(--wpcseo-space-6) 0 var(--wpcseo-space-2);
+	font-size: var(--wpcseo-text-xl);
 }
 
 .wpcseo-wrap form h2 + p.description {
-	max-width: 78ch;
-	margin: 0 0 12px;
-	color: var(--wpcseo-ink-soft);
-	line-height: 1.65;
+	margin: 0 0 var(--wpcseo-space-4);
+	max-width: 80ch;
+}
+
+/* Inputs: WordPress keeps its own sizing, this only aligns the radius and the
+   focus ring with the rest of the system. */
+.wpcseo-wrap input[type="text"],
+.wpcseo-wrap input[type="url"],
+.wpcseo-wrap input[type="email"],
+.wpcseo-wrap input[type="password"],
+.wpcseo-wrap input[type="search"],
+.wpcseo-wrap input[type="number"],
+.wpcseo-wrap select,
+.wpcseo-wrap textarea {
+	border-radius: var(--wpcseo-radius-sm);
+	border-color: var(--wpcseo-line-strong);
+	background: var(--wpcseo-surface);
+	color: var(--wpcseo-text);
+}
+
+.wpcseo-wrap input[type="text"]:focus,
+.wpcseo-wrap input[type="url"]:focus,
+.wpcseo-wrap input[type="email"]:focus,
+.wpcseo-wrap input[type="password"]:focus,
+.wpcseo-wrap input[type="search"]:focus,
+.wpcseo-wrap input[type="number"]:focus,
+.wpcseo-wrap select:focus,
+.wpcseo-wrap textarea:focus {
+	border-color: var(--wpcseo-brand-500);
+	box-shadow: 0 0 0 3px var(--wpcseo-brand-50);
+	outline: none;
+}
+
+/* Settings checkboxes become switches.
+ *
+ * Purely presentational: the control underneath is still an ordinary
+ * <input type="checkbox"> with its real label, so it keeps its keyboard
+ * behaviour, its announced role and its state without a line of JavaScript or
+ * any ARIA. A div-with-role="switch" would have thrown all three away to get
+ * the same picture.
+ *
+ * Scoped to the settings form so a checkbox inside a list table — where the
+ * shape carries the "select this row" meaning — is left alone. */
+.wpcseo-wrap .form-table input[type="checkbox"] {
+	appearance: none;
+	-webkit-appearance: none;
+	position: relative;
+	flex: 0 0 auto;
+	width: 34px;
+	height: 20px;
+	margin: 0 var(--wpcseo-space-2) 0 0;
+	border: 1px solid var(--wpcseo-line-strong);
+	border-radius: var(--wpcseo-radius-pill);
+	background: var(--wpcseo-surface-3);
+	cursor: pointer;
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease), border-color var(--wpcseo-fast) var(--wpcseo-ease);
+}
+
+.wpcseo-wrap .form-table input[type="checkbox"]::before {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 14px;
+	height: 14px;
+	margin: 0;
+	border-radius: 50%;
+	background: var(--wpcseo-surface);
+	box-shadow: 0 1px 2px rgba(18, 20, 28, .25);
+	transition: transform var(--wpcseo-slow) var(--wpcseo-ease);
+}
+
+.wpcseo-wrap .form-table input[type="checkbox"]:checked {
+	background: var(--wpcseo-brand-500);
+	border-color: var(--wpcseo-brand-500);
+}
+
+.wpcseo-wrap .form-table input[type="checkbox"]:checked::before {
+	transform: translateX(14px);
+}
+
+/* Core draws a tick with a :checked::before dashicon. The rule above replaces
+   that content, and this makes sure nothing of it survives. */
+.wpcseo-wrap .form-table input[type="checkbox"]:checked::after {
+	content: none;
+}
+
+.wpcseo-wrap .form-table label {
+	display: flex;
+	align-items: center;
+	gap: 0;
+	line-height: 1.5;
+}
+
+/* In forced-colors mode the fills disappear, so the knob position alone would
+   carry the state. The border keeps it visible either way. */
+@media (forced-colors: active) {
+	.wpcseo-wrap .form-table input[type="checkbox"]:checked {
+		border: 2px solid CanvasText;
+	}
 }
 
 .wpcseo-field {
-	margin: 0 0 14px;
+	margin: 0 0 var(--wpcseo-space-4);
 }
 
-.wpcseo-field label {
+.wpcseo-field > label {
 	display: inline-block;
-	margin-bottom: 4px;
+	margin-bottom: var(--wpcseo-space-1);
 	font-weight: 600;
 }
 
@@ -468,61 +1562,378 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 10px;
-	margin: var(--wpcseo-gap) 0 0;
+	gap: var(--wpcseo-space-3);
+	margin: var(--wpcseo-space-5) 0 0;
 }
 
-/* --- Accessibility --------------------------------------------------------------- */
+/* ==========================================================================
+   14. Code
+   ========================================================================== */
 
+.wpcseo-json,
+.wpcseo-code {
+	max-height: 480px;
+	overflow: auto;
+	padding: var(--wpcseo-space-4);
+	border: 0;
+	border-radius: var(--wpcseo-radius-lg);
+	background: var(--wpcseo-surface-3);
+	box-shadow: var(--wpcseo-shadow-sm);
+	color: var(--wpcseo-text);
+	font-family: var(--wpcseo-mono);
+	font-size: var(--wpcseo-text-sm);
+	line-height: 1.65;
+	tab-size: 2;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.wpcseo-wrap code {
+	padding: 1px 5px;
+	border-radius: var(--wpcseo-radius-sm);
+	background: var(--wpcseo-surface-3);
+	font-family: var(--wpcseo-mono);
+	font-size: var(--wpcseo-text-sm);
+}
+
+/* ==========================================================================
+   15. Skeletons and toasts
+   ========================================================================== */
+
+.wpcseo-skeleton {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wpcseo-space-2);
+}
+
+.wpcseo-skeleton__line {
+	height: 12px;
+	border-radius: var(--wpcseo-radius-sm);
+	background: linear-gradient(90deg, var(--wpcseo-surface-3) 25%, var(--wpcseo-surface-2) 37%, var(--wpcseo-surface-3) 63%);
+	background-size: 400% 100%;
+	animation: wpcseo-shimmer 1.4s ease infinite;
+}
+
+.wpcseo-skeleton__line:nth-child(3) { width: 82%; }
+.wpcseo-skeleton__line:last-child { width: 60%; }
+
+@keyframes wpcseo-shimmer {
+	0% { background-position: 100% 50%; }
+	100% { background-position: 0 50%; }
+}
+
+.wpcseo-toasts {
+	position: fixed;
+	right: var(--wpcseo-space-5);
+	bottom: var(--wpcseo-space-5);
+	z-index: 100000;
+	display: flex;
+	flex-direction: column;
+	gap: var(--wpcseo-space-2);
+	pointer-events: none;
+}
+
+.wpcseo-toast {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-2);
+	max-width: 380px;
+	padding: var(--wpcseo-space-3) var(--wpcseo-space-4);
+	border: 1px solid var(--wpcseo-line);
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-lg);
+	color: var(--wpcseo-text);
+	font-size: var(--wpcseo-text-base);
+	pointer-events: auto;
+	animation: wpcseo-toast-in var(--wpcseo-slow) var(--wpcseo-ease);
+}
+
+.wpcseo-toast.is-good { border-left: 3px solid var(--wpcseo-good); }
+.wpcseo-toast.is-warn { border-left: 3px solid var(--wpcseo-warn); }
+.wpcseo-toast.is-bad { border-left: 3px solid var(--wpcseo-bad); }
+
+@keyframes wpcseo-toast-in {
+	from { opacity: 0; transform: translateY(8px); }
+	to { opacity: 1; transform: none; }
+}
+
+/* ==========================================================================
+   16. Command palette
+   ========================================================================== */
+
+.wpcseo-palette[hidden] {
+	display: none;
+}
+
+.wpcseo-palette {
+	position: fixed;
+	inset: 0;
+	z-index: 100001;
+	display: grid;
+	place-items: start center;
+	padding-top: 12vh;
+}
+
+.wpcseo-palette__backdrop {
+	position: absolute;
+	inset: 0;
+	background: var(--wpcseo-overlay);
+	backdrop-filter: blur(2px);
+}
+
+.wpcseo-palette__panel {
+	position: relative;
+	width: min(560px, calc(100vw - 32px));
+	max-height: 64vh;
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--wpcseo-radius-lg);
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-lg);
+	overflow: hidden;
+	animation: wpcseo-palette-in var(--wpcseo-slow) var(--wpcseo-ease);
+}
+
+@keyframes wpcseo-palette-in {
+	from { opacity: 0; transform: translateY(-8px) scale(.985); }
+	to { opacity: 1; transform: none; }
+}
+
+.wpcseo-palette__field {
+	display: flex;
+	align-items: center;
+	gap: var(--wpcseo-space-3);
+	padding: var(--wpcseo-space-4);
+	border-bottom: 1px solid var(--wpcseo-line);
+	color: var(--wpcseo-text-faint);
+}
+
+.wpcseo-wrap .wpcseo-palette__input,
+.wpcseo-palette__input {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	color: var(--wpcseo-text);
+	font-family: inherit;
+	font-size: var(--wpcseo-text-lg);
+	line-height: 1.5;
+}
+
+.wpcseo-palette__input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.wpcseo-palette__results {
+	flex: 1 1 auto;
+	margin: 0;
+	padding: var(--wpcseo-space-2);
+	list-style: none;
+	overflow-y: auto;
+}
+
+.wpcseo-palette__results li {
+	margin: 0;
+}
+
+.wpcseo-palette__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--wpcseo-space-3);
+	width: 100%;
+	padding: var(--wpcseo-space-2) var(--wpcseo-space-3);
+	border: 0;
+	border-radius: var(--wpcseo-radius-sm);
+	background: transparent;
+	color: var(--wpcseo-text);
+	font-family: inherit;
+	font-size: var(--wpcseo-text-base);
+	text-align: left;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.wpcseo-palette__item:hover,
+.wpcseo-palette__item.is-active {
+	background: var(--wpcseo-brand-50);
+	color: var(--wpcseo-brand-600);
+}
+
+.wpcseo-palette__group {
+	flex: 0 0 auto;
+	color: var(--wpcseo-text-faint);
+	font-size: var(--wpcseo-text-xs);
+	text-transform: uppercase;
+	letter-spacing: .05em;
+}
+
+.wpcseo-palette__empty {
+	margin: 0;
+	padding: var(--wpcseo-space-6);
+	color: var(--wpcseo-text-muted);
+	text-align: center;
+}
+
+/* ==========================================================================
+   17. Accessibility
+   ========================================================================== */
+
+.wpcseo-app :focus-visible,
 .wpcseo-wrap :focus-visible {
-	outline: 2px solid var(--wpcseo-accent);
-	outline-offset: 1px;
-	border-radius: 2px;
+	outline: 2px solid var(--wpcseo-brand-500);
+	outline-offset: 2px;
+	border-radius: var(--wpcseo-radius-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.wpcseo-app *,
 	.wpcseo-wrap * {
-		transition: none !important;
-		animation: none !important;
+		animation-duration: .01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .01ms !important;
 	}
 }
 
-/* Windows high-contrast mode drops background colours, so the severity stripe
-   and the card edges have to survive without them. */
+/* Windows high-contrast mode drops background colours, so anything that relied
+   on a fill for its edge has to grow a real border. */
 @media (forced-colors: active) {
 	.wpcseo-card,
 	.wpcseo-finding,
 	.wpcseo-json,
+	.wpcseo-code,
+	.wpcseo-alert,
+	.wpcseo-empty,
+	.wpcseo-toast,
+	.wpcseo-palette__panel,
 	.wpcseo-wrap .wp-list-table {
 		border: 1px solid CanvasText;
 	}
 
-	.wpcseo-finding::before {
+	.wpcseo-finding::before,
+	.wpcseo-meter__fill,
+	.wpcseo-issuerow__dot {
 		background: CanvasText;
+	}
+
+	.wpcseo-navlink.is-current {
+		border: 1px solid CanvasText;
 	}
 }
 
-/* --- Narrow screens ---------------------------------------------------------------- */
+/* ==========================================================================
+   18. Responsive
+   ========================================================================== */
+
+@media screen and (max-width: 1100px) {
+	.wpcseo-app__body {
+		grid-template-columns: var(--wpcseo-sidebar-collapsed-w) minmax(0, 1fr);
+	}
+
+	.wpcseo-app__main {
+		padding: var(--wpcseo-space-5);
+	}
+}
 
 @media screen and (max-width: 782px) {
-	.wpcseo-wrap {
-		--wpcseo-gap: 14px;
+	.wpcseo-app {
+		margin-left: -10px;
+		--wpcseo-admin-offset: 46px;
+	}
+
+	.wpcseo-app__body {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	/* On a phone the rail becomes a horizontal strip above the content rather
+	   than a column squeezed to nothing. */
+	.wpcseo-sidebar {
+		position: static;
+		max-height: none;
+		display: flex;
+		gap: var(--wpcseo-space-4);
+		overflow-x: auto;
+		padding: var(--wpcseo-space-2) var(--wpcseo-space-3);
+		border-right: 0;
+		border-bottom: 1px solid var(--wpcseo-line);
+	}
+
+	.wpcseo-navgroup + .wpcseo-navgroup {
+		margin-top: 0;
+	}
+
+	.wpcseo-navgroup__label {
+		display: none;
+	}
+
+	.wpcseo-navgroup__list {
+		flex-direction: row;
+		gap: var(--wpcseo-space-1);
+	}
+
+	.wpcseo-navlink {
+		padding: 6px var(--wpcseo-space-2);
+		white-space: nowrap;
+	}
+
+	.wpcseo-navlink__label {
+		display: none;
+	}
+
+	.wpcseo-topbar__search,
+	.wpcseo-topbar__toggle {
+		display: none;
+	}
+
+	.wpcseo-topbar {
+		position: static;
+	}
+
+	.wpcseo-app__main {
+		padding: var(--wpcseo-space-4) var(--wpcseo-space-3) var(--wpcseo-space-8);
+	}
+
+	.wpcseo-grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--wpcseo-space-3);
+	}
+
+	.wpcseo-wrap .wpcseo-page-title,
+	.wpcseo-wrap > h1 {
+		font-size: var(--wpcseo-text-xl);
 	}
 
 	.wpcseo-card {
-		padding: 16px;
+		padding: var(--wpcseo-space-4);
 	}
 
 	.wpcseo-list {
-		grid-template-columns: 1fr;
-		gap: 2px;
-	}
-
-	.wpcseo-list dd {
-		margin-bottom: 10px;
+		grid-template-columns: minmax(0, 1fr) auto;
 	}
 
 	.wpcseo-wrap form .form-table {
-		padding: 4px 12px;
+		padding: var(--wpcseo-space-1) var(--wpcseo-space-3);
+	}
+
+	/* A wide table scrolls inside its own box instead of pushing the page
+	   sideways, which is what makes a phone unusable rather than merely tight. */
+	.wpcseo-wrap .wp-list-table {
+		display: block;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.wpcseo-toasts {
+		right: var(--wpcseo-space-3);
+		left: var(--wpcseo-space-3);
+		bottom: var(--wpcseo-space-3);
+	}
+
+	.wpcseo-toast {
+		max-width: none;
 	}
 }

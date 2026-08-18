@@ -44,7 +44,7 @@ defined( 'ABSPATH' ) || exit;
 		<input type="hidden" name="page" value="<?php echo esc_attr( BulkEditorPage::SLUG ); ?>">
 
 		<label for="wpcseo_post_type" class="screen-reader-text"><?php esc_html_e( 'Post type', 'wp-custom-seo' ); ?></label>
-		<select id="wpcseo_post_type" name="post_type">
+		<select id="wpcseo_post_type" name="wpcseo_type">
 			<?php foreach ( $post_types as $wpcseo_type ) : ?>
 				<?php $wpcseo_object = get_post_type_object( $wpcseo_type ); ?>
 				<option value="<?php echo esc_attr( $wpcseo_type ); ?>" <?php selected( $post_type, $wpcseo_type ); ?>>
@@ -67,7 +67,16 @@ defined( 'ABSPATH' ) || exit;
 	</form>
 
 	<?php if ( ! $query->have_posts() ) : ?>
-		<p><?php esc_html_e( 'Nothing matches those filters.', 'wp-custom-seo' ); ?></p>
+		<?php
+		$wpcseo_empty = \WPCustomSeo\Admin\UI::empty_state(
+			'list',
+			__( 'Nothing matches those filters', 'wp-custom-seo' ),
+			__( 'Widen the post type, clear the search, or choose a different “missing” filter to see more content.', 'wp-custom-seo' )
+		);
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- UI::empty_state() escapes every argument it is given and returns finished markup.
+		echo $wpcseo_empty;
+		?>
 	<?php else : ?>
 		<form method="post">
 			<?php wp_nonce_field( $nonce ); ?>

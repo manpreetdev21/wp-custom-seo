@@ -35,6 +35,44 @@ final class Frontend {
 		add_filter( 'wp_robots', array( self::class, 'robots' ) );
 		add_filter( 'get_canonical_url', array( self::class, 'canonical' ), 10, 2 );
 		add_action( 'wp_head', array( self::class, 'meta_description' ), 1 );
+		add_action( 'wp_head', array( self::class, 'term_canonical' ), 1 );
+	}
+
+	/**
+	 * Print a canonical for a term archive that has one set.
+	 *
+	 * Core's `rel_canonical` only runs on singular views, so an archive has no
+	 * canonical unless something adds one. Nothing is printed unless the term
+	 * carries an explicit URL: a self-referencing canonical on a paginated
+	 * archive would tell a search engine that page 4 is page 1, which is worse
+	 * than saying nothing at all.
+	 */
+	public static function term_canonical(): void {
+		if ( ! is_category() && ! is_tag() && ! is_tax() ) {
+			return;
+		}
+
+		$term = get_queried_object();
+
+		if ( ! $term instanceof \WP_Term ) {
+			return;
+		}
+
+		$canonical = trim( (string) Terms::get( (int) $term->term_id, Terms::CANONICAL ) );
+
+		/**
+		 * Filters the canonical URL of a term archive.
+		 *
+		 * @param string   $canonical Canonical URL, empty for none.
+		 * @param \WP_Term $term      Term being displayed.
+		 */
+		$canonical = (string) apply_filters( 'wpcseo_term_canonical', $canonical, $term );
+
+		if ( '' === $canonical ) {
+			return;
+		}
+
+		printf( '<link rel="canonical" href="%s" />' . "\n", esc_url( $canonical ) );
 	}
 
 	/**
@@ -52,6 +90,23 @@ final class Frontend {
 
 				/** This filter is documented at the end of this method. */
 				return (string) apply_filters( 'wpcseo_title', $title, $post_id );
+			}
+		}
+
+		// A term archive gets the same chance to override the template that a
+		// post does, before the site-wide taxonomy template is consulted.
+		if ( is_category() || is_tag() || is_tax() ) {
+			$term = get_queried_object();
+
+			if ( $term instanceof \WP_Term ) {
+				$custom = trim( (string) Terms::get( (int) $term->term_id, Terms::TITLE ) );
+
+				if ( '' !== $custom ) {
+					$title = Templates::expand( $custom, self::replacements( $separator ), $separator );
+
+					/** This filter is documented at the end of this method. */
+					return (string) apply_filters( 'wpcseo_title', $title, 0 );
+				}
 			}
 		}
 
@@ -196,7 +251,14 @@ final class Frontend {
 			$term = get_queried_object();
 
 			if ( $term instanceof \WP_Term ) {
-				$description = Analyzer::to_text( $term->description );
+				// The term's own SEO description wins. The term description is a
+				// fallback rather than the source: it is written to be read on
+				// the page, which is not the same job as a search snippet.
+				$description = trim( (string) Terms::get( (int) $term->term_id, Terms::DESCRIPTION ) );
+
+				if ( '' === $description ) {
+					$description = Analyzer::to_text( $term->description );
+				}
 			}
 		} elseif ( is_front_page() ) {
 			$description = (string) get_bloginfo( 'description' );
@@ -246,14 +308,12 @@ final class Frontend {
 		$post_id = self::queried_post_id();
 
 		if ( $post_id > 0 ) {
-			if ( Meta::get( $post_id, Meta::NOINDEX ) ) {
-				unset( $robots['index'] );
-				$robots['noindex'] = true;
-			}
+			$robots = Robots::apply( $robots, Meta::robots_values( $post_id ) );
+		} else {
+			$term = get_queried_object();
 
-			if ( Meta::get( $post_id, Meta::NOFOLLOW ) ) {
-				unset( $robots['follow'] );
-				$robots['nofollow'] = true;
+			if ( $term instanceof \WP_Term ) {
+				$robots = Robots::apply( $robots, Terms::robots_values( $term->term_id ) );
 			}
 		}
 

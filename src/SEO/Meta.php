@@ -31,6 +31,16 @@ final class Meta {
 
 	public const NOFOLLOW = '_wpcseo_nofollow';
 
+	public const NOARCHIVE = '_wpcseo_noarchive';
+
+	public const NOSNIPPET = '_wpcseo_nosnippet';
+
+	public const MAX_SNIPPET = '_wpcseo_max_snippet';
+
+	public const MAX_IMAGE_PREVIEW = '_wpcseo_max_image_preview';
+
+	public const MAX_VIDEO_PREVIEW = '_wpcseo_max_video_preview';
+
 	public const SCHEMA_TYPE = '_wpcseo_schema_type';
 
 	public const BREADCRUMB_TITLE = '_wpcseo_breadcrumb_title';
@@ -182,6 +192,26 @@ final class Meta {
 				'type'     => 'boolean',
 				'sanitize' => 'rest_sanitize_boolean',
 			),
+			self::NOARCHIVE           => array(
+				'type'     => 'boolean',
+				'sanitize' => 'rest_sanitize_boolean',
+			),
+			self::NOSNIPPET           => array(
+				'type'     => 'boolean',
+				'sanitize' => 'rest_sanitize_boolean',
+			),
+			self::MAX_SNIPPET         => array(
+				'type'     => 'string',
+				'sanitize' => static fn ( mixed $value ): string => Robots::sanitize( 'max_snippet', $value ),
+			),
+			self::MAX_IMAGE_PREVIEW   => array(
+				'type'     => 'string',
+				'sanitize' => static fn ( mixed $value ): string => Robots::sanitize( 'max_image_preview', $value ),
+			),
+			self::MAX_VIDEO_PREVIEW   => array(
+				'type'     => 'string',
+				'sanitize' => static fn ( mixed $value ): string => Robots::sanitize( 'max_video_preview', $value ),
+			),
 			self::SCHEMA_TYPE         => array(
 				'type'     => 'string',
 				'sanitize' => array( self::class, 'sanitize_schema_type' ),
@@ -325,6 +355,25 @@ final class Meta {
 		 * @param string $key     Meta key.
 		 */
 		return apply_filters( 'wpcseo_meta_value', $value, $post_id, $key );
+	}
+
+	/**
+	 * A post's robots directives, keyed by the short names Robots understands.
+	 *
+	 * @param int $post_id Post id.
+	 *
+	 * @return array<string, mixed>
+	 */
+	public static function robots_values( int $post_id ): array {
+		return array(
+			'noindex'           => self::get( $post_id, self::NOINDEX ),
+			'nofollow'          => self::get( $post_id, self::NOFOLLOW ),
+			'noarchive'         => self::get( $post_id, self::NOARCHIVE ),
+			'nosnippet'         => self::get( $post_id, self::NOSNIPPET ),
+			'max_snippet'       => self::get( $post_id, self::MAX_SNIPPET ),
+			'max_image_preview' => self::get( $post_id, self::MAX_IMAGE_PREVIEW ),
+			'max_video_preview' => self::get( $post_id, self::MAX_VIDEO_PREVIEW ),
+		);
 	}
 
 	/**

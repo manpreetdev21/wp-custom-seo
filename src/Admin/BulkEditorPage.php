@@ -147,14 +147,25 @@ final class BulkEditorPage {
 		}
 
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only list controls.
-		$post_type = isset( $_GET['post_type'] ) ? sanitize_key( wp_unslash( (string) $_GET['post_type'] ) ) : 'post';
+		// Deliberately not `post_type`. WordPress reads that query var into the
+		// $typenow global before routing, and admin.php then looks the screen up
+		// under a parent of "admin.php?post_type=whatever" instead of plain
+		// "admin.php" — which matches no registered hook, so the request dies
+		// with "Cannot load wp-custom-seo-bulk". Submitting this screen's own
+		// filter form was enough to trigger it.
+		$post_type = isset( $_GET['wpcseo_type'] ) ? sanitize_key( wp_unslash( (string) $_GET['wpcseo_type'] ) ) : '';
 		$search    = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( (string) $_GET['s'] ) ) : '';
 		$missing   = isset( $_GET['missing'] ) ? sanitize_key( wp_unslash( (string) $_GET['missing'] ) ) : '';
 		$paged     = isset( $_GET['paged'] ) ? max( 1, absint( wp_unslash( $_GET['paged'] ) ) ) : 1;
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		$post_types = Meta::post_types();
-		$post_type  = in_array( $post_type, $post_types, true ) ? $post_type : (string) reset( $post_types );
+
+		// Falls back to posts where the site has them, and to whatever is first
+		// otherwise, so a site that has removed the post type still gets a list.
+		if ( ! in_array( $post_type, $post_types, true ) ) {
+			$post_type = in_array( 'post', $post_types, true ) ? 'post' : (string) reset( $post_types );
+		}
 
 		$args = array(
 			'post_type'              => $post_type,

@@ -12,6 +12,8 @@ namespace WPCustomSeo\Admin;
 use WPCustomSeo\Core\Capabilities;
 use WPCustomSeo\Core\Settings;
 use WPCustomSeo\Database\Migrator;
+use WPCustomSeo\Links\Links;
+use WPCustomSeo\Sitemap\Sitemap;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -69,12 +71,22 @@ final class Menu {
 	public static function register(): void {
 		$pages = self::pages();
 
+		// The top-level entry and the first submenu entry share a slug, so
+		// WordPress derives the same hook name for both and registers each
+		// callback against it. Identical callables collapse into one — which is
+		// why passing the same array to both used to be safe — but two distinct
+		// closures would not, and the dashboard would render twice. So the
+		// wrapper for this slug is built once and handed to both.
+		$dashboard = isset( $pages[ self::SLUG ]['callback'] )
+			? self::wrap( self::SLUG, $pages[ self::SLUG ]['callback'] )
+			: '__return_false';
+
 		add_menu_page(
 			(string) ( $pages[ self::SLUG ]['title'] ?? __( 'SEO', 'wp-custom-seo' ) ),
 			__( 'SEO', 'wp-custom-seo' ),
 			Capabilities::MANAGE,
 			self::SLUG,
-			$pages[ self::SLUG ]['callback'] ?? '__return_false',
+			$dashboard,
 			'dashicons-chart-area',
 			58
 		);
@@ -86,9 +98,29 @@ final class Menu {
 				(string) $page['menu_title'],
 				Capabilities::MANAGE,
 				(string) $slug,
-				$page['callback']
+				self::SLUG === (string) $slug ? $dashboard : self::wrap( (string) $slug, $page['callback'] )
 			);
 		}
+	}
+
+	/**
+	 * Wrap a screen's callback in the application shell.
+	 *
+	 * Done here, once, rather than by editing every page class: the sidebar and
+	 * header are a property of the plugin's admin as a whole, not of any one
+	 * screen, and a screen registered later by an add-on picks the chrome up
+	 * without knowing it exists.
+	 *
+	 * The screen's own callback is called untouched in the middle, so nothing
+	 * about how a page renders — or what it checks before rendering — changes.
+	 *
+	 * @param string   $slug     Menu slug.
+	 * @param callable $callback The screen's render callback.
+	 */
+	private static function wrap( string $slug, $callback ): callable {
+		return static function () use ( $slug, $callback ): void {
+			Shell::render( $slug, $callback );
+		};
 	}
 
 	/**
@@ -97,6 +129,8 @@ final class Menu {
 	 * @param string $hook_suffix Current admin page hook.
 	 */
 	public static function enqueue( string $hook_suffix ): void {
+		// Both assets are gated on this one check, so nothing the plugin adds is
+		// downloaded on a screen that belongs to WordPress or another plugin.
 		if ( ! str_contains( $hook_suffix, self::SLUG ) ) {
 			return;
 		}
@@ -106,6 +140,35 @@ final class Menu {
 			WP_CUSTOM_SEO_URL . 'assets/css/admin.css',
 			array(),
 			\WPCustomSeo\VERSION
+		);
+
+		wp_enqueue_script(
+			'wpcseo-admin',
+			WP_CUSTOM_SEO_URL . 'assets/js/admin.js',
+			array(),
+			\WPCustomSeo\VERSION,
+			true
+		);
+
+		wp_add_inline_script(
+			'wpcseo-admin',
+			'window.wpcseoShell = ' . wp_json_encode(
+				array(
+					// The palette searches in the browser rather than over AJAX:
+					// the index is every screen and every visible setting, which
+					// is a few kilobytes, and a round trip per keystroke to
+					// filter a list that small would be slower and no fresher.
+					'index' => Shell::search_index(),
+					'i18n'  => array(
+						'saved'        => __( 'Settings saved', 'wp-custom-seo' ),
+						'theme'        => __( 'Theme', 'wp-custom-seo' ),
+						'theme_system' => __( 'Match system', 'wp-custom-seo' ),
+						'theme_light'  => __( 'Light', 'wp-custom-seo' ),
+						'theme_dark'   => __( 'Dark', 'wp-custom-seo' ),
+					),
+				)
+			) . ';',
+			'before'
 		);
 	}
 
@@ -129,6 +192,11 @@ final class Menu {
 				'version'    => \WPCustomSeo\VERSION,
 				'db_version' => Migrator::current_version(),
 				'modules'    => $modules,
+				// Reads the audit's existing hourly cache. Building the report
+				// here would make opening the dashboard trigger a site-wide scan.
+				'health'     => Health::summary(),
+				'links'      => Settings::enabled( 'enable_link_graph' ) ? Links::total() : null,
+				'sitemap'    => Sitemap::index_url(),
 			)
 		);
 	}

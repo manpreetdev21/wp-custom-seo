@@ -58,6 +58,23 @@ function add_filter( string $hook, callable $callback ): void {
 }
 
 /**
+ * Stub. Actions are recorded like filters; nothing here fires them.
+ *
+ * @param string   $hook     Action name.
+ * @param callable $callback Callback.
+ */
+function add_action( string $hook, callable $callback ): void {
+	$GLOBALS['wpcseo_test_filters'][ $hook ][] = $callback;
+}
+
+/**
+ * Stub. The checks below exercise registration, which is context-free.
+ */
+function is_admin(): bool {
+	return false;
+}
+
+/**
  * Stub.
  *
  * @param string $hook  Filter name.
@@ -1607,6 +1624,246 @@ wpcseo_check( 'performance: a keyphrase inside a longer query counts', true === 
 wpcseo_check( 'performance: matching ignores case', true === $gsc_mentions->invoke( null, $gsc_rows, 'Roof Insulation' ) );
 wpcseo_check( 'performance: an unrelated keyphrase is not claimed as found', false === $gsc_mentions->invoke( null, $gsc_rows, 'underfloor heating' ) );
 wpcseo_check( 'performance: no reported queries means no match', false === $gsc_mentions->invoke( null, array(), 'roof' ) );
+
+// --- Advanced robots directives -----------------------------------------------
+
+use WPCustomSeo\SEO\Robots;
+
+// noindex and index in one tag is a contradiction; the overruled one has to go.
+$robots_out = Robots::apply(
+	array(
+		'index'  => true,
+		'follow' => true,
+	),
+	array( 'noindex' => true )
+);
+
+wpcseo_check( 'robots: noindex removes index', ! isset( $robots_out['index'] ) && true === $robots_out['noindex'] );
+wpcseo_check( 'robots: follow is left alone when only noindex is set', true === $robots_out['follow'] );
+
+$robots_out = Robots::apply( array(), array( 'nofollow' => true ) );
+wpcseo_check( 'robots: nofollow is emitted', true === $robots_out['nofollow'] );
+
+$robots_out = Robots::apply(
+	array(),
+	array(
+		'max_snippet'       => '50',
+		'max_image_preview' => 'large',
+		'max_video_preview' => '15',
+	)
+);
+
+wpcseo_check( 'robots: max-snippet uses the tag spelling', '50' === $robots_out['max-snippet'] );
+wpcseo_check( 'robots: max-image-preview is emitted', 'large' === $robots_out['max-image-preview'] );
+wpcseo_check( 'robots: max-video-preview is emitted', '15' === $robots_out['max-video-preview'] );
+
+// A value not in the offered list is a value nothing honours, so it is dropped
+// rather than written into the tag.
+$robots_out = Robots::apply( array(), array( 'max_image_preview' => 'enormous' ) );
+wpcseo_check( 'robots: an unknown preview size is discarded', ! isset( $robots_out['max-image-preview'] ) );
+
+$robots_out = Robots::apply( array(), array( 'max_snippet' => '' ) );
+wpcseo_check( 'robots: an empty value says nothing', ! isset( $robots_out['max-snippet'] ) );
+
+// nosnippet already forbids the snippet; a length beside it is a second answer.
+$robots_out = Robots::apply(
+	array(),
+	array(
+		'nosnippet'   => true,
+		'max_snippet' => '50',
+	)
+);
+
+wpcseo_check( 'robots: nosnippet drops a redundant max-snippet', true === $robots_out['nosnippet'] && ! isset( $robots_out['max-snippet'] ) );
+
+wpcseo_check( 'robots: sanitize keeps an offered value', '160' === Robots::sanitize( 'max_snippet', '160' ) );
+wpcseo_check( 'robots: sanitize rejects anything else', '' === Robots::sanitize( 'max_snippet', '999' ) );
+wpcseo_check( 'robots: sanitize rejects an unknown directive', '' === Robots::sanitize( 'max_teapot', 'large' ) );
+
+// --- robots.txt: the rule set that costs a site everything --------------------
+
+use WPCustomSeo\Crawlers\RobotsTxt;
+
+wpcseo_check(
+	'robots.txt: a wildcard disallow of the root is caught',
+	RobotsTxt::blocks_entire_site( "User-agent: *\nDisallow: /" )
+);
+
+wpcseo_check(
+	'robots.txt: the check ignores case and spacing',
+	RobotsTxt::blocks_entire_site( "user-agent:*\ndisallow:   /  " )
+);
+
+// Blocking one named crawler entirely is a normal thing to write.
+wpcseo_check(
+	'robots.txt: a named crawler blocked in full is not flagged',
+	! RobotsTxt::blocks_entire_site( "User-agent: BadBot\nDisallow: /" )
+);
+
+wpcseo_check(
+	'robots.txt: disallowing a directory is not flagged',
+	! RobotsTxt::blocks_entire_site( "User-agent: *\nDisallow: /private/" )
+);
+
+// The wildcard group ends where the next user agent begins.
+wpcseo_check(
+	'robots.txt: a later group does not inherit the wildcard',
+	! RobotsTxt::blocks_entire_site( "User-agent: *\nDisallow: /private/\nUser-agent: BadBot\nDisallow: /" )
+);
+
+wpcseo_check(
+	'robots.txt: a commented-out rule is not a rule',
+	! RobotsTxt::blocks_entire_site( "User-agent: *\n# Disallow: /" )
+);
+
+wpcseo_check( 'robots.txt: sanitize normalises line endings', "a\nb" === RobotsTxt::sanitize( "a\r\nb\r\n" ) );
+wpcseo_check( 'robots.txt: sanitize keeps the newlines the format needs', 2 === substr_count( RobotsTxt::sanitize( "a\nb\nc" ), "\n" ) );
+
+// --- AI answer readiness ------------------------------------------------------
+
+use WPCustomSeo\GEO\Readiness;
+
+wpcseo_check( 'geo: six dimensions are reported', 6 === count( Readiness::dimensions() ) );
+
+$geo_empty = Readiness::analyze( array() );
+
+wpcseo_check( 'geo: an empty page scores something', is_int( $geo_empty['score'] ) && $geo_empty['score'] >= 0 );
+wpcseo_check( 'geo: every dimension is returned even for an empty page', 6 === count( $geo_empty['dimensions'] ) );
+
+// Every dimension has to explain itself: what it measured, why it matters, and
+// what to do. A bare number is not actionable.
+$geo_explained = true;
+
+foreach ( $geo_empty['dimensions'] as $geo_dimension ) {
+	if ( '' === $geo_dimension['measured'] || '' === $geo_dimension['why'] || ! isset( $geo_dimension['fixes'] ) ) {
+		$geo_explained = false;
+	}
+}
+
+wpcseo_check( 'geo: every dimension says what it measured and why', $geo_explained );
+
+$geo_thin = Readiness::analyze(
+	array(
+		'title'   => 'Heat pumps',
+		'content' => '<p>It depends.</p>',
+	)
+);
+
+$geo_strong = Readiness::analyze(
+	array(
+		'title'        => 'Heat pump running costs',
+		'description'  => 'What a heat pump costs to run, measured over a year.',
+		'content'      => '<h1>Heat pump running costs</h1>'
+			. '<p>A heat pump is a device that moves heat rather than generating it. Heat pump running costs depend on the price of electricity and the efficiency of the unit.</p>'
+			. '<h2>What does a heat pump cost to run?</h2><p>We measured 2400 kWh over 12 months, which came to 38% less than the gas boiler it replaced.</p>'
+			. '<h2>How does that compare to gas?</h2><p>In our testing the difference held at roughly 30 percent across the year.</p>'
+			. '<h2>Why does efficiency vary?</h2><p>We found flow temperature to be the largest single factor, worth about 15% either way.</p>'
+			. '<h2>When is it not worth it?</h2><p>We compared four poorly insulated houses and none of them paid back inside 20 years.</p>'
+			. '<h2>Where do the figures come from?</h2><p>Every number here comes from meters we read ourselves over 24 months.</p>'
+			. '<table><tr><td>Gas</td><td>Heat pump</td></tr></table>'
+			. '<ul><li>Flow temperature</li><li>Insulation</li></ul>'
+			. '<img src="a.jpg" alt="Meter readings">'
+			. '<p>Sources: <a href="https://example.org/a">one</a>, <a href="https://example.org/b">two</a>, <a href="https://example.org/c">three</a>.</p>',
+		'author_bio'   => 'Installs heat pumps for a living.',
+		'author_links' => 2,
+		'has_org'      => true,
+		'has_dates'    => true,
+		'schema_type'  => 'BlogPosting',
+	)
+);
+
+wpcseo_check( 'geo: a well-structured page outscores a thin one', $geo_strong['score'] > $geo_thin['score'] );
+wpcseo_check( 'geo: the score stays within 0-100', $geo_strong['score'] <= 100 && $geo_thin['score'] >= 0 );
+
+// A page with nothing wrong in a dimension offers no fixes for it; a page with
+// problems does. Advice that appears either way is advice nobody reads.
+$geo_structure_strong = null;
+$geo_structure_thin   = null;
+
+foreach ( $geo_strong['dimensions'] as $geo_dimension ) {
+	if ( 'structure' === $geo_dimension['id'] ) {
+		$geo_structure_strong = $geo_dimension;
+	}
+}
+
+foreach ( $geo_thin['dimensions'] as $geo_dimension ) {
+	if ( 'structure' === $geo_dimension['id'] ) {
+		$geo_structure_thin = $geo_dimension;
+	}
+}
+
+wpcseo_check( 'geo: a structured page scores well on structure', $geo_structure_strong['score'] >= 80 );
+wpcseo_check( 'geo: a thin page gets structural advice', ! empty( $geo_structure_thin['fixes'] ) );
+
+// --- Image SEO ----------------------------------------------------------------
+
+use WPCustomSeo\Media\ImageSeo;
+
+foreach ( array( 'img_4021', 'DSC00417', '20240817-113256', 'screenshot-2024-08-17', 'untitled', '1234', 'a-b' ) as $image_name ) {
+	wpcseo_check( 'images: "' . $image_name . '" reads as opaque', ImageSeo::is_opaque_filename( $image_name ) );
+}
+
+foreach ( array( 'heat-pump-outdoor-unit', 'roof-insulation-detail', 'meter-readings-january' ) as $image_name ) {
+	wpcseo_check( 'images: "' . $image_name . '" reads as descriptive', ! ImageSeo::is_opaque_filename( $image_name ) );
+}
+
+wpcseo_check( 'images: an empty filename is opaque', ImageSeo::is_opaque_filename( '' ) );
+
+// --- Video structured data ----------------------------------------------------
+
+use WPCustomSeo\Schema\Video;
+
+wpcseo_check( 'video: an iframe embed is detected', Video::has_embed( '<iframe src="https://www.youtube.com/embed/abc"></iframe>' ) );
+wpcseo_check( 'video: a native video element is detected', Video::has_embed( '<video src="a.mp4"></video>' ) );
+wpcseo_check( 'video: a bare oEmbed URL is detected', Video::has_embed( "Some text\nhttps://youtu.be/abc123\nMore text" ) );
+wpcseo_check( 'video: a block comment embed is detected', Video::has_embed( '<!-- wp:video {"id":4} -->' ) );
+
+// A page merely mentioning a video is not a page carrying one.
+wpcseo_check( 'video: prose about video is not an embed', ! Video::has_embed( '<p>We made a video about heat pumps.</p>' ) );
+wpcseo_check( 'video: an unrelated iframe is not an embed', ! Video::has_embed( '<iframe src="https://example.com/map"></iframe>' ) );
+
+wpcseo_check( 'video: a valid ISO 8601 duration is kept', 'PT4M13S' === Video::sanitize_duration( 'pt4m13s' ) );
+wpcseo_check( 'video: a plain number is not a duration', '' === Video::sanitize_duration( '253' ) );
+wpcseo_check( 'video: an empty duration stays empty', '' === Video::sanitize_duration( '' ) );
+wpcseo_check( 'video: PT alone is rejected', '' === Video::sanitize_duration( 'PT' ) );
+
+wpcseo_check( 'video: a plain date is kept', '2024-08-17' === Video::sanitize_date( '2024-08-17' ) );
+wpcseo_check( 'video: a full timestamp is kept', '2024-08-17T11:32:00Z' === Video::sanitize_date( '2024-08-17T11:32:00Z' ) );
+wpcseo_check( 'video: a non-ISO date is discarded', '' === Video::sanitize_date( '17/08/2024' ) );
+wpcseo_check( 'video: an impossible date is discarded', '' === Video::sanitize_date( '2024-13-45' ) );
+
+// --- Settings contributed through the filter ----------------------------------
+
+// Settings::schema() caches itself on first call, so a module registering its
+// fields after something has already read a setting adds them to a schema
+// nobody builds again — the fields vanish with no error anywhere. Plugin::boot()
+// registers these three before the first reader for that reason. This asserts
+// the fields actually arrive, which is the symptom that ordering bug produces.
+Settings::flush();
+
+\WPCustomSeo\SEO\Hreflang::init();
+RobotsTxt::init();
+Video::init();
+
+$contributed = Settings::fields();
+
+wpcseo_check( 'settings: the hreflang toggle is registered', isset( $contributed[ \WPCustomSeo\SEO\Hreflang::SETTING ] ) );
+wpcseo_check( 'settings: the robots.txt rules field is registered', isset( $contributed[ RobotsTxt::SETTING ] ) );
+wpcseo_check( 'settings: the sitemap declaration field is registered', isset( $contributed[ RobotsTxt::SETTING_SITEMAP ] ) );
+wpcseo_check( 'settings: the video schema toggle is registered', isset( $contributed[ Video::SETTING ] ) );
+
+// The robots.txt rules are stored, not typed into the generic settings form —
+// the dedicated screen owns them, so they must not appear twice.
+wpcseo_check( 'settings: the robots.txt rules field is hidden from the settings form', ! empty( $contributed[ RobotsTxt::SETTING ]['hidden'] ) );
+
+// Every contributed field has to survive sanitization, or saving any tab would
+// quietly reset it.
+$contributed_clean = Settings::sanitize( array( RobotsTxt::SETTING => "User-agent: *\nDisallow: /private/" ) );
+
+wpcseo_check( 'settings: contributed fields survive sanitization', array_key_exists( RobotsTxt::SETTING, $contributed_clean ) );
+wpcseo_check( 'settings: multi-line rules keep their newlines', str_contains( (string) $contributed_clean[ RobotsTxt::SETTING ], "\n" ) );
+
+Settings::flush();
 
 echo $failures ? "\n{$failures} failure(s)\n" : "\nAll checks passed\n";
 exit( $failures ? 1 : 0 );

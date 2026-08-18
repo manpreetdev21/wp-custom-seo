@@ -39,6 +39,7 @@ final class Sitemap {
 		}
 
 		add_filter( 'wp_sitemaps_posts_query_args', array( self::class, 'query_args' ), 10, 2 );
+		add_filter( 'wp_sitemaps_taxonomies_query_args', array( self::class, 'taxonomy_query_args' ), 10, 2 );
 		add_filter( 'wp_sitemaps_posts_entry', array( self::class, 'post_entry' ), 10, 2 );
 		add_filter( 'wp_sitemaps_post_types', array( self::class, 'post_types' ) );
 		add_filter( 'wp_sitemaps_taxonomies', array( self::class, 'taxonomies' ) );
@@ -90,6 +91,30 @@ final class Sitemap {
 		 * @param string $post_type Post type slug.
 		 */
 		return (array) apply_filters( 'wpcseo_sitemap_query_args', $args, $post_type );
+	}
+
+	/**
+	 * Keep noindexed terms out of the taxonomy sitemap.
+	 *
+	 * The same reasoning as for posts: an archive the site asks search engines
+	 * to ignore should not also be submitted to them for crawling.
+	 *
+	 * @param array<string, mixed> $args     Term query arguments.
+	 * @param string               $taxonomy Taxonomy being listed.
+	 *
+	 * @return array<string, mixed>
+	 */
+	public static function taxonomy_query_args( array $args, string $taxonomy ): array {
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- indexed meta key; core caches the sitemap query.
+		$args['meta_query'] = Meta::exclude_noindex_clause();
+
+		/**
+		 * Filters the sitemap term query arguments for a taxonomy.
+		 *
+		 * @param array  $args     Term query arguments.
+		 * @param string $taxonomy Taxonomy slug.
+		 */
+		return (array) apply_filters( 'wpcseo_sitemap_taxonomy_query_args', $args, $taxonomy );
 	}
 
 	/**

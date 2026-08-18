@@ -275,8 +275,70 @@ $wpcseo_social_fields = array(
 				<?php esc_html_e( 'Ask search engines not to follow links on this page (nofollow)', 'wp-custom-seo' ); ?>
 			</label>
 
+			<label for="wpcseo_noarchive">
+				<input
+					type="checkbox"
+					id="wpcseo_noarchive"
+					name="wpcseo_noarchive"
+					value="1"
+					<?php checked( (bool) $values[ Meta::NOARCHIVE ], true ); ?>
+				>
+				<?php esc_html_e( 'Do not offer a cached copy of this page (noarchive)', 'wp-custom-seo' ); ?>
+			</label>
+
+			<label for="wpcseo_nosnippet">
+				<input
+					type="checkbox"
+					id="wpcseo_nosnippet"
+					name="wpcseo_nosnippet"
+					value="1"
+					<?php checked( (bool) $values[ Meta::NOSNIPPET ], true ); ?>
+				>
+				<?php esc_html_e( 'Show no text snippet for this page (nosnippet)', 'wp-custom-seo' ); ?>
+			</label>
+
 			<span class="description">
 				<?php esc_html_e( 'These are requests, not guarantees, and they do not remove a page already indexed.', 'wp-custom-seo' ); ?>
+			</span>
+		</fieldset>
+
+		<fieldset class="wpcseo-field">
+			<legend><?php esc_html_e( 'Preview limits', 'wp-custom-seo' ); ?></legend>
+
+			<?php
+			$wpcseo_previews = array(
+				'wpcseo_max_snippet'       => array(
+					'meta'    => Meta::MAX_SNIPPET,
+					'label'   => __( 'Text snippet length', 'wp-custom-seo' ),
+					'options' => \WPCustomSeo\SEO\Robots::snippet_options(),
+				),
+				'wpcseo_max_image_preview' => array(
+					'meta'    => Meta::MAX_IMAGE_PREVIEW,
+					'label'   => __( 'Image preview size', 'wp-custom-seo' ),
+					'options' => \WPCustomSeo\SEO\Robots::image_preview_options(),
+				),
+				'wpcseo_max_video_preview' => array(
+					'meta'    => Meta::MAX_VIDEO_PREVIEW,
+					'label'   => __( 'Video preview length', 'wp-custom-seo' ),
+					'options' => \WPCustomSeo\SEO\Robots::video_preview_options(),
+				),
+			);
+
+			foreach ( $wpcseo_previews as $wpcseo_name => $wpcseo_preview ) :
+				?>
+				<label for="<?php echo esc_attr( $wpcseo_name ); ?>"><?php echo esc_html( $wpcseo_preview['label'] ); ?></label>
+				<select id="<?php echo esc_attr( $wpcseo_name ); ?>" name="<?php echo esc_attr( $wpcseo_name ); ?>">
+					<?php foreach ( $wpcseo_preview['options'] as $wpcseo_value => $wpcseo_label ) : ?>
+						<option
+							value="<?php echo esc_attr( (string) $wpcseo_value ); ?>"
+							<?php selected( (string) $values[ $wpcseo_preview['meta'] ], (string) $wpcseo_value ); ?>
+						><?php echo esc_html( (string) $wpcseo_label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			<?php endforeach; ?>
+
+			<span class="description">
+				<?php esc_html_e( 'How much of this page a search engine may show in a result. “Say nothing” leaves the decision to the search engine, which is usually the right answer — these exist for pages under a licence that restricts how much may be reproduced.', 'wp-custom-seo' ); ?>
 			</span>
 		</fieldset>
 	</div>
@@ -312,6 +374,112 @@ $wpcseo_social_fields = array(
 			);
 			?>
 		</p>
+
+		<?php if ( Settings::enabled( \WPCustomSeo\Schema\Video::SETTING ) ) : ?>
+			<?php
+			$wpcseo_video    = \WPCustomSeo\Schema\Video::class;
+			$wpcseo_embedded = $wpcseo_video::has_embed( (string) $post->post_content );
+			?>
+			<fieldset class="wpcseo-field">
+				<legend><?php esc_html_e( 'Video', 'wp-custom-seo' ); ?></legend>
+
+				<label for="wpcseo_video_enabled">
+					<input
+						type="checkbox"
+						id="wpcseo_video_enabled"
+						name="wpcseo_video_enabled"
+						value="1"
+						<?php checked( (bool) get_post_meta( $post->ID, $wpcseo_video::ENABLED, true ), true ); ?>
+					>
+					<?php esc_html_e( 'Describe a video on this page', 'wp-custom-seo' ); ?>
+				</label>
+
+				<?php if ( ! $wpcseo_embedded ) : ?>
+					<span class="description">
+						<?php esc_html_e( 'No video embed was found in this content. Nothing will be published until there is one — structured data for a video that is not on the page is a claim the page does not support.', 'wp-custom-seo' ); ?>
+					</span>
+				<?php endif; ?>
+
+				<?php
+				$wpcseo_video_fields = array(
+					'wpcseo_video_name'        => array(
+						'meta'  => $wpcseo_video::NAME,
+						'label' => __( 'Video title', 'wp-custom-seo' ),
+						'type'  => 'text',
+						'help'  => __( 'Required. The title of the video itself, which is often not the title of this page.', 'wp-custom-seo' ),
+					),
+					'wpcseo_video_description' => array(
+						'meta'  => $wpcseo_video::DESCRIPTION,
+						'label' => __( 'Video description', 'wp-custom-seo' ),
+						'type'  => 'textarea',
+						'help'  => __( 'Required. What the video shows.', 'wp-custom-seo' ),
+					),
+					'wpcseo_video_thumbnail'   => array(
+						'meta'  => $wpcseo_video::THUMBNAIL,
+						'label' => __( 'Thumbnail URL', 'wp-custom-seo' ),
+						'type'  => 'url',
+						'help'  => __( 'Required. An absolute URL to a still from the video.', 'wp-custom-seo' ),
+					),
+					'wpcseo_video_upload_date' => array(
+						'meta'  => $wpcseo_video::UPLOAD_DATE,
+						'label' => __( 'Upload date', 'wp-custom-seo' ),
+						'type'  => 'text',
+						'help'  => __( 'Required. When the video was published, as YYYY-MM-DD. This is the video’s date, not this page’s.', 'wp-custom-seo' ),
+					),
+					'wpcseo_video_duration'    => array(
+						'meta'  => $wpcseo_video::DURATION,
+						'label' => __( 'Duration', 'wp-custom-seo' ),
+						'type'  => 'text',
+						'help'  => __( 'Optional, in ISO 8601 form — PT4M13S is four minutes thirteen seconds.', 'wp-custom-seo' ),
+					),
+					'wpcseo_video_content_url' => array(
+						'meta'  => $wpcseo_video::CONTENT_URL,
+						'label' => __( 'Content URL', 'wp-custom-seo' ),
+						'type'  => 'url',
+						'help'  => __( 'Optional. A direct link to the video file.', 'wp-custom-seo' ),
+					),
+					'wpcseo_video_embed_url'   => array(
+						'meta'  => $wpcseo_video::EMBED_URL,
+						'label' => __( 'Embed URL', 'wp-custom-seo' ),
+						'type'  => 'url',
+						'help'  => __( 'Optional. The player URL, as used in an iframe.', 'wp-custom-seo' ),
+					),
+					'wpcseo_video_transcript'  => array(
+						'meta'  => $wpcseo_video::TRANSCRIPT,
+						'label' => __( 'Transcript', 'wp-custom-seo' ),
+						'type'  => 'textarea',
+						'help'  => __( 'Optional. Paste it only if the transcript is genuinely of this video.', 'wp-custom-seo' ),
+					),
+				);
+
+				foreach ( $wpcseo_video_fields as $wpcseo_name => $wpcseo_field ) :
+					$wpcseo_value = (string) get_post_meta( $post->ID, $wpcseo_field['meta'], true );
+					?>
+					<label for="<?php echo esc_attr( $wpcseo_name ); ?>"><?php echo esc_html( $wpcseo_field['label'] ); ?></label>
+					<?php if ( 'textarea' === $wpcseo_field['type'] ) : ?>
+						<textarea
+							id="<?php echo esc_attr( $wpcseo_name ); ?>"
+							name="<?php echo esc_attr( $wpcseo_name ); ?>"
+							class="widefat"
+							rows="3"
+						><?php echo esc_textarea( $wpcseo_value ); ?></textarea>
+					<?php else : ?>
+						<input
+							type="<?php echo esc_attr( $wpcseo_field['type'] ); ?>"
+							id="<?php echo esc_attr( $wpcseo_name ); ?>"
+							name="<?php echo esc_attr( $wpcseo_name ); ?>"
+							class="widefat"
+							value="<?php echo esc_attr( $wpcseo_value ); ?>"
+						>
+					<?php endif; ?>
+					<span class="description"><?php echo esc_html( $wpcseo_field['help'] ); ?></span>
+				<?php endforeach; ?>
+
+				<span class="description">
+					<?php esc_html_e( 'The four required fields are required by structured data guidance, not by this plugin. If any is empty nothing is published, because a VideoObject missing them would be rejected and reported as an error against the site.', 'wp-custom-seo' ); ?>
+				</span>
+			</fieldset>
+		<?php endif; ?>
 	</div>
 
 	<div

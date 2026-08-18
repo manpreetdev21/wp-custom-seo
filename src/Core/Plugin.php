@@ -38,10 +38,19 @@ use WPCustomSeo\Redirects\NotFound;
 use WPCustomSeo\Reports\Schedule as ReportSchedule;
 use WPCustomSeo\CLI\Command as CliCommand;
 use WPCustomSeo\Schema\Cache;
+use WPCustomSeo\Schema\Conflicts;
 use WPCustomSeo\Schema\Output;
 use WPCustomSeo\SEO\Breadcrumbs;
 use WPCustomSeo\SEO\Frontend;
+use WPCustomSeo\SEO\Hreflang;
 use WPCustomSeo\SEO\Meta;
+use WPCustomSeo\SEO\Terms;
+use WPCustomSeo\Media\ImageSeo;
+use WPCustomSeo\Admin\ImagesPage;
+use WPCustomSeo\Admin\RobotsPage;
+use WPCustomSeo\Admin\GeoPage;
+use WPCustomSeo\Crawlers\RobotsTxt;
+use WPCustomSeo\Schema\Video;
 use WPCustomSeo\Sitemap\Sitemap;
 use WPCustomSeo\Social\Social;
 use WPCustomSeo\WooCommerce\Integration;
@@ -73,7 +82,19 @@ final class Plugin {
 		self::$booted = true;
 
 		Settings::init();
+
+		// Modules that contribute settings fields register before anything that
+		// reads a setting. Settings::schema() caches itself on first call, and
+		// the first call comes from whichever module asks first — so a filter
+		// added after that point is added to a schema nobody will build again,
+		// and its fields disappear without an error. Sitemap::init() reads a
+		// setting, which is where that line falls.
+		Hreflang::init();
+		RobotsTxt::init();
+		Video::init();
+
 		Meta::init();
+		Terms::init();
 		Routes::init();
 		SchemaRoutes::init();
 		AIRoutes::init();
@@ -106,6 +127,11 @@ final class Plugin {
 			BriefPage::init();
 			ToolsPage::init();
 			SearchConsolePage::init();
+			ImagesPage::init();
+			RobotsPage::init();
+			GeoPage::init();
+			ImageSeo::init();
+			Conflicts::init();
 			Authors::init();
 			add_action( 'admin_init', array( self::class, 'maybe_upgrade' ) );
 		} else {

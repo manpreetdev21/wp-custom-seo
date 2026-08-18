@@ -10,6 +10,7 @@ declare( strict_types=1 );
 namespace WPCustomSeo\Admin;
 
 use WPCustomSeo\Core\Settings;
+use WPCustomSeo\Schema\Video;
 use WPCustomSeo\SEO\Meta;
 use WP_Post;
 
@@ -31,9 +32,49 @@ final class MetaBox {
 	/**
 	 * Maps form field names to meta keys.
 	 *
+	 * The video fields join the map only when the module is on, so a site that
+	 * does not use them neither renders nor saves them.
+	 *
 	 * @return array<string, string>
 	 */
 	private static function fields(): array {
+		return array_merge( self::core_fields(), Settings::enabled( Video::SETTING ) ? self::video_fields() : array() );
+	}
+
+	/**
+	 * Sanitization definitions for every key this panel can save.
+	 *
+	 * @return array<string, array{type: string, sanitize: callable}>
+	 */
+	private static function definitions(): array {
+		return array_merge( Meta::keys(), Video::keys() );
+	}
+
+	/**
+	 * Video field map.
+	 *
+	 * @return array<string, string>
+	 */
+	public static function video_fields(): array {
+		return array(
+			'wpcseo_video_enabled'     => Video::ENABLED,
+			'wpcseo_video_name'        => Video::NAME,
+			'wpcseo_video_description' => Video::DESCRIPTION,
+			'wpcseo_video_thumbnail'   => Video::THUMBNAIL,
+			'wpcseo_video_upload_date' => Video::UPLOAD_DATE,
+			'wpcseo_video_duration'    => Video::DURATION,
+			'wpcseo_video_content_url' => Video::CONTENT_URL,
+			'wpcseo_video_embed_url'   => Video::EMBED_URL,
+			'wpcseo_video_transcript'  => Video::TRANSCRIPT,
+		);
+	}
+
+	/**
+	 * The fields that are always present.
+	 *
+	 * @return array<string, string>
+	 */
+	private static function core_fields(): array {
 		return array(
 			'wpcseo_focus_keyword'       => Meta::FOCUS_KEYWORD,
 			'wpcseo_title'               => Meta::TITLE,
@@ -41,6 +82,11 @@ final class MetaBox {
 			'wpcseo_canonical'           => Meta::CANONICAL,
 			'wpcseo_noindex'             => Meta::NOINDEX,
 			'wpcseo_nofollow'            => Meta::NOFOLLOW,
+			'wpcseo_noarchive'           => Meta::NOARCHIVE,
+			'wpcseo_nosnippet'           => Meta::NOSNIPPET,
+			'wpcseo_max_snippet'         => Meta::MAX_SNIPPET,
+			'wpcseo_max_image_preview'   => Meta::MAX_IMAGE_PREVIEW,
+			'wpcseo_max_video_preview'   => Meta::MAX_VIDEO_PREVIEW,
 			'wpcseo_schema_type'         => Meta::SCHEMA_TYPE,
 			'wpcseo_breadcrumb_title'    => Meta::BREADCRUMB_TITLE,
 			'wpcseo_search_intent'       => Meta::SEARCH_INTENT,
@@ -173,7 +219,7 @@ final class MetaBox {
 			return;
 		}
 
-		$definitions = Meta::keys();
+		$definitions = self::definitions();
 
 		foreach ( self::fields() as $field => $meta_key ) {
 			$type = $definitions[ $meta_key ]['type'];

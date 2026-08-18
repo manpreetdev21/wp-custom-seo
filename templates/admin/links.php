@@ -81,7 +81,16 @@ defined( 'ABSPATH' ) || exit;
 	</p>
 
 	<?php if ( ! $under ) : ?>
-		<p><?php esc_html_e( 'Nothing falls below the configured thresholds.', 'wp-custom-seo' ); ?></p>
+		<?php
+		$wpcseo_empty = \WPCustomSeo\Admin\UI::empty_state(
+			'link',
+			__( 'Nothing falls below the thresholds', 'wp-custom-seo' ),
+			__( 'Every tracked page has at least as many incoming internal links as your settings ask for.', 'wp-custom-seo' )
+		);
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- UI::empty_state() escapes every argument it is given and returns finished markup.
+		echo $wpcseo_empty;
+		?>
 	<?php else : ?>
 		<table class="wp-list-table widefat striped">
 			<thead>

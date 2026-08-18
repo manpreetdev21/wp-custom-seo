@@ -21,6 +21,61 @@ defined( 'ABSPATH' ) || exit;
 final class Conflicts {
 
 	/**
+	 * Hook registration.
+	 */
+	public static function init(): void {
+		add_action( 'admin_notices', array( self::class, 'notice' ) );
+	}
+
+	/**
+	 * Warn, on this plugin's own screens, when something else is also emitting.
+	 *
+	 * Shown here rather than site-wide on purpose. A conflict notice on every
+	 * admin page is a notice people learn to scroll past, and the fix — deciding
+	 * which plugin owns the site's metadata — is a decision made on these
+	 * screens anyway.
+	 *
+	 * No plugin is deactivated and no setting is changed. Two SEO plugins is a
+	 * choice with consequences, not an error, and which one should win is not
+	 * something this code can know.
+	 */
+	public static function notice(): void {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		if ( null === $screen || ! str_contains( (string) $screen->id, 'wp-custom-seo' ) ) {
+			return;
+		}
+
+		$sources = array_values(
+			array_filter(
+				self::detect(),
+				// WooCommerce describes products, which this plugin defers to
+				// rather than competes with, so it is not a conflict to report.
+				static fn ( array $source ): bool => 'WooCommerce' !== $source['name']
+			)
+		);
+
+		if ( ! $sources ) {
+			return;
+		}
+
+		$names = implode( ', ', array_column( $sources, 'name' ) );
+
+		printf(
+			'<div class="notice notice-warning"><p><strong>%1$s</strong> %2$s</p><p>%3$s</p></div>',
+			esc_html__( 'Another SEO plugin is active.', 'wp-custom-seo' ),
+			esc_html(
+				sprintf(
+					/* translators: %s: comma-separated plugin names. */
+					__( '%s is also generating meta tags, canonicals, Open Graph tags, structured data and sitemaps for this site.', 'wp-custom-seo' ),
+					$names
+				)
+			),
+			esc_html__( 'Two sources describing the same page means duplicate tags, and where they disagree a search engine has to pick one. Choose which plugin owns this — either switch this one’s output off under Settings → General, or deactivate the other. Nothing has been changed for you, and no stored data has been touched.', 'wp-custom-seo' )
+		);
+	}
+
+	/**
 	 * Known emitters, keyed by label, detected by class or constant.
 	 *
 	 * @return array<string, array{type: string, symbol: string, note: string}>

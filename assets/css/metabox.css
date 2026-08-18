@@ -1,210 +1,331 @@
-/* WP Custom SEO — editor panel. */
+/**
+ * WP Custom SEO — editor panel.
+ *
+ * The same design system as the admin screens, redeclared here because the meta
+ * box renders on the post editor where admin.css is not loaded — loading the
+ * whole admin stylesheet to style one panel would be the larger cost. Only the
+ * tokens the panel actually uses are repeated.
+ *
+ * Everything is scoped to .wpcseo- classes inside the meta box. Nothing here
+ * touches the editor's own chrome.
+ */
+
+#wpcseo-meta-box .inside,
+.wpcseo-panel {
+	--wpcseo-brand-500: #4f46e5;
+	--wpcseo-brand-600: #4338ca;
+	--wpcseo-brand-50: #eef2ff;
+
+	--wpcseo-surface: #fff;
+	--wpcseo-surface-2: #fafafb;
+	--wpcseo-surface-3: #f1f2f4;
+
+	--wpcseo-line: #e4e5e9;
+	--wpcseo-line-soft: #eef0f2;
+	--wpcseo-line-strong: #d3d5da;
+
+	--wpcseo-text: #14161c;
+	--wpcseo-text-muted: #5b6070;
+	--wpcseo-text-faint: #868b99;
+
+	--wpcseo-good: #0f8a4a;
+	--wpcseo-good-wash: #e8f7ee;
+	--wpcseo-good-line: #a8ddbe;
+	--wpcseo-good-text: #0a5c31;
+
+	--wpcseo-warn: #b7791f;
+	--wpcseo-warn-wash: #fdf6e3;
+	--wpcseo-warn-line: #ecd08a;
+	--wpcseo-warn-text: #7d5310;
+
+	--wpcseo-bad: #cf2e3c;
+	--wpcseo-bad-wash: #fdeef0;
+	--wpcseo-bad-line: #f2b5bc;
+	--wpcseo-bad-text: #91121e;
+
+	--wpcseo-radius-sm: 6px;
+	--wpcseo-radius-md: 10px;
+	--wpcseo-radius-pill: 999px;
+
+	--wpcseo-shadow-sm: 0 0 0 1px rgba(18, 20, 28, .06), 0 1px 2px rgba(18, 20, 28, .05);
+
+	--wpcseo-space-1: 4px;
+	--wpcseo-space-2: 8px;
+	--wpcseo-space-3: 12px;
+	--wpcseo-space-4: 16px;
+	--wpcseo-space-5: 20px;
+
+	--wpcseo-ease: cubic-bezier(.32, .72, 0, 1);
+	--wpcseo-fast: .13s;
+}
+
+/* --- Tabs ------------------------------------------------------------------ */
 
 .wpcseo-tabs {
 	display: flex;
-	gap: 4px;
-	border-bottom: 1px solid #dcdcde;
-	margin: 0 0 16px;
+	flex-wrap: wrap;
+	gap: 2px;
+	margin: 0 0 var(--wpcseo-space-4);
+	padding: 3px;
+	border: 0;
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface-3);
 }
 
 .wpcseo-tab {
-	background: none;
+	padding: 6px var(--wpcseo-space-3);
 	border: 0;
-	border-bottom: 2px solid transparent;
-	padding: 8px 12px;
+	border-radius: var(--wpcseo-radius-sm);
+	background: transparent;
+	color: var(--wpcseo-text-muted);
 	cursor: pointer;
+	font-family: inherit;
 	font-size: 13px;
-	font-weight: 600;
-	color: #50575e;
+	font-weight: 550;
+	transition: background var(--wpcseo-fast) var(--wpcseo-ease), color var(--wpcseo-fast) var(--wpcseo-ease);
 }
 
 .wpcseo-tab:hover,
 .wpcseo-tab:focus {
-	color: #1d2327;
+	color: var(--wpcseo-text);
 }
 
 .wpcseo-tab.is-active {
-	color: #2271b1;
-	border-bottom-color: #2271b1;
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-sm);
+	color: var(--wpcseo-text);
+	font-weight: 650;
+	border-bottom: 0;
 }
 
 .wpcseo-tab:focus-visible {
-	outline: 2px solid #2271b1;
-	outline-offset: -2px;
+	outline: 2px solid var(--wpcseo-brand-500);
+	outline-offset: 1px;
 }
 
+/* --- Fields ---------------------------------------------------------------- */
+
 .wpcseo-field {
-	margin: 0 0 20px;
+	margin: 0 0 var(--wpcseo-space-5);
 }
 
 .wpcseo-field > label,
 .wpcseo-field > legend {
 	display: block;
+	margin-bottom: var(--wpcseo-space-1);
+	color: var(--wpcseo-text);
+	font-size: 13px;
 	font-weight: 600;
-	margin-bottom: 4px;
 }
 
 .wpcseo-field fieldset label,
 fieldset.wpcseo-field label {
 	display: block;
+	margin: var(--wpcseo-space-1) 0;
 	font-weight: 400;
-	margin: 4px 0;
 }
 
+.wpcseo-field > .description,
+.wpcseo-field .description {
+	color: var(--wpcseo-text-muted);
+	font-size: 12px;
+	line-height: 1.55;
+}
+
+.wpcseo-panel input[type="text"],
+.wpcseo-panel input[type="url"],
+.wpcseo-panel select,
+.wpcseo-panel textarea {
+	border-radius: var(--wpcseo-radius-sm);
+	border-color: var(--wpcseo-line-strong);
+}
+
+.wpcseo-panel input[type="text"]:focus,
+.wpcseo-panel input[type="url"]:focus,
+.wpcseo-panel select:focus,
+.wpcseo-panel textarea:focus {
+	border-color: var(--wpcseo-brand-500);
+	box-shadow: 0 0 0 3px var(--wpcseo-brand-50);
+	outline: none;
+}
+
+/* --- Character counters ----------------------------------------------------- */
+
 .wpcseo-counter {
-	display: block;
-	margin-top: 2px;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--wpcseo-space-1);
+	margin-top: var(--wpcseo-space-1);
+	padding: 1px var(--wpcseo-space-2);
+	border: 1px solid transparent;
+	border-radius: var(--wpcseo-radius-pill);
+	font-size: 11px;
+	font-weight: 600;
 	font-variant-numeric: tabular-nums;
 }
 
 .wpcseo-counter.is-good {
-	color: #0a5c23;
+	background: var(--wpcseo-good-wash);
+	border-color: var(--wpcseo-good-line);
+	color: var(--wpcseo-good-text);
 }
 
 .wpcseo-counter.is-warn {
-	color: #8a6100;
+	background: var(--wpcseo-warn-wash);
+	border-color: var(--wpcseo-warn-line);
+	color: var(--wpcseo-warn-text);
 }
 
 .wpcseo-counter.is-bad {
-	color: #8a2424;
+	background: var(--wpcseo-bad-wash);
+	border-color: var(--wpcseo-bad-line);
+	color: var(--wpcseo-bad-text);
 }
+
+/* --- Search result preview --------------------------------------------------- */
 
 .wpcseo-preview,
 .wpcseo-analysis {
-	border-top: 1px solid #dcdcde;
-	padding-top: 16px;
-	margin-top: 8px;
+	margin-top: var(--wpcseo-space-3);
+	padding-top: var(--wpcseo-space-4);
+	border-top: 1px solid var(--wpcseo-line);
 }
 
 .wpcseo-preview h3,
 .wpcseo-analysis h3 {
-	margin: 0 0 4px;
-	font-size: 13px;
+	margin: 0 0 var(--wpcseo-space-1);
+	color: var(--wpcseo-text-faint);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: .07em;
+	text-transform: uppercase;
 }
 
 .wpcseo-preview-note {
-	margin: 0 0 12px;
-	color: #646970;
+	margin: 0 0 var(--wpcseo-space-3);
+	color: var(--wpcseo-text-muted);
 	font-size: 12px;
+	line-height: 1.55;
 }
 
 .wpcseo-preview-card {
 	max-width: 600px;
-	padding: 12px 14px;
-	border: 1px solid #dcdcde;
-	border-radius: 6px;
-	background: #fff;
+	padding: var(--wpcseo-space-3) var(--wpcseo-space-4);
+	border: 0;
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-sm);
 }
 
 .wpcseo-preview-url {
 	display: block;
-	font-size: 12px;
 	color: #3c4043;
+	font-size: 12px;
 	word-break: break-all;
 }
 
 .wpcseo-preview-title {
 	display: block;
-	margin: 2px 0;
+	margin: 3px 0;
+	color: #1a0dab;
 	font-size: 18px;
 	line-height: 1.3;
-	color: #1a0dab;
 }
 
 .wpcseo-preview-description {
 	display: block;
+	color: #4d5156;
 	font-size: 13px;
 	line-height: 1.5;
-	color: #4d5156;
 }
+
+/* --- Analysis --------------------------------------------------------------- */
 
 .wpcseo-analysis-header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 12px;
+	gap: var(--wpcseo-space-3);
 }
 
 .wpcseo-score {
-	font-size: 16px;
+	padding: 2px var(--wpcseo-space-3);
+	border: 1px solid var(--wpcseo-line-strong);
+	border-radius: var(--wpcseo-radius-pill);
+	font-size: 15px;
 	font-weight: 700;
-	padding: 2px 12px;
-	border-radius: 12px;
-	border: 1px solid #c3c4c7;
 	font-variant-numeric: tabular-nums;
 }
 
 .wpcseo-score.is-good {
-	background: #edfaef;
-	border-color: #68de7c;
-	color: #0a5c23;
+	background: var(--wpcseo-good-wash);
+	border-color: var(--wpcseo-good-line);
+	color: var(--wpcseo-good-text);
 }
 
 .wpcseo-score.is-warn {
-	background: #fcf9e8;
-	border-color: #dba617;
-	color: #8a6100;
+	background: var(--wpcseo-warn-wash);
+	border-color: var(--wpcseo-warn-line);
+	color: var(--wpcseo-warn-text);
 }
 
 .wpcseo-score.is-bad {
-	background: #fcf0f1;
-	border-color: #d63638;
-	color: #8a2424;
+	background: var(--wpcseo-bad-wash);
+	border-color: var(--wpcseo-bad-line);
+	color: var(--wpcseo-bad-text);
 }
 
 .wpcseo-checks {
-	margin: 12px 0 0;
+	margin: var(--wpcseo-space-3) 0 0;
 	padding: 0;
 	list-style: none;
 }
 
 .wpcseo-check {
-	border-left: 3px solid #c3c4c7;
-	padding: 6px 0 6px 12px;
-	margin: 0 0 10px;
+	margin: 0 0 var(--wpcseo-space-2);
+	padding: var(--wpcseo-space-2) 0 var(--wpcseo-space-2) var(--wpcseo-space-3);
+	border-left: 3px solid var(--wpcseo-line-strong);
+	border-radius: 0 var(--wpcseo-radius-sm) var(--wpcseo-radius-sm) 0;
 }
 
-.wpcseo-check.is-good {
-	border-left-color: #68de7c;
-}
-
-.wpcseo-check.is-warn {
-	border-left-color: #dba617;
-}
-
-.wpcseo-check.is-bad {
-	border-left-color: #d63638;
-}
+.wpcseo-check.is-good { border-left-color: var(--wpcseo-good); }
+.wpcseo-check.is-warn { border-left-color: var(--wpcseo-warn); }
+.wpcseo-check.is-bad { border-left-color: var(--wpcseo-bad); }
 
 .wpcseo-check-badge {
 	display: block;
+	color: var(--wpcseo-text-muted);
 	font-size: 11px;
 	font-weight: 700;
+	letter-spacing: .05em;
 	text-transform: uppercase;
-	letter-spacing: .04em;
-	color: #50575e;
 }
 
+.wpcseo-check.is-good .wpcseo-check-badge { color: var(--wpcseo-good-text); }
+.wpcseo-check.is-warn .wpcseo-check-badge { color: var(--wpcseo-warn-text); }
+.wpcseo-check.is-bad .wpcseo-check-badge { color: var(--wpcseo-bad-text); }
+
 .wpcseo-check-excluded {
+	color: var(--wpcseo-text-faint);
 	font-weight: 400;
-	text-transform: none;
 	letter-spacing: 0;
-	color: #787c82;
+	text-transform: none;
 }
 
 .wpcseo-check.is-unscored {
-	border-left-color: #c3c4c7;
+	border-left-color: var(--wpcseo-line-strong);
 	opacity: .85;
 }
 
 .wpcseo-check-issue {
 	margin: 2px 0;
+	line-height: 1.55;
 }
 
 .wpcseo-check summary {
+	color: var(--wpcseo-text-muted);
 	cursor: pointer;
 	font-size: 12px;
-	color: #50575e;
 }
 
 .wpcseo-check-recommendation {
@@ -212,54 +333,61 @@ fieldset.wpcseo-field label {
 }
 
 .wpcseo-analysis-status {
-	color: #646970;
 	min-height: 1.4em;
-	margin: 8px 0 0;
+	margin: var(--wpcseo-space-2) 0 0;
+	color: var(--wpcseo-text-muted);
 }
 
+/* --- AI suggestions ----------------------------------------------------------- */
+
 .wpcseo-suggestions {
-	margin: 8px 0 0;
+	margin: var(--wpcseo-space-2) 0 0;
 	padding: 0;
 	list-style: none;
 }
 
-.wpcseo-suggestion {
-	border: 1px solid #dcdcde;
-	border-radius: 6px;
-	padding: 10px 12px;
-	margin: 0 0 8px;
-	background: #fff;
+.wpcseo-suggestion,
+.wpcseo-ai-card {
+	margin: 0 0 var(--wpcseo-space-2);
+	padding: var(--wpcseo-space-3);
+	border: 0;
+	border-radius: var(--wpcseo-radius-md);
+	background: var(--wpcseo-surface);
+	box-shadow: var(--wpcseo-shadow-sm);
 }
 
-.wpcseo-suggestion-text {
-	margin: 0 0 4px;
+.wpcseo-suggestion-text,
+.wpcseo-ai-card p {
+	margin: 0 0 var(--wpcseo-space-1);
+	line-height: 1.55;
 }
 
 .wpcseo-suggestion-count {
 	display: inline-block;
-	margin-right: 10px;
+	margin-right: var(--wpcseo-space-3);
+	color: var(--wpcseo-text-muted);
 	font-size: 12px;
-	color: #646970;
 	font-variant-numeric: tabular-nums;
 }
 
 .wpcseo-ai-section {
-	margin: 16px 0 0;
+	margin: var(--wpcseo-space-4) 0 0;
 }
 
 .wpcseo-ai-section h4 {
-	margin: 0 0 6px;
+	margin: 0 0 var(--wpcseo-space-2);
 	font-size: 13px;
+	font-weight: 650;
 }
 
 .wpcseo-ai-list {
-	margin: 0 0 8px;
+	margin: 0 0 var(--wpcseo-space-2);
 	padding-left: 18px;
 	list-style: disc;
 }
 
 .wpcseo-ai-table {
-	margin: 0 0 8px;
+	margin: 0 0 var(--wpcseo-space-2);
 }
 
 .wpcseo-ai-table td,
@@ -267,22 +395,10 @@ fieldset.wpcseo-field label {
 	font-size: 12px;
 }
 
-.wpcseo-ai-card {
-	margin: 0 0 10px;
-	padding: 10px;
-	border: 1px solid #dcdcde;
-	border-radius: 3px;
-	background: #fff;
-}
-
-.wpcseo-ai-card p {
-	margin: 0 0 6px;
-}
-
 .wpcseo-ai-snippet {
 	display: flex;
-	gap: 6px;
 	align-items: flex-start;
+	gap: var(--wpcseo-space-2);
 }
 
 .wpcseo-ai-snippet textarea {
@@ -290,6 +406,25 @@ fieldset.wpcseo-field label {
 }
 
 .wpcseo-outline ul {
-	margin: 4px 0 0 18px;
+	margin: var(--wpcseo-space-1) 0 0 18px;
 	list-style: circle;
+}
+
+/* --- Motion and contrast -------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.wpcseo-panel * {
+		animation-duration: .01ms !important;
+		transition-duration: .01ms !important;
+	}
+}
+
+@media (forced-colors: active) {
+	.wpcseo-preview-card,
+	.wpcseo-suggestion,
+	.wpcseo-ai-card,
+	.wpcseo-score,
+	.wpcseo-counter {
+		border: 1px solid CanvasText;
+	}
 }

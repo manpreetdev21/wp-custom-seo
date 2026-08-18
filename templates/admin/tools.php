@@ -311,7 +311,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php if ( ! $post_types ) : ?>
 				<p><?php esc_html_e( 'No public post types are exposed.', 'wp-custom-seo' ); ?></p>
 			<?php else : ?>
-				<dl class="wpcseo-list">
+				<dl class="wpcseo-list wpcseo-list--stack">
 					<?php foreach ( $post_types as $wpcseo_type ) : ?>
 						<dt><?php echo esc_html( (string) $wpcseo_type['label'] ); ?></dt>
 						<dd>
